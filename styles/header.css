@@ -34,10 +34,17 @@
     height: 100px;
 }
 
-@media (max-width:820px) {
+@media only screen and (max-device-width: 640px) {
     .logo-text-picture{
         display: none;
     }
-    
 }
+    
+@media only screen and (max-device-width: 768px) {
+    .logo-text-picture{
+        display: none;
+    }
+}
+
+
 

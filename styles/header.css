@@ -1,0 +1,43 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(238, 180, 193);
+    position: absolute;
+    left: 144px;
+    right: 144px;
+    top: 50px;
+    height: 160px;
+    border-radius: 50px 50px 0px 0px;
+    box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+}
+
+.header-bg {
+    
+}  
+
+.logo{
+    
+}
+
+.logo-picture{
+    z-index: 100;
+    width: 100px;
+}
+
+.logo-text{
+}
+
+.logo-text-picture{
+    padding-top: 15px;
+    height: 100px;
+}
+
+@media (max-width:820px) {
+    .logo-text-picture{
+        display: none;
+    }
+    
+}
+

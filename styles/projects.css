@@ -56,3 +56,17 @@
     text-align: center;;
 }
 
+@media (max-width: 1100px){
+    .tv-screen-window{
+        display: none;
+    }
+
+    .tv-buttons{
+        margin-top: -10vh;
+        border-radius: 25px 25px 25px 25px;
+    }
+    .watermark{
+        font-size: 2vh;
+    }
+}
+

@@ -155,3 +155,42 @@
     }
     
 }
+
+@media only screen and (max-device-width: 1100px) {
+    .file-content{
+        flex-direction: column;
+        
+
+    }
+    .curr-file{
+        position: fixed;
+        left: 5vh;
+        right: 5vh;
+        bottom: 5vh;
+    }
+    .tabs{
+        left: 5vh;
+        right: 5vh
+    }
+
+    .home{
+        width: 100vh;
+        height: 5vh;
+    }
+    
+
+    .big-caption, .file-img{
+        width: 23vh;
+        margin: 0 0 0 0;
+    }
+
+    .file-img{
+        margin-bottom: 50px;
+    }
+
+    .watermark{
+        font-size: 2vh;
+        bottom: 2vh;
+    }
+}
+

@@ -5,10 +5,10 @@
     align-items: center;
     background-color: rgb(238, 180, 193);
     position: absolute;
-    left: 144px;
-    right: 144px;
-    top: 50px;
-    height: 160px;
+    left: 15vh;
+    right: 15vh;
+    top: 5vh;
+    height: 20vh;
     border-radius: 50px 50px 0px 0px;
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
 }
@@ -23,7 +23,7 @@
 
 .logo-picture{
     z-index: 100;
-    width: 100px;
+    width: 12vh;
 }
 
 .logo-text{
@@ -31,20 +31,29 @@
 
 .logo-text-picture{
     padding-top: 15px;
-    height: 100px;
-}
-
-@media only screen and (max-device-width: 640px) {
-    .logo-text-picture{
-        display: none;
-    }
+    height: 10vh;
 }
     
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-device-width: 1200px) {
     .logo-text-picture{
         display: none;
     }
+    .logo-picture{
+        z-index: 100;
+        width: 12vh;
+        margin-top: -50px;
+    }
 }
 
-
-
+@media (max-width: 1200px) {
+    .logo-text-picture{
+        display: none;
+    }
+    .logo-picture{
+        z-index: 100;
+        width: 12vh;
+        margin-top: -50px;
+    }
+    
+}
+  

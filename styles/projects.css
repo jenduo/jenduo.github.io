@@ -1,0 +1,58 @@
+.projects{
+    z-index: 100;
+}
+
+.curr-file{
+    background-color: rgb(234, 128, 152);
+}
+
+.file-content{
+    grid:flex;
+    flex-direction: row;
+    margin-top: 2vh;
+
+}
+
+.tv-screen-window{
+    height: 50vh;
+}
+
+.tv-buttons{
+    height: 50vh;
+    width: 20vh;
+    background-color: #822a3e;
+    border-radius: 0 50px 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tv-buttons button{
+    margin-top: 2.2vh;
+    font-family: Gill;
+    font-size: 3.5vh;
+    color: #822a3e;
+    background-color: #e7eea9;
+    border-radius: 25px 25px 25px 25px;
+    border-width: 0.7vh;
+    border-color: #ea748e;    
+    width: 15vh;
+}
+
+.tv-buttons button:hover{
+    color: #822a3e;
+    color: #e7eea9;
+    background-color: #ea748e;  
+
+}
+
+.watermark{
+    color: white;
+    font-family: PGothic;
+    font-size: 3vh;
+    position: relative;
+    bottom: 7vh;
+    opacity: 0.7;
+    text-align: center;;
+}
+

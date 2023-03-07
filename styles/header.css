@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(238, 180, 193);
-    position: absolute;
+    position: fixed;
     left: 15vh;
     right: 15vh;
     top: 5vh;
@@ -34,26 +34,41 @@
     height: 10vh;
 }
     
-@media only screen and (max-device-width: 1200px) {
+@media only screen and (max-device-width: 1100px) {
     .logo-text-picture{
         display: none;
     }
     .logo-picture{
         z-index: 100;
         width: 12vh;
-        margin-top: -50px;
+        margin-top: 0;
+    }
+
+    .header{
+        position: fixed;
+        top: 5vh;
+        left: 5vh;
+        right: 5vh;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
     .logo-text-picture{
         display: none;
     }
     .logo-picture{
         z-index: 100;
         width: 12vh;
-        margin-top: -50px;
+        margin-top: 0;
     }
-    
+
+    .header{
+        position: fixed;
+        top: 5vh;
+        left: 5vh;
+        right: 5vh;
+    }
 }
+
+
   

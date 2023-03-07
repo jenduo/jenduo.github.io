@@ -62,7 +62,6 @@
     }
 
     .tv-buttons{
-        margin-top: -10vh;
         border-radius: 25px 25px 25px 25px;
     }
     .watermark{
@@ -70,7 +69,7 @@
     }
 }
 
-@media only screen and (max-device-width: 1200px) {
+/* @media only screen and (max-device-width: 1200px) {
     .tv-screen-window{
         display: none;
     }
@@ -83,7 +82,7 @@
         font-size: 2vh;
     }
 
-}
+} */
 
 
 

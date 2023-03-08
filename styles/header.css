@@ -1,74 +1,67 @@
 .header{
+    position: relative;
+    height: 20vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: rgb(238, 180, 193);
-    position: fixed;
-    left: 15vh;
-    right: 15vh;
-    top: 5vh;
-    bottom:75vh;
     border-radius: 50px 50px 0px 0px;
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
 }
 
-.header-bg {
-    
-}  
-
-.logo{
-    
+body{
+    padding-left: 7.5vw;
+    padding-top:5vh;
+    padding-right: 7.5vw;
 }
 
 .logo-picture{
     z-index: 100;
-    width: 12vh;
-}
-
-.logo-text{
+    height: 12vh;
 }
 
 .logo-text-picture{
     padding-top: 15px;
     height: 10vh;
 }
+
+.logo {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+  
+@keyframes spin {
+    from {
+      transform:rotate(0deg);
+    }
+    to {
+       transform:rotate(360deg);
+    }
+}
     
-@media only screen and (max-device-width: 1100px) {
+@media only screen and (max-width: 900px) and (max-device-width: 900px){
     .logo-text-picture{
         display: none;
     }
     .logo-picture{
         z-index: 100;
-        width: 12vh;
         margin-top: 0;
-    }
-
-    .header{
-        position: fixed;
-        top: 5vh;
-        left: 5vh;
-        right: 5vh;
     }
 }
 
-@media (max-width: 1100px) {
-    .logo-text-picture{
-        display: none;
-    }
-    .logo-picture{
-        z-index: 100;
-        width: 12vh;
-        margin-top: 0;
-    }
-
-    .header{
-        position: fixed;
-        top: 5vh;
-        left: 5vh;
-        right: 5vh;
-    }
+    
+.is-mobile.logo-text-picture{
+    display: none;
 }
+
+.is-mobile.logo-picture{
+    z-index: 100;
+    margin-top: 0;
+}
+
 
 
   

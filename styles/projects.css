@@ -9,34 +9,39 @@
 .file-content{
     grid:flex;
     flex-direction: row;
-    margin-top: 2vh;
-
+    padding-top: 2vh;
 }
 
 .tv-screen-window{
-    height: 50vh;
+    height: 59vh;
 }
 
+
 .tv-buttons{
-    height: 50vh;
-    width: 20vh;
+    height: 55vh;
+    width: 15vw;
     background-color: #822a3e;
     border-radius: 0 50px 50px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 .tv-buttons button{
-    margin-top: 2.2vh;
     font-family: Gill;
     font-size: 3.5vh;
     color: #822a3e;
     background-color: #e7eea9;
     border-radius: 25px 25px 25px 25px;
-    border-width: 0.7vh;
+    border-width: 0.5vw;
     border-color: #ea748e;    
-    width: 15vh;
+    width: 100%;
+    
 }
 
 .tv-buttons button:hover{
@@ -46,42 +51,45 @@
 
 }
 
-.watermark{
-    color: white;
-    font-family: PGothic;
-    font-size: 3vh;
-    position: relative;
-    bottom: 7vh;
-    opacity: 0.7;
-    text-align: center;;
-}
 
-@media (max-width: 1100px){
+
+
+@media only screen and (max-width: 1100px) and (max-device-width: 1100px){
     .tv-screen-window{
         display: none;
     }
-
+    
     .tv-buttons{
         border-radius: 25px 25px 25px 25px;
-    }
-    .watermark{
-        font-size: 2vh;
-    }
-}
-
-@media only screen and (max-device-width: 1100px) {
-    .tv-screen-window{
-        display: none;
+        width: 70vw;
     }
 
-    .tv-buttons{
-        border-radius: 25px 25px 25px 25px;
-    }
-    .watermark{
-        font-size: 2vh;
+    .tv-buttons button{
+        width: 50vw;
+
     }
 
 }
 
 
+.is-mobile.tv-screen-window{
+    display: none;
+}
 
+.is-mobile.tv-buttons{
+    border-radius: 25px 25px 25px 25px;
+    width: 70vw;
+}
+
+.is-mobile.tv-buttons button{
+    width: 50vw;
+
+}
+
+.is-mobile.home{
+    display: none;
+}
+
+.is-mobile.projects{
+    display:unset;
+} 

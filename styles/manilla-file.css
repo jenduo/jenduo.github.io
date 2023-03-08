@@ -1,16 +1,14 @@
 .curr-file {
     background-color: rgb(234, 116, 142);
-    position: fixed;
-    left: 15vh;
-    right: 15vh;
-    top:25vh;
-    bottom: 10vh;
-    z-index: 100;
-    
+    position: relative;
+    width:85vw;
+    height: 68vh;
     border-radius: 0px 0px 50px 50px;
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
+    z-index: 100;
+    padding-bottom: 2vh;
 }
 
 .file-content{
@@ -18,19 +16,17 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
 
 }
 
 .manilla-file{
-    position: fixed;
+    position: relative;
+    top:-5vh;
 }
 
+
 .tabs{
-    position: fixed;
-    left: 15vh;
-    right: 50vh;
-    top:20vh;
+    margin-right: 10vw;
     display:flex;
     flex-direction: row;
     justify-content: left;
@@ -45,17 +41,16 @@
     font-family: Gill;
     font-size: 4vh;
     color:rgb(231, 238, 169);
-    padding-left: 4vh;
-    padding-right: 4vh;
+    padding-left: 4vw;
+    padding-right: 4vw;
 }
 
 .tabs button:hover{
     opacity: 0.5;
     cursor: pointer;
-
 }
 
-.home{
+.home {
     background-color: rgb(234, 116, 142);
     z-index: 90;
 }
@@ -77,15 +72,14 @@
 }
 
 .big-caption{
+    height: 47vh;
     align-self: center;
-    width:42vh;
 
 }
 
 .file-img{
     align-self: center;
-    width:42vh;
-    left: -50px;
+    height: 47vh;
 
 }
 
@@ -94,103 +88,51 @@
     font-family: PGothic;
     font-size: 3vh;
     position: relative;
-    bottom: 6vh;
     opacity: 0.7;
     text-align: center;
 
 }
 
-@media (max-width: 1200px) {
+@media only screen and (max-width: 900px)and (max-device-width: 900px){
     .tabs{
-        left: 15vh;
-        right: 15vh;
-    }
-
-
-    .home{
-        width: 100vh;
-        height: 5vh;
+        margin-right: 0;
     }
 
     .projects, .about, .contact{
         display: none;
-    } 
-}
+    }
 
-@media (max-width: 1100px) {
     .file-content{
         flex-direction: column;
-        
-
     }
-    .curr-file{
-        position: fixed;
-        left: 5vh;
-        right: 5vh;
-        bottom: 5vh;
-    }
-    .tabs{
-        left: 5vh;
-        right: 5vh
-    }
-
-    .home{
-        width: 100vh;
-        height: 5vh;
-    }
-    
 
     .big-caption, .file-img{
-        width: 23vh;
-        margin: 0 0 0 0;
+        height: 30vh;
     }
-
-    .file-img{
-        margin-bottom: 50px;
-    }
-
     .watermark{
         font-size: 2vh;
-        bottom: 2vh;
-    }
-    
-}
-
-@media only screen and (max-device-width: 1100px) {
-    .file-content{
-        flex-direction: column;
-        
-
-    }
-    .curr-file{
-        position: fixed;
-        left: 5vh;
-        right: 5vh;
-        bottom: 5vh;
-    }
-    .tabs{
-        left: 5vh;
-        right: 5vh
-    }
-
-    .home{
-        width: 100vh;
-        height: 5vh;
-    }
-    
-
-    .big-caption, .file-img{
-        width: 23vh;
-        margin: 0 0 0 0;
-    }
-
-    .file-img{
-        margin-bottom: 50px;
-    }
-
-    .watermark{
-        font-size: 2vh;
-        bottom: 2vh;
     }
 }
+
+.is-mobile.tabs{
+    margin-right: 0;
+}
+
+.is-mobile.projects, .is-mobile.about, .is-mobile.contact{
+    display: none;
+}
+
+.is-mobile.file-content{
+    flex-direction: column;
+}
+
+.is-mobile.big-caption, .is-mobile.file-img{
+    height: 30vh;
+}
+.is-mobile.watermark{
+    font-size: 2vh;
+}
+
+
+
 

@@ -55,6 +55,9 @@
 
 
 @media only screen and (max-width: 1100px) and (max-device-width: 1200px){
+    .tabs{
+        margin-right: 0;
+    }
     .tv-screen-window{
         display: none;
     }
@@ -70,6 +73,36 @@
     }
 
 }
+
+@media (max-width: 900px){
+    .tabs{
+        margin-right: 0;
+    }
+
+    .home, .about, .contact{
+        display: none;
+    }
+
+    .projects{
+        display: initial;
+    }
+    .tv-screen-window{
+        display: none;
+        width: 100vw;
+    }
+    
+    .tv-buttons{
+        border-radius: 25px 25px 25px 25px;
+        width: 70vw;
+    }
+
+    .tv-buttons button{
+        width: 50vw;
+
+    }
+}
+
+
 
 
 .is-mobile.tv-screen-window{
@@ -91,5 +124,5 @@
 }
 
 .is-mobile.projects{
-    display:unset;
+    display:initial;
 } 

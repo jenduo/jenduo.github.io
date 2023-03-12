@@ -1,6 +1,7 @@
 .header{
     position: relative;
     height: 20vh;
+    width:85vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -32,6 +33,10 @@ body{
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
 }
+
+.hamburger-menu-open, .hamburger-menu-close{
+    display: none;
+}
   
 @keyframes spin {
     from {
@@ -42,13 +47,38 @@ body{
     }
 }
     
-@media only screen and (max-width: 900px) and (max-device-width: 900px){
+@media only screen and (max-device-width: 900px){
     .logo-text-picture{
         display: none;
     }
     .logo-picture{
         z-index: 100;
         margin-top: 0;
+    }
+}
+
+@media (max-width: 900px){
+    .logo-text-picture{
+        display: none;
+    }
+    .logo-picture{
+        z-index: 100;
+        margin-top: 0;
+    }
+
+    .hamburger-menu-open{
+        display: initial;
+        height: 9vh;
+        margin-left: 5vw;
+    }
+
+    @keyframes spin {
+        from {
+          transform:rotate(0deg);
+        }
+        to {
+           transform:rotate(0deg);
+        }
     }
 }
 

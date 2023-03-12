@@ -1,0 +1,82 @@
+.menu-bg{
+    background-color: #eeb4c1;
+    z-index: 110;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+    display: none;
+  
+}
+  
+.mini-menu .menu-bg{
+    display: initial;
+}
+
+.mini-menu .header{
+    box-shadow: none;
+}
+
+.mini-menu .hamburger-menu-open{
+    display: none;
+}
+
+.mini-menu .hamburger-menu-close{
+    display: initial;
+    height: 9vh;
+    margin-left: 5vw;
+}
+
+.mini-menu .header{
+    z-index: 110;
+}
+
+.mini-menu .tabs{
+    position: fixed;
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30vw;
+    margin-top: 10vh;
+
+}
+
+.mini-menu .projects{
+    display: initial;
+    border-radius: 25px 25px 25px 25px;
+    margin-bottom: 5vh;
+    width: 30vw;
+    height: 7vh;
+    font-size: 5vh;
+}
+
+.mini-menu .about{
+    display: initial;
+    border-radius: 25px 25px 25px 25px;
+    margin-bottom: 5vh;
+    height: 7vh;
+    font-size: 5vh;
+
+}
+.mini-menu .contact{
+    display: initial;
+    border-radius: 25px 25px 25px 25px;
+    margin-right: 0;
+    margin-bottom: 5vh;
+    height: 7vh;
+    font-size: 5vh;
+}
+
+.mini-menu .home{
+    display: initial;
+    border-radius: 25px 25px 25px 25px;
+    margin-bottom: 5vh;
+    height: 7vh;
+    font-size: 5vh;
+}
+
+  

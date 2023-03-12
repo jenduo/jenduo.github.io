@@ -1,0 +1,32 @@
+.file-content{
+    cursor: url(custom_cursor.png),auto;
+}
+
+.about{
+    z-index: 100;
+}
+
+.curr-file{
+    background-color: rgb(234, 141, 162);
+}
+
+
+@media (max-width: 900px) {
+    .about{
+        display: initial;
+    }
+
+    .home, .projects, .contact{
+        display: none;
+    }
+
+    .file-content{
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    .small-book{
+        display: initial;
+    }
+}

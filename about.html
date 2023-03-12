@@ -1,9 +1,87 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>about me</title>
+        <title>jenduo's projects</title>
+        <link rel="stylesheet" href="styles/general.css">
+        <link rel="stylesheet" href="styles/header.css">
+        <link rel="stylesheet" href="styles/manilla-file.css">
+        <link rel="stylesheet" href="styles/mini-menu.css">
+        <link rel="stylesheet" href="styles/about.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <style>
+            @font-face {
+                font-family: 'Gill';
+                src: url(fonts/gill_sans_mt_condensed.ttf);
+            }
+
+            @font-face {
+                font-family: 'Brit';
+                src: url(fonts/britannic_bold_regular.ttf);
+            }
+
+            @font-face {
+                font-family: 'PGothic';
+                src: url(fonts/ms_pgothic.ttf);
+            }
+            html{
+                cursor:url('/images/jen_duong_logo.png');
+                
+            }
+        </style>
     </head>
+
+
+
     <body>
-        oh hey
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="function.js">
+        </script>
+
+
+        <div class="bg">
+            <img src="images/jen_duong_wallpaper_full.png" alt="">
+            <div class="menu-bg">
+    
+            </div>
+
+        </div>  
+
+        <div class="header">
+            
+            <div class="logo">
+                <img class="logo-picture" src="images/jen_duong_logo.png" alt="">
+            </div>
+
+            <div class="logo-text">
+                <img class="logo-text-picture" src="images/jen_duong_header_text.png" alt="">
+            </div>
+
+            <div class="hambuger-menu">
+                <img onclick="openMenu()" class="hamburger-menu-open" src="images/hambuger_menu.png" alt="">
+                <img onclick="closeMenu()" class="hamburger-menu-close" src="images/close_menu.png" alt="">
+            </div>
+        </div>
+
+        <div class="manilla-file">
+            <div class="tabs">
+                <button class="home" onclick="window.location.href='https://jenduo.github.io/index'">HOME</button>
+                <button class="projects" onclick="window.location.href='https://jenduo.github.io/projects'">PROJECTS</button>
+                <button class="about" onclick="window.location.href='https://jenduo.github.io/about'">ABOUT</button>
+                <button class="contact" onclick="window.location.href='https://jenduo.github.io/contact'">CONTACT</button>
+            </div>
+
+
+            <div class="curr-file project-files">
+                <div class="file-content">
+                    <a href="https://online.flippingbook.com/view/970954017/" class="fbo-embed data-fbo-id="069d434919" data-fbo-ratio="width:height" data-fbo-lightbox="yes" data-fbo-width="50vw" data-fbo-height="auto" data-fbo-version="1" style="max-width: 100%">The Jen Duong Biography</a><script async defer src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=970954017"></script>
+
+                </div>
+
+                <div class="watermark">
+                    This website is made by Jennifer Duong hosted on github 2023
+                </div>
+
+            </div>
+
+        </div>
     </body>
-</html>

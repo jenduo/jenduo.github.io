@@ -146,6 +146,16 @@
         flex-direction: column;
     }
 
+    .contact-buttons:hover img{
+        height: 12vh;
+        width: 12vh;
+    }
+
+    .contact-buttons p{
+        width: auto;
+
+    }
+
 }
 
 

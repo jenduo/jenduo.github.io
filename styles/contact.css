@@ -1,0 +1,151 @@
+.contact{
+    z-index: 100;
+}
+
+.curr-file{
+    background-color: rgb(234, 153, 171);
+}
+
+.file-content{
+    grid:flex;
+    flex-direction: column;
+    padding-top: 2vh;
+
+}
+
+.jen-duo-img{
+
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+.jen-duo-img img{
+    height: 40vh;
+    position: absolute;
+    -webkit-animation: linear infinite;
+    -webkit-animation-name: run;
+    -webkit-animation-duration: 2.5s;
+}
+
+.all-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex:1;
+}
+
+.contact-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-buttons img{
+    display: fixed;
+    height: 12vh;
+    width: 12vh;
+    border-radius: 100px 100px 100px 100px ;
+    z-index: 100;
+}
+
+.linked-in{
+    position: relative;
+    top:0vh;
+}
+
+.github{
+    position: relative; 
+    top:15vh;
+    left: -5vw;
+}
+
+.email{
+    position: relative; 
+    top:20vh;
+    left: 5vw;
+}
+
+.contact-buttons:hover p{
+    visibility:visible;
+}
+
+.contact-buttons:hover img{
+    box-shadow: 0px 0px 20px 0px rgb(221, 245, 11);
+    animation-name: spin;
+    animation-duration: 5000ms;
+    height: 15vh;
+    width: 15vh;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+
+.contact-buttons p{
+    background-color: #822a3e;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    width: 15vh;
+    visibility: hidden;
+    text-align: center;
+    border-radius: 100px 100px 100px 100px ;
+    box-shadow: 0px 0px 10px 0px rgb(221, 245, 11);
+}
+
+
+  @-webkit-keyframes run {
+    0% {
+      left: 30%;
+    }
+    50% {
+      left: 40%;
+    }
+    100% {
+      left: 30%;    
+    }
+  }
+
+  @media (max-width: 900px) {
+    .tabs{
+        margin-right: 0;
+    }
+
+    .home, .about, .projects{
+        display: none;
+    }
+
+    .contact{
+        display: initial;
+        margin-right: 0;
+    }
+
+    .jen-duo-img img{
+        -webkit-animation-name: none;
+        display: none;
+    }
+
+    .linked-in{
+        position: relative;
+        top:0;
+        left: 0;
+    }
+    
+    .github{
+        position: relative;
+        top:0;
+        left: 0;
+    }
+    
+    .email{
+        position: relative;
+        top:0;
+        left: 0;
+    }
+
+    .all-buttons{
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+

@@ -43,26 +43,14 @@
     padding-top: 0.25vh;
     padding-bottom: 0.25vh;
     border-radius:  10px 10px 10px 10px;
-    font-size: 1vw;
+    font-size: 2vh;
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
     opacity: 0;
-    visibility: hidden;
+    visibility: show;
+
     transition: visibility 5ms , opacity 500ms;
 }
 
-.cap2{
-    top:5vh;
-    left: 10vw;
-}
-
-.cap3{
-    top:50vh;
-    left: 20vw;
-}
-.cap1{
-    top:15vh;
-    left:20vw;
-}
 
 .keyword{
     font-style: italic;
@@ -94,7 +82,7 @@
 
 .file-right .title{
     font-family: Brit;
-    font-size: 10vh;
+    font-size: 5vw;
     margin: 0 0 0 0;
 }
 

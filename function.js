@@ -19,3 +19,11 @@ function isMobile(){
 
     console.log(/Android|iPhone/i.test(navigator.userAgent))
 }
+
+function openMenu() {
+    $('body').addClass('mini-menu').removeClass('no-menu');
+}
+
+function closeMenu() {
+    $('body').addClass('no-menu').removeClass('mini-menu');
+}

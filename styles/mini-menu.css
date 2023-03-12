@@ -1,20 +1,23 @@
 .menu-bg{
     background-color: #eeb4c1;
-    z-index: 110;
-    position: absolute; 
+    z-index: 10000;
+    position: fixed; 
     top: 0; 
     left: 0; 
     right: 0; 
     bottom: 0; 
     margin: auto; 
-    min-width: 50%;
-    min-height: 50%;
+
     display: none;
   
 }
   
 .mini-menu .menu-bg{
     display: initial;
+}
+
+.mini-menu .curr-file{
+    display: none;
 }
 
 .mini-menu .header{
@@ -36,7 +39,7 @@
 }
 
 .mini-menu .tabs{
-    position: fixed;
+    position: absolute;
     z-index: 110;
     display: flex;
     flex-direction: column;
@@ -49,7 +52,6 @@
     display: initial;
     border-radius: 25px 25px 25px 25px;
     margin-bottom: 5vh;
-    width: 30vw;
     height: 7vh;
     font-size: 5vh;
 }

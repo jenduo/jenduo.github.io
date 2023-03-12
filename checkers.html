@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="styles/manilla-file.css">
         <link rel="stylesheet" href="styles/projects.css">
         <link rel="stylesheet" href="styles/projects-pages.css">
+        <link rel="stylesheet" href="styles/mini-menu.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <style>
             @font-face {
@@ -39,8 +40,14 @@
 
 
         <div class="bg">
-            <img src="images/jen_duong_wallpaper_full.png" alt="">
-        </div>
+        <img src="images/jen_duong_wallpaper_full.png" alt="">
+            <div class="menu-bg">
+
+            </div>
+
+        </div> 
+
+        
 
         <div class="header">
             
@@ -51,14 +58,19 @@
             <div class="logo-text">
                 <img class="logo-text-picture" src="images/jen_duong_header_text.png" alt="">
             </div>
+
+            <div class="hambuger-menu">
+                <img onclick="openMenu()" class="hamburger-menu-open" src="images/hambuger_menu.png" alt="">
+                <img onclick="closeMenu()" class="hamburger-menu-close" src="images/close_menu.png" alt="">
+            </div>
         </div>
 
         <div class="manilla-file">
             <div class="tabs">
-                <button class="home" onclick="window.location.href='https://www.w3docs.com'">HOME</button>
-                <button class="projects MAIN">PROJECTS</button>
-                <button class="about">ABOUT</button>
-                <button class="contact">CONTACT</button>
+                <button class="home" onclick="window.location.href='https://jenduo.github.io/index'">HOME</button>
+                <button class="projects" onclick="window.location.href='https://jenduo.github.io/projects'">PROJECTS</button>
+                <button class="about" onclick="window.location.href='https://jenduo.github.io/about'">ABOUT</button>
+                <button class="contact" onclick="window.location.href='https://jenduo.github.io/contact'">CONTACT</button>
             </div>
 
 

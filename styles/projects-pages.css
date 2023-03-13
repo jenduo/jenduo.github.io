@@ -15,6 +15,7 @@
 }
 
 .file-left img{
+    box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
 
     display: block;
 
@@ -66,10 +67,6 @@
     opacity: 1;
 }
 
-
-.file-left img{
-
-}
 .file-right{
     height: 10vh;
     padding-top: 1vh;

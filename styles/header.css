@@ -24,8 +24,10 @@ body{
 
 
 .logo-text-picture{
-    padding-top: 15px;
-    height: 10vh;
+    height: 12vh;
+    margin-bottom: 5vh;
+    rotate: -3deg;
+
 }
 
 .secret:hover{
@@ -39,12 +41,15 @@ body{
 
 .logo {
     animation-name: spin;
+    margin-bottom: 5vh;
+    margin-right: 1vw;
     animation-duration: 5000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
 }
 
 .hamburger-menu-open, .hamburger-menu-close{
+    margin-bottom: 5vh;
     display: none;
 }
   
@@ -65,9 +70,8 @@ body{
         z-index: 100;
         margin-top: 0;
     }
-
-    .logo-text:hover .handwriting{
-        visibility: hidden;
+    .handwriting{
+        visibility: hidden !important;
     }
 }
 
@@ -94,8 +98,8 @@ body{
            transform:rotate(0deg);
         }
     }
-    .secret:hover .handwriting{
-        visibility: hidden;
+    .handwriting{
+        visibility: hidden !important;
     }
 }
 
@@ -107,6 +111,10 @@ body{
 .is-mobile.logo-picture{
     z-index: 100;
     margin-top: 0;
+}
+
+.is-mobile.handwriting{
+    visibility: hidden !important;
 }
 
 

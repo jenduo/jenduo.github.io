@@ -99,8 +99,8 @@
     opacity: 0.7;
     text-align: center;
     z-index: 200;
-
 }
+
 
 .home:hover .handwriting{
     visibility: visible;
@@ -138,6 +138,9 @@
     .watermark{
         font-size: 2vh;
     }
+    .sticker{
+        width: 12vw !important;
+    }
 
 }
 
@@ -163,7 +166,12 @@
     .watermark{
         font-size: 2vh;
     }
+
+    .sticker{
+        width: 12vw !important;
+    }
 }
+
 
 .is-mobile.tabs{
     margin-right: 0;
@@ -186,6 +194,10 @@
 }
 .is-mobile.watermark{
     font-size: 2vh;
+}
+
+is.mobile.sticker{
+    width: 12vw !important;
 }
 
 

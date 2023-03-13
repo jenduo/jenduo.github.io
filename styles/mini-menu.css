@@ -39,11 +39,8 @@
 }
 
 .mini-menu .tabs{
-    position: absolute;
-    z-index: 110;
     display: flex;
     flex-direction: column;
-    margin-left: 30vw;
     margin-top: 10vh;
 
 }

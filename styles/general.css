@@ -22,6 +22,12 @@ body{
   cursor: url(custom_cursor.png),auto;
 }
 
+.handwriting{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 5ms , opacity 500ms;
+}
+
 
 
 

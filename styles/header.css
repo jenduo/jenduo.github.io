@@ -22,9 +22,19 @@ body{
     height: 12vh;
 }
 
+
 .logo-text-picture{
     padding-top: 15px;
     height: 10vh;
+}
+
+.secret:hover{
+    cursor: url(custom_cursor_hover.png),auto;
+}
+
+.secret:hover .handwriting{
+    visibility: visible;
+    opacity: 1;
 }
 
 .logo {
@@ -55,6 +65,10 @@ body{
         z-index: 100;
         margin-top: 0;
     }
+
+    .logo-text:hover .handwriting{
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 900px){
@@ -80,6 +94,9 @@ body{
            transform:rotate(0deg);
         }
     }
+    .secret:hover .handwriting{
+        visibility: hidden;
+    }
 }
 
     
@@ -91,6 +108,8 @@ body{
     z-index: 100;
     margin-top: 0;
 }
+
+
 
 
 

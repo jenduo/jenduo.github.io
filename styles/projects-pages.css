@@ -35,7 +35,7 @@
 
 .caption {
     position: absolute;
-    background-color: black;
+    background-color:black;
     color: white;
     font-family: 'Courier New', Courier, monospace;
     padding-left: 1vw;
@@ -58,6 +58,7 @@
 
 .keyword:hover{
     text-decoration: underline;
+    cursor: url(custom_cursor_hover.png),auto;
 }
 
 .keyword:hover span{
@@ -123,6 +124,7 @@
 
 .title:hover{
     text-decoration: underline;
+    cursor: url(custom_cursor_hover.png),auto;
 }
 
 @media (max-width: 1100px) {

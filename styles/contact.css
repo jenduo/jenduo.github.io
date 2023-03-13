@@ -66,6 +66,9 @@
     left: 5vw;
 }
 
+.contact-buttons:hover{
+    cursor: url(custom_cursor_hover.png),auto;
+}
 .contact-buttons:hover p{
     visibility:visible;
 }
@@ -149,6 +152,7 @@
     .contact-buttons:hover img{
         height: 12vh;
         width: 12vh;
+        
     }
 
     .contact-buttons p{

@@ -48,6 +48,14 @@ body{
     animation-timing-function: linear; 
 }
 
+.logo:hover{
+    cursor: url(custom_cursor_hover.png), auto;
+}
+
+.logo-text{
+    cursor: url(custom_cursor_hover.png), auto !important;
+}
+
 .hamburger-menu-open, .hamburger-menu-close{
     margin-bottom: 5vh;
     display: none;

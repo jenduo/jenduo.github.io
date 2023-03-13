@@ -53,7 +53,7 @@ body{
 }
 
 .logo-text{
-    cursor: url(custom_cursor_hover.png), auto !important;
+    cursor: url(custom_cursor_hover.png), auto;
 }
 
 .hamburger-menu-open, .hamburger-menu-close{

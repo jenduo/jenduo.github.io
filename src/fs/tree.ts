@@ -8,24 +8,21 @@ import type { Dir } from './types'
 // smooth them into confident prose.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const about = `Jennifer Duong — software engineer
-Melbourne, VIC
+const about = `  I'm a software engineer in Melbourne, currently at InvestorHub.
 
-  Full-stack web development, high-performance computing and applied ML —
-  building scalable systems across cloud, research and product environments.
+  Mostly I build the tools other people work with — a video recorder companies
+  use to talk to their shareholders, a website builder, webinar tooling wired
+  into shareholder data. Unglamorous things that someone opens on a Monday
+  morning and needs to just work.
 
-  Right now I'm a Junior Software Engineer at InvestorHub, working across the
-  marketing suite: newsflow distribution, a website builder, and webinar
-  tooling wired into shareholder data.
+  I came to product work from research. For a year and a bit before this I was
+  at the University of Melbourne and CSL, parallelising machine learning
+  workloads on the Spartan HPC cluster and wrapping PhD researchers' models in
+  APIs so people outside the lab could run them. Two papers came out of it.
 
-  Before that I was a Technical Research Assistant at the University of
-  Melbourne and CSL — parallelising machine learning workloads on the Spartan
-  HPC cluster, and turning PhD researchers' models into FastAPI services other
-  people could actually use. Two papers came out of that work.
-
-  Masters of Computer Science in Distributed Computing (First Class Honours),
-  and a Bachelor of Science in Computer and Software Systems — both at the
-  University of Melbourne.
+  That left me liking problems where the hard part is underneath — making
+  something faster, or leaving a system the next person can extend without
+  dreading it.
 
   Try:  ls projects     ls experience     cat skills.txt
 `

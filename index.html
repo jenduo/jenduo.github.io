@@ -1,107 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>jenduo's website</title>
-        <link rel="stylesheet" href="styles/general.css">
-        <link rel="stylesheet" href="styles/header.css">
-        <link rel="stylesheet" href="styles/manilla-file.css">
-        <link rel="stylesheet" href="styles/mini-menu.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-        
-        <style>
-            @font-face {
-                font-family: 'Gill';
-                src: url(fonts/gill_sans_mt_condensed.ttf);
-            }
-
-            @font-face {
-                font-family: 'Brit';
-                src: url(fonts/britannic_bold_regular.ttf);
-            }
-
-            @font-face {
-                font-family: 'PGothic';
-                src: url(fonts/ms_pgothic.ttf);
-            }
-            @font-face {
-                font-family: 'Dymo';
-                src: url(fonts/dymo.ttf);
-            }
-        </style>
-    </head>
-
-
-
-    <body class="home-page">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="function.js">
-        </script>
-
-
-        <div class="bg">
-            <img src="images/jen_duong_wallpaper_full.png" alt="">
-            <div class="menu-bg">
-            
-            </div>
-    
-        </div>
-        
-        <div class="header">
-            <div class="logo" onclick="window.location.href='https://jenduo.github.io/index'">
-                <img class="logo-picture" src="images/jen_duong_logo.png" alt="">
-            </div>
-
-            <div class="logo-text secret" onclick="window.location.href='https://jenduo.github.io/index'">
-                <img class="logo-text-picture" src="images/jen_duong_header_text.png" alt="">
-                <img class= "handwriting" style="position: absolute; left:32vw;top:-3vh;z-index: 100; width: 6vw;" src="images/handwriting/logo.png" alt="">
-            </div>
-
-            <div class="hambuger-menu">
-                <img onclick="openMenu()" class="hamburger-menu-open" src="images/hambuger_menu.png" alt="">
-                <img onclick="closeMenu()" class="hamburger-menu-close" src="images/close_menu.png" alt="">
-            </div>
-        </div>
-
-        <div class="manilla-file">
-            <div class="tabs">
-                <button class="home secret" onclick="window.location.href='https://jenduo.github.io/index'">|||H|O|M|E|||
-                    <img class="handwriting"style="position: absolute; left:-2vw;top:-5vh;z-index: 100; width: 6vw;"src="images/handwriting/buttons.png" alt="">
-                </button>
-                <button class="projects" onclick="window.location.href='https://jenduo.github.io/projects'">|P|R|O|J|E|C|T|S|</button>
-                <button class="about" onclick="window.location.href='https://jenduo.github.io/about'">||A|B|O|U|T||</button>
-                <button class="contact" onclick="window.location.href='https://jenduo.github.io/contact'">|C|O|N|T|A|C|T|</button>
-            </div>
-
-
-            <div class="curr-file">
-                <div class="file-content homes">
-                    <div class="secret file-img">
-                        <img src="images/hacker-python.gif" alt="">
-                        <img class="handwriting"style="position: absolute; left:23vw;top:51vh;z-index: 100; height:10vh; "src="images/handwriting/github.png" alt="">
-                        <img class="handwriting"style="position: absolute; left:35vw;top:0vh;z-index: 100; height:10vh;"src="images/handwriting/hacker.png" alt="">
-                    </div>
-                    <div class="big-caption secret">
-                        <img src="images/jen_duong_front_caption.png" alt="">
-                        <img class="handwriting"style="position: absolute; left:62vw;top:30vh;z-index: 100; height:4vw; "src="images/handwriting/clues.png" alt="">
-                        <img class="handwriting"style="position: absolute; left:50vw;top:49vh;z-index: 100; height:4vw;"src="images/handwriting/stuff.png" alt="">
-
-                    </div>
-                </div>
-
-                <div class="watermark">
-                    This website is made by Jennifer Duong hosted on github 2023
-                </div>
-
-                <img class="sticker" style="position: absolute;left:10vw;top:30vh;z-index: 100; width: 10vw;transform: rotate(-30deg);" src="images/stickers/computer.png" alt="">
-                <img class="sticker" style="position: absolute;left:60vw;top:35vh;z-index: 100; width: 10vw;transform: rotate(10deg);" src="images/stickers/cat.png" alt="">
-                <img class="sticker" style="position: absolute;left:23vw;top:2vh;z-index: 100; width: 5vw;transform: rotate(10deg);" src="images/stickers/pen.png" alt="">
-
-            </div>
-
-        </div>
-    </body>
-
-
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vite-scaffold</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

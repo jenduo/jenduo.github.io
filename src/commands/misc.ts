@@ -1,5 +1,5 @@
 import type { Command, Line } from './types'
-import { error, ok, text } from './types'
+import { art, error, ok, text } from './types'
 
 export const clear: Command = () => ({ lines: [], clear: true })
 
@@ -14,12 +14,14 @@ export const history: Command = (_args, ctx) =>
 
 export const date: Command = () => ok(text(new Date().toString()))
 
+// Pure ASCII on purpose: block-drawing characters are not reliably
+// single-width across system monospace fonts, so they shear apart.
 const LOGO = [
-  '  ╭───────────────╮',
-  '  │  ╷ ╭─╮ ╭╮ ╷   │',
-  '  │  │ ├─┤ ││ │   │',
-  '  │  ╰ ╵ ╵ ╵╵ ╵   │',
-  '  ╰───────────────╯',
+  '     _ ____  ',
+  '    | |  _ \\ ',
+  ' _  | | | | |',
+  '| |_| | |_| |',
+  ' \\___/|____/ ',
 ]
 
 export const neofetch: Command = (_args, ctx) => {
@@ -35,9 +37,9 @@ export const neofetch: Command = (_args, ctx) => {
 
   const lines: Line[] = []
   for (let i = 0; i < Math.max(LOGO.length, facts.length); i++) {
-    const art = (LOGO[i] ?? '').padEnd(21)
+    const logo = (LOGO[i] ?? '').padEnd(13)
     const fact = facts[i]
-    lines.push(text(`${art}${fact ? fact[0].padEnd(9) + fact[1] : ''}`))
+    lines.push(art(`${logo}   ${fact ? fact[0].padEnd(9) + fact[1] : ''}`))
   }
   return { lines }
 }

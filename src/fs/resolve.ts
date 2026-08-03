@@ -27,7 +27,9 @@ export function resolve(root: Dir, cwd: string, input: string): FsNode | null {
   let node: FsNode = root
   for (const segment of splitPath(normalize(cwd, input))) {
     if (node.kind !== 'dir') return null
-    const next = node.children.find((child) => child.name === segment)
+    // Annotated because `node` is reassigned from it, which otherwise makes the
+    // inference circular under strict mode.
+    const next: FsNode | undefined = node.children.find((child) => child.name === segment)
     if (!next) return null
     node = next
   }

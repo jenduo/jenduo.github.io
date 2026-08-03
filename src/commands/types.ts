@@ -12,7 +12,8 @@ export interface PathEntry {
 export type Line =
   /** An echoed prompt line, e.g. `~/projects $ ls`. */
   | { type: 'prompt'; cwd: string; input: string }
-  | { type: 'text'; text: string; tone?: Tone }
+  /** `art` tightens the leading so ASCII art reads as a single shape. */
+  | { type: 'text'; text: string; tone?: Tone; art?: boolean }
   /** Path names rendered as clickable buttons. */
   | { type: 'paths'; entries: PathEntry[] }
 
@@ -48,5 +49,6 @@ export interface CommandSpec {
 }
 
 export const text = (value: string, tone?: Tone): Line => ({ type: 'text', text: value, tone })
+export const art = (value: string): Line => ({ type: 'text', text: value, art: true })
 export const error = (message: string): Line => ({ type: 'text', text: message, tone: 'error' })
 export const ok = (...lines: Line[]): CommandResult => ({ lines })

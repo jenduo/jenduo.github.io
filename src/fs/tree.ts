@@ -8,21 +8,12 @@ import type { Dir } from './types'
 // smooth them into confident prose.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const about = `  I'm a software engineer in Melbourne, currently at InvestorHub.
+const about = `  Jennifer Duong — Melbourne-based full-stack engineer.
 
-  Mostly I build the tools other people work with — a video recorder companies
-  use to talk to their shareholders, a website builder, webinar tooling wired
-  into shareholder data. Unglamorous things that someone opens on a Monday
-  morning and needs to just work.
+  A lifetime's portfolio, reduced to a shell.
 
-  I came to product work from research. For a year and a bit before this I was
-  at the University of Melbourne and CSL, parallelising machine learning
-  workloads on the Spartan HPC cluster and wrapping PhD researchers' models in
-  APIs so people outside the lab could run them. Two papers came out of it.
-
-  That left me liking problems where the hard part is underneath — making
-  something faster, or leaving a system the next person can extend without
-  dreading it.
+  Currently at InvestorHub. Before that, HPC and applied ML research at the
+  University of Melbourne and CSL.
 
   Try:  ls projects     ls experience     cat skills.txt
 `

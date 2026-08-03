@@ -9,17 +9,25 @@ import type { Dir } from './types'
 // ─────────────────────────────────────────────────────────────────────────────
 
 const about = `Jennifer Duong — software engineer
+Melbourne, VIC
 
-  I build web products end to end. [TODO: one sentence in your own words about
-  what you like building. This is the line people actually read.]
+  Full-stack web development, high-performance computing and applied ML —
+  building scalable systems across cloud, research and product environments.
 
-  Currently [TODO: your title] at InvestorHub, working on [TODO: what you work
-  on, at whatever detail you are comfortable making public].
+  Right now I'm a Junior Software Engineer at InvestorHub, working across the
+  marketing suite: newsflow distribution, a website builder, and webinar
+  tooling wired into shareholder data.
 
-  Before that: [TODO: study and/or previous roles. Your 2022-23 repos suggest a
-  computer science background — algorithms, automata, software design.]
+  Before that I was a Technical Research Assistant at the University of
+  Melbourne and CSL — parallelising machine learning workloads on the Spartan
+  HPC cluster, and turning PhD researchers' models into FastAPI services other
+  people could actually use. Two papers came out of that work.
 
-  Try:  ls projects     cat skills.txt     cat contact.txt
+  Masters of Computer Science in Distributed Computing (First Class Honours),
+  and a Bachelor of Science in Computer and Software Systems — both at the
+  University of Melbourne.
+
+  Try:  ls projects     ls experience     cat skills.txt
 `
 
 const skills = `languages    TypeScript · JavaScript · Python · SQL
@@ -32,10 +40,14 @@ tooling      Git · [TODO: confirm — Docker? CI? cloud platforms?]
   anything you would not want to be interviewed on.]
 `
 
-const contact = `email      [TODO: a personal address. Do not ship your work address on a
-           public portfolio — especially not one used for job hunting.]
+const contact = `email      jenniferduong.aa@gmail.com
 github     github.com/jenduo
 linkedin   [TODO: your profile URL]
+
+  Melbourne, VIC
+
+  [Deliberately not here: your phone number. It is on your resume, which is
+  fine — a resume goes to people you chose. A public page is scraped.]
 
   Try:  open resume.pdf
 `

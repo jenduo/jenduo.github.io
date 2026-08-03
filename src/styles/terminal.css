@@ -52,10 +52,16 @@ body {
   word-break: break-word;
 }
 
-/* ASCII art only coheres into a shape with tight leading and no wrapping. */
-.line.art {
-  line-height: 1.05;
-  white-space: pre;
+/* The welcome greeting. Scales with the viewport instead of sitting on the
+   character grid, so it stays legible from 320px up — which ASCII letterform
+   art cannot do at this length. */
+.line.hero {
+  margin-bottom: 0.35em;
+  color: var(--accent);
+  font-size: clamp(23px, 6.4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .tone-dim {

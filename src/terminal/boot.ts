@@ -1,19 +1,8 @@
 import type { Line } from '../commands/types'
-import { art, text } from '../commands/types'
-
-// Pure ASCII on purpose: block and box-drawing characters are not reliably
-// single-width across system monospace fonts, so they shear apart.
-const LOGO = [
-  '     _ ____  ',
-  '    | |  _ \\ ',
-  ' _  | | | | |',
-  '| |_| | |_| |',
-  ' \\___/|____/ ',
-]
+import { hero, text } from '../commands/types'
 
 export const BOOT: Line[] = [
-  ...LOGO.map((row) => art(row, 'accent')),
-  text(''),
+  hero("Hi, it's me Jen!"),
   text('Jennifer Duong — software engineer', 'bright'),
   text('portfolio, as a shell', 'dim'),
   text(''),

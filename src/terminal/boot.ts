@@ -3,10 +3,12 @@ import { art, hero, text } from '../commands/types'
 
 // "hi its me, Jen!" — figlet `standard`, 62 columns. Shown on viewports wide
 // enough to hold it; below 680px terminal.css swaps in the `hero` line instead.
+// The smiley is a literal `:)` rather than figlet output — figlet renders it as
+// an unreadable squiggle. Sat on the middle row so it reads beside "Jen!".
 const BANNER = [
   '  _     _   _ _                                _            _ ',
   ' | |__ (_) (_) |_ ___   _ __ ___   ___        | | ___ _ __ | |',
-  " | '_ \\| | | | __/ __| | '_ ` _ \\ / _ \\    _  | |/ _ \\ '_ \\| |",
+  " | '_ \\| | | | __/ __| | '_ ` _ \\ / _ \\    _  | |/ _ \\ '_ \\| |   :)",
   ' | | | | | | | |_\\__ \\ | | | | | |  __/_  | |_| |  __/ | | |_|',
   ' |_| |_|_| |_|\\__|___/ |_| |_| |_|\\___( )  \\___/ \\___|_| |_(_)',
   '                                      |/',
@@ -14,7 +16,7 @@ const BANNER = [
 
 export const BOOT: Line[] = [
   ...BANNER.map(art),
-  hero("Hi, it's me Jen!"),
+  hero("Hi, it's me Jen! :)"),
   text(''),
   text('Jennifer Duong — software engineer', 'bright'),
   text('portfolio, as a shell', 'dim'),

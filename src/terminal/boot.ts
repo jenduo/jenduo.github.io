@@ -19,8 +19,8 @@ export const BOOT: Line[] = [
   ...BANNER.map(art),
   hero("hi it's me, Jen :)"),
   text(''),
-  text('Jennifer Duong — software engineer', 'bright'),
-  text('portfolio, as a shell', 'dim'),
+  text('Jennifer Duong — Melbourne-based full-stack engineer', 'bright'),
+  text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
   // Kept short so it does not wrap at phone width.
   text("type 'help', or click anything below.", 'dim'),

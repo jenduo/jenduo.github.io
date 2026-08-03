@@ -8,12 +8,16 @@ import type { Dir } from './types'
 // smooth them into confident prose.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const about = `  Jennifer Duong — Melbourne-based full-stack engineer.
+// The identity line and tagline live in the boot banner (src/terminal/boot.ts),
+// so this file carries only substance — no repeating what the home page says.
+const about = `  Currently a software engineer at InvestorHub, working across the marketing
+  suite — newsflow distribution, a website builder, and webinar tooling wired
+  into shareholder data.
 
-  A lifetime's portfolio, reduced to a shell.
-
-  Currently at InvestorHub. Before that, HPC and applied ML research at the
-  University of Melbourne and CSL.
+  Before that, HPC and applied ML research at the University of Melbourne and
+  CSL: parallelising machine learning workloads on the Spartan cluster, and
+  wrapping researchers' models in APIs so people outside the lab could run
+  them. Two papers came out of it.
 
   Try:  ls projects     ls experience     cat skills.txt
 `

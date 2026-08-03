@@ -52,16 +52,45 @@ body {
   word-break: break-word;
 }
 
-/* The welcome greeting. Scales with the viewport instead of sitting on the
-   character grid, so it stays legible from 320px up — which ASCII letterform
-   art cannot do at this length. */
+/* The welcome banner exists in two forms and exactly one is ever visible.
+   The ASCII art is a fixed 62-column grid — it cannot reflow, only scale, and
+   at phone width it scales down to illegible. So narrow screens get the same
+   greeting as scalable display text instead. */
 .line.hero {
-  margin-bottom: 0.35em;
   color: var(--accent);
   font-size: clamp(23px, 6.4vw, 38px);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+.line.art {
+  display: none;
+}
+
+/* 680px is the narrowest viewport where 62 columns still fits at body size. */
+@media (min-width: 680px) {
+  .line.art {
+    display: block;
+    color: var(--accent);
+    /* Counterintuitively this wants loose leading, not tight: the strokes sit
+       at the top and bottom of each cell, so rows closer than ~1.4 merge into
+       an unreadable block. Compared 1.0 / 1.1 / 1.2 / 1.35 / 1.5 in-browser. */
+    line-height: 1.5;
+    white-space: pre;
+    /* The body glow blooms these 1px strokes into mush. Art must stay crisp. */
+    text-shadow: none;
+  }
+
+  /* Visually replaced by the art above, but kept for screen readers. */
+  .line.hero {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 .tone-dim {

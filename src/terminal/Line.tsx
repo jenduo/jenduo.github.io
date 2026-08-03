@@ -23,7 +23,11 @@ export function Line({ line, onRun }: Props) {
 
   if (line.type === 'text') {
     return (
-      <div className={`line tone-${line.tone ?? 'default'}${line.hero ? ' hero' : ''}`}>
+      <div
+        className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}
+        // Art is decorative; the hero line carries the same words for readers.
+        aria-hidden={line.variant === 'art' || undefined}
+      >
         {line.text || ' '}
       </div>
     )

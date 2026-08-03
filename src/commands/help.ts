@@ -15,7 +15,9 @@ export function makeHelp(commands: () => CommandSpec[]): Command {
         text(''),
         ...visible.map((command) => text(`  ${command.usage.padEnd(width + 3)}${command.summary}`)),
         text(''),
-        text('  tab completes · ↑ ↓ walks history · click any filename', 'dim'),
+        // Two short lines rather than one long one, so neither wraps on a phone.
+        text('  tab completes · ↑ ↓ walks history', 'dim'),
+        text('  or just click any filename', 'dim'),
       ],
     }
   }

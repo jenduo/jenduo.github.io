@@ -4,11 +4,14 @@ import { root } from '../fs/tree'
 
 describe('complete', () => {
   it('completes a command name at the start of the line', () => {
-    expect(complete('ne', root, '/')).toBe('neofetch ')
+    expect(complete('wh', root, '/')).toBe('whoami ')
   })
 
   it('leaves an ambiguous command prefix alone', () => {
+    // 'c' matches cd, cat and clear.
     expect(complete('c', root, '/')).toBe('c')
+    // 'h' matches help and history.
+    expect(complete('h', root, '/')).toBe('h')
   })
 
   it('completes a path argument', () => {

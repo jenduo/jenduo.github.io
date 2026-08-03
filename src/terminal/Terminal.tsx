@@ -4,7 +4,7 @@ import { complete } from './complete'
 import { Line } from './Line'
 import { useShell } from './useShell'
 
-const CHIPS = ['help', 'ls', 'cat about.txt', 'cd projects', 'tree', 'neofetch']
+const CHIPS = ['help', 'ls', 'tree', 'cat about.txt', 'cd projects', 'cat contact.txt']
 
 export function Terminal() {
   const { cwd, lines, history, submit, root } = useShell()

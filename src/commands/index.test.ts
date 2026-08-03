@@ -47,8 +47,8 @@ describe('runCommand', () => {
     expect(runCommand('   ', ctx()).lines).toHaveLength(1)
   })
 
-  it('splits arguments on whitespace', () => {
-    expect(runCommand('echo hello  world', ctx()).lines[1]).toMatchObject({ text: 'hello world' })
+  it('collapses runs of whitespace between arguments', () => {
+    expect(runCommand('cd    projects', ctx()).cwd).toBe('/projects')
   })
 
   it('reports an unknown command', () => {

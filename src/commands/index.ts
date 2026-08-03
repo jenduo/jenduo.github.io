@@ -1,6 +1,6 @@
 import { cat, open, tree } from './content'
 import { makeHelp } from './help'
-import { clear, date, echo, exit, history, neofetch, rm, sudo, whoami } from './misc'
+import { clear, exit, history, rm, sudo, whoami } from './misc'
 import { cd, ls, pwd } from './nav'
 import type { CommandResult, CommandSpec, ShellContext } from './types'
 import { error, text } from './types'
@@ -11,14 +11,11 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'cd', usage: 'cd [path]', summary: 'change directory', run: cd },
   { name: 'cat', usage: 'cat <file>', summary: 'read a file', run: cat },
   { name: 'tree', usage: 'tree [path]', summary: 'see everything at once', run: tree },
-  { name: 'open', usage: 'open <file>', summary: 'follow the real link behind a file', run: open },
+  { name: 'open', usage: 'open <file>', summary: 'open its real link', run: open },
   { name: 'pwd', usage: 'pwd', summary: 'where am I', run: pwd },
   { name: 'whoami', usage: 'whoami', summary: 'who am I', run: whoami },
-  { name: 'neofetch', usage: 'neofetch', summary: 'the short version', run: neofetch },
   { name: 'history', usage: 'history', summary: 'what I have typed', run: history },
   { name: 'clear', usage: 'clear', summary: 'wipe the screen', run: clear },
-  { name: 'echo', usage: 'echo <text>', summary: 'say it back', run: echo },
-  { name: 'date', usage: 'date', summary: 'the time here', run: date },
   { name: 'sudo', usage: 'sudo', summary: '', hidden: true, run: sudo },
   { name: 'rm', usage: 'rm', summary: '', hidden: true, run: rm },
   { name: 'exit', usage: 'exit', summary: '', hidden: true, run: exit },

@@ -52,6 +52,12 @@ body {
   word-break: break-word;
 }
 
+/* ASCII art only coheres into a shape with tight leading and no wrapping. */
+.line.art {
+  line-height: 1.05;
+  white-space: pre;
+}
+
 .tone-dim {
   color: var(--fg-dim);
 }

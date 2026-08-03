@@ -1,12 +1,25 @@
 import type { Line } from '../commands/types'
+import { art, text } from '../commands/types'
+
+// Pure ASCII on purpose: block and box-drawing characters are not reliably
+// single-width across system monospace fonts, so they shear apart.
+const LOGO = [
+  '     _ ____  ',
+  '    | |  _ \\ ',
+  ' _  | | | | |',
+  '| |_| | |_| |',
+  ' \\___/|____/ ',
+]
 
 export const BOOT: Line[] = [
-  { type: 'text', text: 'jsh 1.0 — jenduo.github.io', tone: 'accent' },
-  { type: 'text', text: '' },
-  { type: 'text', text: "Jennifer Duong's portfolio, as a shell.", tone: 'bright' },
-  { type: 'text', text: '' },
-  { type: 'text', text: "type 'help' to look around, or click anything below.", tone: 'dim' },
-  { type: 'text', text: '' },
+  ...LOGO.map((row) => art(row, 'accent')),
+  text(''),
+  text('Jennifer Duong — software engineer', 'bright'),
+  text('portfolio, as a shell', 'dim'),
+  text(''),
+  // Kept short so it does not wrap at phone width.
+  text("type 'help', or click anything below.", 'dim'),
+  text(''),
   {
     type: 'paths',
     entries: [
@@ -16,5 +29,5 @@ export const BOOT: Line[] = [
       { name: 'contact.txt', kind: 'file', path: '/contact.txt' },
     ],
   },
-  { type: 'text', text: '' },
+  text(''),
 ]

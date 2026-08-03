@@ -22,7 +22,11 @@ export function Line({ line, onRun }: Props) {
   }
 
   if (line.type === 'text') {
-    return <div className={`line tone-${line.tone ?? 'default'}`}>{line.text || ' '}</div>
+    return (
+      <div className={`line tone-${line.tone ?? 'default'}${line.art ? ' art' : ''}`}>
+        {line.text || ' '}
+      </div>
+    )
   }
 
   return (

@@ -6,7 +6,8 @@
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
-  --scanline: rgba(255, 61, 138, 0.04);
+  /* Compared 0.04 / 0.10 / 0.16 / 0.24 in-browser. Above ~0.2 it bands. */
+  --scanline: rgba(255, 61, 138, 0.16);
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -202,16 +203,21 @@ body {
   }
 }
 
+/* Painted behind the content, not over it. Overlaying the text would cap the
+   opacity at something imperceptible to avoid hazing what you are reading;
+   sitting behind it means the lines can be strong and the text stays crisp. */
 .scanlines {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 0;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--scanline) 0 1px,
-    transparent 1px 3px
-  );
+  background: repeating-linear-gradient(to bottom, var(--scanline) 0 1px, transparent 1px 4px);
+}
+
+.scrollback,
+.chips {
+  position: relative;
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

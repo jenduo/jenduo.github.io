@@ -103,8 +103,7 @@ const resume = `Jennifer Duong, curriculum vitae.
 
 const email = `jenniferduong.aa@gmail.com
 
-  type 'open email' to send me an email,
-  or 'copy email' to copy the address.
+  type 'open email' to send me an email.
 `
 
 const github = `github.com/jenduo
@@ -245,21 +244,13 @@ export const root: Dir = {
           name: 'email',
           body: email,
           href: 'mailto:jenniferduong.aa@gmail.com',
-          copyText: 'jenniferduong.aa@gmail.com',
         },
-        {
-          kind: 'file',
-          name: 'github',
-          body: github,
-          href: 'https://github.com/jenduo',
-          copyText: 'https://github.com/jenduo',
-        },
+        { kind: 'file', name: 'github', body: github, href: 'https://github.com/jenduo' },
         {
           kind: 'file',
           name: 'linkedin',
           body: linkedin,
           href: 'https://www.linkedin.com/in/jennifer-duong-b78933257/',
-          copyText: 'https://www.linkedin.com/in/jennifer-duong-b78933257/',
         },
       ],
     },

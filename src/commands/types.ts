@@ -47,8 +47,6 @@ export interface CommandResult {
   openUrl?: string
   /** Set to recolour the terminal. */
   theme?: ThemeName
-  /** Set to put text on the clipboard. */
-  copy?: string
 }
 
 /**

@@ -6,6 +6,7 @@
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
+  --scanline: rgba(255, 61, 138, 0.04);
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -208,7 +209,7 @@ body {
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255, 61, 138, 0.04) 0 1px,
+    var(--scanline) 0 1px,
     transparent 1px 3px
   );
 }

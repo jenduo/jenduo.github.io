@@ -7,7 +7,7 @@ import { TitleBar } from './TitleBar'
 import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
 
-const CHIPS = ['help', 'ls', 'tree', 'cat about.txt', 'cd projects', 'cat contact.txt']
+const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contact']
 
 /** How long a visitor can sit still before the shell offers a suggestion. */
 const IDLE_MS = 4000

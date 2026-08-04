@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { COMMANDS, runCommand } from './index'
 import type { ShellContext } from './types'
-import { root } from '../fs/tree'
+import { fixtureRoot } from '../fs/fixture'
 
-const ctx = (cwd = '/'): ShellContext => ({ root, cwd, history: [] })
+const ctx = (cwd = '/'): ShellContext => ({ root: fixtureRoot, cwd, history: [] })
 
 const asText = (result: { lines: { type: string }[] }) =>
   result.lines.map((line) => ('text' in line ? String(line.text) : '')).join('\n')
@@ -48,7 +48,7 @@ describe('runCommand', () => {
   })
 
   it('collapses runs of whitespace between arguments', () => {
-    expect(runCommand('cd    projects', ctx()).cwd).toBe('/projects')
+    expect(runCommand('cd    alpha', ctx()).cwd).toBe('/alpha')
   })
 
   it('reports an unknown command', () => {
@@ -65,7 +65,7 @@ describe('runCommand', () => {
   })
 
   it('passes cwd changes through', () => {
-    expect(runCommand('cd projects', ctx()).cwd).toBe('/projects')
+    expect(runCommand('cd alpha', ctx()).cwd).toBe('/alpha')
   })
 
   it('passes clear through', () => {

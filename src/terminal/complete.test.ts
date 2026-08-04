@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { complete } from './complete'
-import { root } from '../fs/tree'
+import { fixtureRoot as root } from '../fs/fixture'
 
 describe('complete', () => {
   it('completes a command name at the start of the line', () => {
@@ -15,19 +15,19 @@ describe('complete', () => {
   })
 
   it('completes a path argument', () => {
-    expect(complete('cat ab', root, '/')).toBe('cat about.txt ')
+    expect(complete('cat rea', root, '/')).toBe('cat readme ')
   })
 
   it('appends a slash for directories', () => {
-    expect(complete('cd exp', root, '/')).toBe('cd experience/')
+    expect(complete('cd al', root, '/')).toBe('cd alpha/')
   })
 
   it('completes inside a nested path', () => {
-    expect(complete('cat projects/mf', root, '/')).toBe('cat projects/mfbo-framework/')
+    expect(complete('cat alpha/be', root, '/')).toBe('cat alpha/beta/')
   })
 
   it('respects the cwd', () => {
-    expect(complete('cat inv', root, '/experience')).toBe('cat investorhub.md ')
+    expect(complete('cat app', root, '/alpha')).toBe('cat apple ')
   })
 
   it('leaves an ambiguous path prefix alone', () => {

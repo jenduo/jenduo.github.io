@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { cd, ls, pwd } from './nav'
 import type { ShellContext } from './types'
-import { root } from '../fs/tree'
+import { fixtureRoot } from '../fs/fixture'
 
-const ctx = (cwd: string): ShellContext => ({ root, cwd, history: [] })
+const ctx = (cwd: string): ShellContext => ({ root: fixtureRoot, cwd, history: [] })
 
 describe('pwd', () => {
   it('prints the current directory with ~ for home', () => {
     expect(pwd([], ctx('/')).lines[0]).toMatchObject({ type: 'text', text: '~' })
-    expect(pwd([], ctx('/projects')).lines[0]).toMatchObject({ text: '~/projects' })
+    expect(pwd([], ctx('/alpha')).lines[0]).toMatchObject({ text: '~/alpha' })
   })
 })
 
@@ -17,8 +17,8 @@ describe('ls', () => {
     const [line] = ls([], ctx('/')).lines
     if (line.type !== 'paths') throw new Error('expected paths')
     const names = line.entries.map((entry) => entry.name)
-    expect(names).toContain('about.txt')
-    expect(names).toContain('projects')
+    expect(names).toContain('readme')
+    expect(names).toContain('alpha')
   })
 
   it('sorts directories before files', () => {
@@ -30,22 +30,25 @@ describe('ls', () => {
   })
 
   it('gives entries absolute paths', () => {
-    const [line] = ls(['projects'], ctx('/')).lines
+    const [line] = ls(['alpha'], ctx('/')).lines
     if (line.type !== 'paths') throw new Error('expected paths')
-    expect(line.entries[0].path).toMatch(/^\/projects\//)
+    expect(line.entries[0].path).toMatch(/^\/alpha\//)
   })
 
   it('lists a named directory', () => {
-    const [line] = ls(['projects'], ctx('/')).lines
+    const [line] = ls(['alpha'], ctx('/')).lines
     if (line.type !== 'paths') throw new Error('expected paths')
-    expect(line.entries.map((entry) => entry.name)).toContain('mfbo-framework')
+    expect(line.entries.map((entry) => entry.name)).toContain('beta')
   })
 
   it('prints just the name when given a file', () => {
-    expect(ls(['about.txt'], ctx('/')).lines[0]).toMatchObject({
-      type: 'text',
-      text: 'about.txt',
-    })
+    expect(ls(['readme'], ctx('/')).lines[0]).toMatchObject({ type: 'text', text: 'readme' })
+  })
+
+  it('lists an empty directory without error', () => {
+    const [line] = ls(['mid'], ctx('/')).lines
+    if (line.type !== 'paths') throw new Error('expected paths')
+    expect(line.entries).toEqual([])
   })
 
   it('errors on a missing path', () => {
@@ -58,23 +61,23 @@ describe('ls', () => {
 
 describe('cd', () => {
   it('enters a directory and returns the new cwd', () => {
-    expect(cd(['projects'], ctx('/')).cwd).toBe('/projects')
+    expect(cd(['alpha'], ctx('/')).cwd).toBe('/alpha')
   })
 
   it('goes home with no argument', () => {
-    expect(cd([], ctx('/projects/mfbo-framework')).cwd).toBe('/')
+    expect(cd([], ctx('/alpha/beta')).cwd).toBe('/')
   })
 
   it('goes up with ..', () => {
-    expect(cd(['..'], ctx('/projects')).cwd).toBe('/')
+    expect(cd(['..'], ctx('/alpha')).cwd).toBe('/')
   })
 
   it('refuses to cd into a file', () => {
-    const result = cd(['about.txt'], ctx('/'))
+    const result = cd(['readme'], ctx('/'))
     expect(result.cwd).toBeUndefined()
     expect(result.lines[0]).toMatchObject({
       tone: 'error',
-      text: 'cd: about.txt: Not a directory',
+      text: 'cd: readme: Not a directory',
     })
   })
 

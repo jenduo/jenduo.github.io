@@ -3,152 +3,239 @@ import type { Dir } from './types'
 // ─────────────────────────────────────────────────────────────────────────────
 // This file is the entire content of the site. To update the site, edit here.
 //
-// [TODO] markers are load-bearing: they mark claims that were inferred from
-// public repos rather than confirmed. Fill them in or delete them, but do not
-// smooth them into confident prose.
+// Extensions are optional to type (see fs/resolve.ts), so filenames are bare
+// words. `resume.pdf` keeps its extension because the extension is the point.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// The identity line and tagline live in the boot banner (src/terminal/boot.ts),
-// so this file carries only substance, never repeating what the home page says.
-const about = `  Currently a software engineer at InvestorHub, working across the marketing
-  suite: newsflow distribution, a website builder, and webinar tooling wired
-  into shareholder data.
+/** Printed by `whoami`, so the intro is a command rather than a file. */
+export const intro = `  software engineer in Melbourne, currently at InvestorHub.
+
+  I work across the marketing suite there: newsflow distribution, a website
+  builder, and webinar tooling wired into shareholder data.
 
   Before that, HPC and applied ML research at the University of Melbourne and
   CSL. I parallelised machine learning workloads on the Spartan cluster and
   wrapped researchers' models in APIs so people outside the lab could run
   them. Two papers came out of it.
 
-  Try:  ls projects     ls experience     cat skills.txt
+  Try:  ls experience     ls publications     cat skills`
+
+const skills = `languages    Python · TypeScript · JavaScript · Elixir · Java
+frontend     React · Next.js · Tailwind CSS · HTML/CSS
+backend      Node.js · FastAPI · GraphQL
+data         PostgreSQL · MySQL · Databricks
+infra        GCP · Docker · Git · Posit Connect
+hpc          Spartan (SLURM)
 `
 
-const skills = `languages    TypeScript · JavaScript · Python · SQL
-frontend     React · [TODO: confirm. Tailwind? plain CSS? something else?]
-backend      [TODO: confirm. Node? Rails? Django?]
-data / ML    PyTorch · BoTorch · Gaussian processes · Bayesian optimization
-tooling      Git · [TODO: confirm. Docker? CI? cloud platforms?]
+const education = `University of Melbourne
+Masters of Computer Science, Distributed Computing
+Feb 2024 to Dec 2025 · First Class Honours (83%)
 
-  [TODO: this list is inferred from your public repos, not from you. Delete
-  anything you would not want to be interviewed on.]
+  Cluster and Cloud Computing · AI Planning for Autonomy ·
+  Distributed Systems · Mobile Computing
+
+University of Melbourne
+Bachelor of Science, Computer and Software Systems
+Feb 2021 to Dec 2023 · Second Class Honours (79%)
 `
 
-const contact = `email      jenniferduong.aa@gmail.com
-github     github.com/jenduo
-linkedin   [TODO: your profile URL]
-
-  Melbourne, VIC
-
-  [Deliberately not here: your phone number. It is on your resume, which is
-  fine, because a resume goes to people you chose. A public page is scraped.]
-
-  Try:  open resume.pdf
+const resume = `[TODO: no PDF is published yet, so 'open resume.pdf' says so rather than
+sending anyone to a 404. Drop the file at public/resume.pdf and set
+href: '/resume.pdf' on this node to switch it on.]
 `
 
-const resume = `[TODO: drop resume.pdf into public/, then set href: '/resume.pdf' on this
-node in src/fs/tree.ts. Until then 'open resume.pdf' says it is not up yet.]
+const email = `jenniferduong.aa@gmail.com
+
+  open this file to start an email.
+`
+
+const github = `github.com/jenduo
+
+  open this file to go there.
+`
+
+const linkedin = `linkedin.com/in/jennifer-duong-b78933257
+
+  open this file to go there.
 `
 
 const investorhub = `# InvestorHub
+Melbourne CBD, VIC
 
-  [TODO: your title] · [TODO: start date] to present
+  Junior Software Engineer · Dec 2025 to present
+  Software Engineer Intern · Nov 2023 to Feb 2024
 
   InvestorHub builds investor relations software for listed companies:
-  shareholder analytics, communications, and engagement tooling.
+  shareholder analytics, communications and engagement tooling.
 
-  What I work on:
-    - [TODO]
-    - [TODO]
-    - [TODO]
+  Now, as a junior engineer:
 
-  [TODO: keep this to what is public. When in doubt, describe the kind of
-  problem rather than the internal system that solves it.]
+  - Built an in-house video recording tool on Chrome's MediaRecorder API, so
+    companies can capture and embed video without leaving the platform.
+  - Consolidated a content block system that had duplicated code across every
+    style variant, so adding a variant is cheap instead of copy-paste.
+  - Shipped full-stack features across the marketing suite: newsflow
+    distribution to email, LinkedIn and Twitter, a flexible website builder,
+    and webinar tooling wired into shareholder data.
+
+  Earlier, as an intern:
+
+  - Built a demo site from scratch emulating the product, with AI-generated
+    questions and answers. It is still used in sales meetings today.
+    React, Elixir, PostgreSQL on GCP.
+  - Built a monthly dashboard in React and Tailwind so companies could
+    download summaries of their reach.
+  - Built a statistics page graphing backend data on shareholder growth and
+    user engagement.
+
+  I interned here, left for a Masters and research, and came back.
 `
 
-const asxReadme = `# asx-company-info
+const unimelbCsl = `# University of Melbourne & CSL
+Carlton, VIC
 
-  A tool for comparing ASX-listed companies side by side.
+  Technical Research Assistant · Aug 2024 to Nov 2025
 
-  People want two different things from a comparison tool: a fast throwaway
-  look, and a way to keep the comparisons that matter. So it does both. Quick
-  comparisons need no setup, and any comparison can be saved as a favourite,
-  backed by SQL.
+  - Wrote parallelised machine learning scripts in Python and ran them on
+    Spartan, the university's HPC cluster, to speed up research workflows.
+  - Built FastAPI services that put PhD researchers' computational models
+    into other people's hands, moving data in and out through Databricks and
+    hosting on Posit Connect.
 
-  Comparisons are shareable as query URLs. That was a deliberate limit: a
-  shared link is a read-only slice of the tool, which nudges the recipient
-  toward running their own comparisons rather than living in someone else's.
-
-  Ticker input is validated on entry rather than downstream, so bad input fails
-  where the user can still see what they typed.
-
-  open this file to go to the repo.
+  Two papers came out of this work:  ls publications
 `
 
-const mfboReadme = `# mfbo-framework
+const allmediadesk = `# AllMediaDesk
+Melbourne CBD, VIC
 
-  A generalized multi-fidelity Bayesian optimization framework.
+  Software Engineer Intern · Feb 2023 to Sept 2023
 
-  Multi-fidelity optimization earns its complexity when the objective is
+  - Worked with the sales and release teams on performance and usability
+    problems.
+  - Built a CRM portal: TypeScript front end, JavaScript back end.
+  - Containerised AdPerform and AdOptimize, cutting upgrade times.
+`
+
+const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
+  Biopharmaceutical Industry
+
+  Golzarijalal M, Aickelin U, Duong QCT, Otte E.
+  BioProcess International, 24(2) · February 2026
+
+  Multi-fidelity optimisation earns its complexity when the objective is
   expensive to evaluate: alongside the true function you sample cheap
   approximations, and let the model decide when a cheap look is good enough.
 
-  Runs against four synthetic benchmarks (Forrester, Branin, Borehole and
-  Hartmann) with EI, PI, UCB and KG acquisition functions, and either greedy
-  or uncertainty-driven high-fidelity selection.
+  The framework behind it is a generalised multi-fidelity Bayesian
+  optimisation setup, running the Forrester, Branin, Borehole and Hartmann
+  benchmarks with EI, PI, UCB and KG acquisition functions, and either greedy
+  or uncertainty-driven high-fidelity selection. Built for concurrent HPC
+  experiments, so results stream to CSV with safe concurrent writes.
 
-  Built for concurrent HPC experiments, so results stream to CSV with safe
-  concurrent writes, and a new benchmark or acquisition strategy is a new
-  module rather than an edit to the core.
+  Python · PyTorch · BoTorch · GPyTorch
 
-  open this file to go to the repo.
+  open this file for the code.
 `
 
-const poketrackReadme = `# fleng-poketrack
+const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on
+  Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
 
-  [TODO: what is this? The repo is JavaScript with no README, so there is
-  nothing accurate to say about it yet.
+  Golzarijalal M, et al. (incl. Duong QCT)
+  SSRN preprint · August 2025 · doi:10.2139/ssrn.5591701
 
-  If it is not portfolio-worthy, delete this whole directory from
-  src/fs/tree.ts. Three strong projects beat four with a gap in them.]
-
-  open this file to go to the repo.
+  open this file for the preprint.
 `
 
-function project(name: string, readme: string, stack: string): Dir {
-  return {
-    kind: 'dir',
-    name,
-    children: [
-      {
-        kind: 'file',
-        name: 'README.md',
-        body: readme,
-        href: `https://github.com/jenduo/${name}`,
-      },
-      { kind: 'file', name: 'stack.txt', body: stack },
-    ],
-  }
-}
+const volunteer = `# University of Melbourne
+
+  Student Ambassador · Mar 2025 to present
+
+  Representing the faculty at Open Day and other outreach events: panels,
+  tours and content creation.
+
+  Melbourne Plus: People Leadership · Aug 2025
+`
+
+const thisSite = `# this site
+
+  You are standing in it. A portfolio built as a shell.
+
+  React and TypeScript on Vite, with no runtime dependencies beyond React.
+  The filesystem you are browsing is a plain data structure, and every command
+  is a pure function from arguments to output, which is why they can be tested
+  without a browser at all.
+
+  Deployed by GitHub Actions on push, with the test suite running before the
+  build, so a broken command cannot reach the live site.
+
+  open this file for the source.
+`
 
 export const root: Dir = {
   kind: 'dir',
   name: '',
   children: [
-    { kind: 'file', name: 'about.txt', body: about },
-    { kind: 'file', name: 'skills.txt', body: skills },
-    { kind: 'file', name: 'contact.txt', body: contact },
+    { kind: 'file', name: 'skills', body: skills },
+    { kind: 'file', name: 'education', body: education },
     { kind: 'file', name: 'resume.pdf', body: resume },
     {
       kind: 'dir',
-      name: 'experience',
-      children: [{ kind: 'file', name: 'investorhub.md', body: investorhub }],
+      name: 'contact',
+      children: [
+        {
+          kind: 'file',
+          name: 'email',
+          body: email,
+          href: 'mailto:jenniferduong.aa@gmail.com',
+        },
+        { kind: 'file', name: 'github', body: github, href: 'https://github.com/jenduo' },
+        {
+          kind: 'file',
+          name: 'linkedin',
+          body: linkedin,
+          href: 'https://www.linkedin.com/in/jennifer-duong-b78933257/',
+        },
+      ],
     },
     {
       kind: 'dir',
-      name: 'projects',
+      name: 'experience',
       children: [
-        project('asx-company-info', asxReadme, 'TypeScript · SQL · query-param state\n'),
-        project('mfbo-framework', mfboReadme, 'Python · PyTorch · BoTorch · GPyTorch\n'),
-        project('fleng-poketrack', poketrackReadme, 'JavaScript\n'),
+        { kind: 'file', name: 'investorhub', body: investorhub },
+        { kind: 'file', name: 'unimelb-csl', body: unimelbCsl },
+        { kind: 'file', name: 'allmediadesk', body: allmediadesk },
+      ],
+    },
+    {
+      kind: 'dir',
+      name: 'publications',
+      children: [
+        {
+          kind: 'file',
+          name: 'multifidelity-optimisation',
+          body: multifidelity,
+          href: 'https://github.com/jenduo/mfbo-framework',
+        },
+        {
+          kind: 'file',
+          name: 'cho-fed-batch-modelling',
+          body: choFedBatch,
+          href: 'https://doi.org/10.2139/ssrn.5591701',
+        },
+      ],
+    },
+    {
+      kind: 'dir',
+      name: 'other',
+      children: [
+        { kind: 'file', name: 'volunteer', body: volunteer },
+        {
+          kind: 'file',
+          name: 'this-site',
+          body: thisSite,
+          href: 'https://github.com/jenduo/jenduo.github.io',
+        },
       ],
     },
   ],

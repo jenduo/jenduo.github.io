@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { cat, open, tree } from './content'
 import type { ShellContext } from './types'
-import { root } from '../fs/tree'
+import { fixtureRoot } from '../fs/fixture'
 
-const ctx = (cwd: string): ShellContext => ({ root, cwd, history: [] })
+const ctx = (cwd: string): ShellContext => ({ root: fixtureRoot, cwd, history: [] })
 
 describe('cat', () => {
   it('prints a file body one line per line', () => {
-    const result = cat(['about.txt'], ctx('/'))
+    const result = cat(['readme'], ctx('/'))
     expect(result.lines.length).toBeGreaterThan(1)
-    expect(result.lines[0]).toMatchObject({ type: 'text' })
+    expect(result.lines[0]).toMatchObject({ type: 'text', text: 'line one' })
   })
 
   it('requires an argument', () => {
@@ -20,14 +20,18 @@ describe('cat', () => {
   })
 
   it('refuses a directory', () => {
-    expect(cat(['projects'], ctx('/')).lines[0]).toMatchObject({
+    expect(cat(['alpha'], ctx('/')).lines[0]).toMatchObject({
       tone: 'error',
-      text: 'cat: projects: Is a directory',
+      text: 'cat: alpha: Is a directory',
     })
   })
 
   it('errors on a missing file', () => {
     expect(cat(['nope'], ctx('/')).lines[0]).toMatchObject({ tone: 'error' })
+  })
+
+  it('reads a file by stem, without its extension', () => {
+    expect(cat(['notes'], ctx('/')).lines[0]).toMatchObject({ text: 'notes' })
   })
 })
 
@@ -37,12 +41,25 @@ describe('tree', () => {
     expect(rendered.filter((line) => line.type === 'paths').length).toBeGreaterThan(3)
   })
 
-  it('indents children below their directory', () => {
-    const rendered = tree([], ctx('/')).lines
-    const indented = rendered.filter(
-      (line) => line.type === 'paths' && line.entries[0].name.includes('    '),
+  const guides = (target: string) =>
+    tree([target], ctx('/')).lines.flatMap((line) =>
+      line.type === 'paths' ? [line.entries[0].name] : [],
     )
-    expect(indented.length).toBeGreaterThan(0)
+
+  it('indents children below their directory', () => {
+    const names = guides('.')
+
+    // Top-level entries carry no indent.
+    expect(names.some((name) => /^[\u251c\u2514]\u2500\u2500 /.test(name))).toBe(true)
+    // A child of an entry with siblings after it gets a vertical guide column.
+    expect(names.some((name) => /^\u2502 {3}[\u251c\u2514]\u2500\u2500 /.test(name))).toBe(true)
+  })
+
+  it('drops the guide column under the last entry', () => {
+    // Only reachable inside a directory whose last child is itself a directory,
+    // since at root the last entry is always a file.
+    const names = guides('zulu')
+    expect(names.some((name) => /^ {4}[\u251c\u2514]\u2500\u2500 /.test(name))).toBe(true)
   })
 
   it('errors on a missing path', () => {
@@ -52,21 +69,19 @@ describe('tree', () => {
 
 describe('open', () => {
   it('returns the href of a linked file', () => {
-    expect(open(['projects/mfbo-framework/README.md'], ctx('/')).openUrl).toBe(
-      'https://github.com/jenduo/mfbo-framework',
-    )
+    expect(open(['linked'], ctx('/')).openUrl).toBe('https://example.com/linked')
   })
 
-  it('explains when a file has no link', () => {
-    const result = open(['resume.pdf'], ctx('/'))
+  it('says so when a file has no link, rather than opening nothing', () => {
+    const result = open(['nolink'], ctx('/'))
     expect(result.openUrl).toBeUndefined()
     const [line] = result.lines
     expect(line).toMatchObject({ tone: 'error' })
-    expect(line.type === 'text' && line.text).toContain('not uploaded')
+    expect(line.type === 'text' && line.text).toContain('no link')
   })
 
   it('refuses a directory', () => {
-    expect(open(['projects'], ctx('/')).lines[0]).toMatchObject({ tone: 'error' })
+    expect(open(['alpha'], ctx('/')).lines[0]).toMatchObject({ tone: 'error' })
   })
 
   it('requires an argument', () => {

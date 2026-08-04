@@ -49,6 +49,6 @@ export const open: Command = (args, ctx) => {
   const node = resolve(ctx.root, ctx.cwd, target)
   if (!node) return ok(error(`open: ${target}: No such file or directory`))
   if (node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
-  if (!node.href) return ok(error(`open: ${target}: not uploaded yet`))
+  if (!node.href) return ok(error(`open: ${target}: no link to follow`))
   return { lines: [text(`opening ${node.href}`, 'dim')], openUrl: node.href }
 }

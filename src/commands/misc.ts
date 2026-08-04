@@ -1,9 +1,11 @@
+import { intro } from '../fs/tree'
 import type { Command } from './types'
 import { error, ok, text } from './types'
 
 export const clear: Command = () => ({ lines: [], clear: true })
 
-export const whoami: Command = () => ok(text('visitor'))
+/** The intro lives in fs/tree.ts with the rest of the content. */
+export const whoami: Command = () => ({ lines: intro.split('\n').map((line) => text(line)) })
 
 export const history: Command = (_args, ctx) =>
   ctx.history.length === 0

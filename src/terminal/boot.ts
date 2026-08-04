@@ -21,15 +21,16 @@ export const BOOT: Line[] = [
   text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
   // Kept short so it does not wrap at phone width.
-  text("type 'help', or click anything below.", 'dim'),
+  text("start with 'whoami', or click anything below.", 'dim'),
   text(''),
   {
     type: 'paths',
     entries: [
-      { name: 'about.txt', kind: 'file', path: '/about.txt' },
-      { name: 'projects', kind: 'dir', path: '/projects' },
       { name: 'experience', kind: 'dir', path: '/experience' },
-      { name: 'contact.txt', kind: 'file', path: '/contact.txt' },
+      { name: 'publications', kind: 'dir', path: '/publications' },
+      { name: 'other', kind: 'dir', path: '/other' },
+      { name: 'skills', kind: 'file', path: '/skills' },
+      { name: 'contact', kind: 'dir', path: '/contact' },
     ],
   },
   text(''),

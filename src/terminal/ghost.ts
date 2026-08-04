@@ -5,7 +5,7 @@
  * from executing, so anything that is not a command would hand a visitor
  * `command not found` as their first interaction with the site.
  */
-export const SUGGESTIONS = ['help', 'cat about.txt', 'ls projects', 'tree', 'cat contact.txt']
+export const SUGGESTIONS = ['whoami', 'ls experience', 'cat skills', 'tree', 'ls publications']
 
 export interface GhostFrame {
   /** What to display this tick, possibly a partial command. */

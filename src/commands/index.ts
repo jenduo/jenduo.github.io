@@ -13,7 +13,7 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'tree', usage: 'tree [path]', summary: 'see everything at once', run: tree },
   { name: 'open', usage: 'open <file>', summary: 'open its real link', run: open },
   { name: 'pwd', usage: 'pwd', summary: 'where am I', run: pwd },
-  { name: 'whoami', usage: 'whoami', summary: 'who am I', run: whoami },
+  { name: 'whoami', usage: 'whoami', summary: 'the short version of me', run: whoami },
   { name: 'history', usage: 'history', summary: 'what I have typed', run: history },
   { name: 'clear', usage: 'clear', summary: 'clear the output', run: clear },
   { name: 'sudo', usage: 'sudo', summary: '', hidden: true, run: sudo },

@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { displayPath } from '../fs/resolve'
 import { complete } from './complete'
+import { SUGGESTIONS } from './ghost'
 import { Line } from './Line'
 import { TitleBar } from './TitleBar'
+import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
 
 const CHIPS = ['help', 'ls', 'tree', 'cat about.txt', 'cd projects', 'cat contact.txt']
+
+/** How long a visitor can sit still before the shell offers a suggestion. */
+const IDLE_MS = 4000
 
 export function Terminal() {
   const { cwd, lines, history, submit, root } = useShell()
@@ -14,11 +19,24 @@ export function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
 
+  // Once someone has interacted they have understood the prompt, so the
+  // suggestion retires for good rather than reappearing mid-thought.
+  const [engaged, setEngaged] = useState(false)
+  const [idle, setIdle] = useState(false)
+
+  useEffect(() => {
+    const id = setTimeout(() => setIdle(true), IDLE_MS)
+    return () => clearTimeout(id)
+  }, [])
+
+  const ghost = useGhostTyping(idle && !engaged && input === '', SUGGESTIONS)
+
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
   }, [lines])
 
   function run(command: string) {
+    setEngaged(true)
     submit(command)
     setInput('')
     setHistoryIndex(null)
@@ -26,6 +44,16 @@ export function Terminal() {
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    // Accept the ghost suggestion the way fish and zsh-autosuggestions do.
+    // Runs the complete command, never the half-typed frame on screen.
+    if (ghost.full && (event.key === 'ArrowRight' || event.key === 'Tab')) {
+      event.preventDefault()
+      run(ghost.full)
+      return
+    }
+
+    setEngaged(true)
+
     if (event.key === 'Enter') {
       run(input)
       return
@@ -91,6 +119,7 @@ export function Terminal() {
               ref={inputRef}
               className="input"
               value={input}
+              placeholder={ghost.shown}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={onKeyDown}
               autoComplete="off"
@@ -100,6 +129,7 @@ export function Terminal() {
               aria-label="terminal input"
               autoFocus
             />
+            {ghost.shown ? <span className="ghost-hint">&rarr; to run</span> : null}
           </div>
 
           <div ref={endRef} />

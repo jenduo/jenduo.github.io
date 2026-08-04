@@ -271,6 +271,21 @@ body {
   outline: none;
 }
 
+/* The idle suggestion. Dim enough to read as a hint rather than as text the
+   visitor has already typed. */
+.input::placeholder {
+  color: var(--fg-dim);
+  opacity: 1;
+}
+
+.ghost-hint {
+  flex: 0 0 auto;
+  padding-left: 2ch;
+  color: var(--fg-dim);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
 /* Chips are a phone affordance: typing `cd projects/` on a phone keyboard is a
    reason to leave. Hidden on pointer-capable widths. */
 .chips {

@@ -95,6 +95,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* iOS Safari zooms the page whenever a focused input computes below 16px, which
+   is what made tapping the prompt jump the viewport. Raising the whole terminal
+   to 16px removes the cause, so pinch-zoom stays available to anyone who needs
+   it: user-scalable=no would break that, and current iOS ignores it regardless.
+   The input inherits this, so it must be the body that changes, not just .input,
+   or typed text would end up larger than the output above it. */
+@media (max-width: 680px) {
+  body {
+    font-size: 16px;
+  }
+}
+
 #root {
   display: flex;
   flex-direction: column;

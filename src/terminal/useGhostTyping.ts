@@ -34,9 +34,17 @@ export function useGhostTyping(active: boolean, suggestions: string[]): GhostFra
 
   useEffect(() => {
     if (!animating) return
+
+    // Restart at the first suggestion every time this arms or the suggestion set
+    // changes. Without this the index carries over, so walking into a directory
+    // resumed the cycle wherever it happened to be and the last suggestion could
+    // appear first. Depends on `frames`, not `frames.length`: a different set of
+    // the same size still needs to restart.
+    setIndex(0)
+
     const id = setInterval(() => setIndex((n) => (n + 1) % frames.length), TICK_MS)
     return () => clearInterval(id)
-  }, [animating, frames.length])
+  }, [animating, frames])
 
   if (!active) return NONE
   if (reduced) {

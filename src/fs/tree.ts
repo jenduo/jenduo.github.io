@@ -98,22 +98,22 @@ Feb 2021 to Dec 2023 · Second Class Honours (79%)
 
 const resume = `Jennifer Duong, curriculum vitae.
 
-  open this file to read it.
+  type 'open resume' to read it.
 `
 
 const email = `jenniferduong.aa@gmail.com
 
-  open this file to start an email.
+  type 'open email' to send me an email.
 `
 
 const github = `github.com/jenduo
 
-  open this file to go there.
+  type 'open github' to see my repos.
 `
 
 const linkedin = `linkedin.com/in/jennifer-duong-b78933257
 
-  open this file to go there.
+  type 'open linkedin' to open my LinkedIn.
 `
 
 const investorhub = `# InvestorHub

@@ -13,6 +13,9 @@ const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contac
 /** How long a visitor can sit still before the shell offers a suggestion. */
 const IDLE_MS = 1200
 
+/** Must match the cd-glitch keyframes in terminal.css. */
+const GLITCH_MS = 260
+
 export function Terminal() {
   const { cwd, lines, history, submit, root } = useShell()
   const [input, setInput] = useState('')
@@ -24,6 +27,7 @@ export function Terminal() {
   // suggestion retires for good rather than reappearing mid-thought.
   const [engaged, setEngaged] = useState(false)
   const [idle, setIdle] = useState(false)
+  const [glitching, setGlitching] = useState(false)
 
   useEffect(() => {
     const id = setTimeout(() => setIdle(true), IDLE_MS)
@@ -37,6 +41,17 @@ export function Terminal() {
   }, [])
 
   useEffect(scrollToPrompt, [lines, scrollToPrompt])
+
+  // Keyed off cwd rather than the cd command, so clicking a directory in `ls`
+  // output glitches exactly the same as typing the command.
+  const firstCwd = useRef(cwd)
+  useEffect(() => {
+    if (cwd === firstCwd.current) return
+    firstCwd.current = cwd
+    setGlitching(true)
+    const id = setTimeout(() => setGlitching(false), GLITCH_MS)
+    return () => clearTimeout(id)
+  }, [cwd])
 
   // Sizes the shell to the visible area, so an open keyboard shrinks the
   // terminal instead of covering the prompt.
@@ -131,7 +146,12 @@ export function Terminal() {
 
         {/* The input line lives inside the scroll flow so the prompt always sits
             directly under the last line of output, like a real terminal. */}
-        <div className="scrollback" role="log" aria-live="polite" onClick={focusInput}>
+        <div
+          className={`scrollback${glitching ? ' glitching' : ''}`}
+          role="log"
+          aria-live="polite"
+          onClick={focusInput}
+        >
           {lines.map((line, index) => (
             <Line key={index} line={line} onRun={run} />
           ))}

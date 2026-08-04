@@ -86,4 +86,5 @@ describe('cd', () => {
     expect(result.cwd).toBeUndefined()
     expect(result.lines[0]).toMatchObject({ tone: 'error' })
   })
+
 })

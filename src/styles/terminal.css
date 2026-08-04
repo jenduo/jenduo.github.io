@@ -237,6 +237,48 @@ body {
   cursor: text;
 }
 
+/* Signal interference on changing directory. Stepped rather than eased, because
+   a smooth tween reads as a slide and the point is that it looks broken for a
+   moment. Applied to the scrollback rather than the whole terminal so the
+   scanlines stay put and the window frame does not move. */
+@keyframes cd-glitch {
+  0% {
+    transform: none;
+  }
+
+  20% {
+    transform: translate3d(-4px, 0, 0) skewX(-1.4deg);
+    filter: brightness(1.3);
+  }
+
+  40% {
+    transform: translate3d(4px, 0, 0) skewX(1deg);
+  }
+
+  60% {
+    transform: translate3d(-2px, 1px, 0);
+    filter: brightness(1.15);
+  }
+
+  80% {
+    transform: translate3d(2px, 0, 0) skewX(0.5deg);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+.scrollback.glitching {
+  animation: cd-glitch 260ms steps(1, end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollback.glitching {
+    animation: none;
+  }
+}
+
 .line {
   white-space: pre-wrap;
   word-break: break-word;

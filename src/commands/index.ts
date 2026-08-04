@@ -15,7 +15,7 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'pwd', usage: 'pwd', summary: 'where am I', run: pwd },
   { name: 'whoami', usage: 'whoami', summary: 'who am I', run: whoami },
   { name: 'history', usage: 'history', summary: 'what I have typed', run: history },
-  { name: 'clear', usage: 'clear', summary: 'wipe the screen', run: clear },
+  { name: 'clear', usage: 'clear', summary: 'clear the output', run: clear },
   { name: 'sudo', usage: 'sudo', summary: '', hidden: true, run: sudo },
   { name: 'rm', usage: 'rm', summary: '', hidden: true, run: rm },
   { name: 'exit', usage: 'exit', summary: '', hidden: true, run: exit },

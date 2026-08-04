@@ -3,6 +3,7 @@ import { runCommand } from '../commands/index'
 import type { Line } from '../commands/types'
 import { root } from '../fs/tree'
 import { BOOT } from './boot'
+import { nextLines } from './scrollback'
 
 interface ShellState {
   cwd: string
@@ -27,7 +28,7 @@ export function useShell() {
 
     const next: ShellState = {
       cwd: result.cwd ?? current.cwd,
-      lines: result.clear ? [] : [...current.lines, ...result.lines],
+      lines: nextLines(current.lines, result, BOOT),
       history: input.trim() ? [...current.history, input] : current.history,
     }
     stateRef.current = next

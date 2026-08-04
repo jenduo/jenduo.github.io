@@ -32,17 +32,14 @@ const education = `University of Melbourne
 Masters of Computer Science, Distributed Computing
 Feb 2024 to Dec 2025 · First Class Honours (83%)
 
-  Cluster and Cloud Computing · AI Planning for Autonomy ·
-  Distributed Systems · Mobile Computing
-
 University of Melbourne
 Bachelor of Science, Computer and Software Systems
 Feb 2021 to Dec 2023 · Second Class Honours (79%)
 `
 
-const resume = `[TODO: no PDF is published yet, so 'open resume.pdf' says so rather than
-sending anyone to a 404. Drop the file at public/resume.pdf and set
-href: '/resume.pdf' on this node to switch it on.]
+const resume = `Jennifer Duong, curriculum vitae.
+
+  open this file to read it.
 `
 
 const email = `jenniferduong.aa@gmail.com
@@ -178,7 +175,7 @@ export const root: Dir = {
   children: [
     { kind: 'file', name: 'skills', body: skills },
     { kind: 'file', name: 'education', body: education },
-    { kind: 'file', name: 'resume.pdf', body: resume },
+    { kind: 'file', name: 'resume.pdf', body: resume, href: '/resume.pdf' },
     {
       kind: 'dir',
       name: 'contact',

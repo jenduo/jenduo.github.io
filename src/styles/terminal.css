@@ -278,11 +278,19 @@ body {
   opacity: 1;
 }
 
+/* Keycap for the accept key. A <kbd> so it reads as a key press rather than as
+   a stray word in the output. */
 .ghost-hint {
   flex: 0 0 auto;
-  padding-left: 2ch;
+  align-self: center;
+  margin-left: 2ch;
+  padding: 1px 7px 2px;
+  border: 1px solid var(--fg-dim);
+  border-radius: 4px;
   color: var(--fg-dim);
-  font-size: 12px;
+  font: 11px var(--mono);
+  letter-spacing: 0.03em;
+  text-shadow: none;
   white-space: nowrap;
 }
 

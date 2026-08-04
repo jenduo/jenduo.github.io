@@ -138,7 +138,7 @@ export function Terminal() {
               aria-label="terminal input"
               autoFocus
             />
-            {ghost.shown ? <span className="ghost-hint">tab to run</span> : null}
+            {ghost.shown ? <kbd className="ghost-hint">tab</kbd> : null}
           </div>
 
           <div ref={endRef} />

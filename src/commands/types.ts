@@ -21,6 +21,14 @@ export type Line =
   | { type: 'banner'; rows: string[] }
   /** Path names rendered as clickable buttons. */
   | { type: 'paths'; entries: PathEntry[] }
+  /** A labelled row of technologies, each with an optional logo. */
+  | { type: 'icons'; label: string; items: IconItem[] }
+
+export interface IconItem {
+  name: string
+  /** SVG path data on a 24x24 viewBox. Absent for anything with no logo. */
+  path?: string
+}
 
 export interface ShellContext {
   root: Dir

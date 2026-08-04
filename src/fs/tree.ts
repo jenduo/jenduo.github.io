@@ -1,3 +1,5 @@
+import type { Line } from '../commands/types'
+import { ICONS } from './icons'
 import type { Dir } from './types'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -20,13 +22,70 @@ export const intro = `  software engineer in Melbourne, currently at InvestorHub
 
   Try:  ls experience     ls publications     cat skills`
 
-const skills = `languages    Python · TypeScript · JavaScript · Elixir · Java
-frontend     React · Next.js · Tailwind CSS · HTML/CSS
-backend      Node.js · FastAPI · GraphQL
-data         PostgreSQL · MySQL · Databricks
-infra        GCP · Docker · Git · Posit Connect
-hpc          Spartan (SLURM)
-`
+/**
+ * Skill rows carry logos, so `skills` ships pre-built lines as well as a plain
+ * body. The body is the fallback and keeps the file readable as text.
+ */
+const SKILL_ROWS: { label: string; items: [string, string?][] }[] = [
+  {
+    label: 'languages',
+    items: [
+      ['Python', 'python'],
+      ['TypeScript', 'typescript'],
+      ['JavaScript', 'javascript'],
+      ['Elixir', 'elixir'],
+      ['Java', 'java'],
+    ],
+  },
+  {
+    label: 'frontend',
+    items: [
+      ['React', 'react'],
+      ['Next.js', 'nextjs'],
+      ['Tailwind', 'tailwind'],
+      ['HTML', 'html'],
+      ['CSS', 'css'],
+    ],
+  },
+  {
+    label: 'backend',
+    items: [
+      ['Node.js', 'node'],
+      ['FastAPI', 'fastapi'],
+      ['GraphQL', 'graphql'],
+    ],
+  },
+  {
+    label: 'data',
+    items: [
+      ['PostgreSQL', 'postgresql'],
+      ['MySQL', 'mysql'],
+      ['Databricks', 'databricks'],
+    ],
+  },
+  {
+    label: 'infra',
+    items: [
+      ['GCP', 'gcp'],
+      ['Docker', 'docker'],
+      ['Git', 'git'],
+      ['Posit Connect', 'posit'],
+    ],
+  },
+  // Slurm has no logo in simple-icons, so this row is deliberately bare.
+  { label: 'hpc', items: [['Spartan (SLURM)', undefined]] },
+]
+
+const skillLines: Line[] = SKILL_ROWS.map((row) => ({
+  type: 'icons',
+  label: row.label,
+  items: row.items.map(([name, icon]) => ({ name, path: icon ? ICONS[icon] : undefined })),
+}))
+
+/** Plain-text form, kept so the file still reads as a file. */
+const skills = SKILL_ROWS.map(
+  (row) => row.label.padEnd(13) + row.items.map(([name]) => name).join(' \u00b7 '),
+).join('\n')
 
 const education = `University of Melbourne
 Masters of Computer Science, Distributed Computing
@@ -173,7 +232,7 @@ export const root: Dir = {
   kind: 'dir',
   name: '',
   children: [
-    { kind: 'file', name: 'skills', body: skills },
+    { kind: 'file', name: 'skills', body: skills, lines: skillLines },
     { kind: 'file', name: 'education', body: education },
     { kind: 'file', name: 'resume.pdf', body: resume, href: '/resume.pdf' },
     {

@@ -34,6 +34,26 @@ export function Line({ line, onRun }: Props) {
     )
   }
 
+  if (line.type === 'icons') {
+    return (
+      <div className="line icons">
+        <span className="icons-label">{line.label}</span>
+        {line.items.map((item) => (
+          <span className="icons-item" key={item.name}>
+            {item.path ? (
+              // Decorative: the name sits right beside it, so announcing the
+              // logo as well would just repeat the word.
+              <svg className="icons-glyph" viewBox="0 0 24 24" aria-hidden="true">
+                <path d={item.path} />
+              </svg>
+            ) : null}
+            {item.name}
+          </span>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div className="line entries">
       {line.entries.map((entry) => (

@@ -235,6 +235,51 @@ body {
   gap: 0 1.5ch;
 }
 
+/* Logo rows. These are the one place the page leaves the character grid, so
+   alignment comes from flexbox rather than from padded strings. */
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15em 1.6ch;
+}
+
+.icons-label {
+  flex: 0 0 11ch;
+  color: var(--fg-dim);
+}
+
+.icons-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6ch;
+  white-space: nowrap;
+}
+
+.icons-glyph {
+  width: 1.05em;
+  height: 1.05em;
+  /* Takes the terminal's colour instead of the brand's. */
+  fill: var(--accent);
+  flex: 0 0 auto;
+}
+
+/* The label cannot hold its column once a row wraps, so on narrow screens it
+   becomes a heading above its own row instead of a ragged first item. */
+@media (max-width: 560px) {
+  .icons {
+    display: block;
+  }
+
+  .icons-label {
+    display: block;
+  }
+
+  .icons-item {
+    margin-right: 1.6ch;
+  }
+}
+
 .entry {
   padding: 0;
   border: 0;

@@ -10,6 +10,7 @@ export const cat: Command = (args, ctx) => {
   const node = resolve(ctx.root, ctx.cwd, target)
   if (!node) return ok(error(`cat: ${target}: No such file or directory`))
   if (node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
+  if (node.lines) return { lines: node.lines }
   return { lines: node.body.split('\n').map((line) => text(line)) }
 }
 

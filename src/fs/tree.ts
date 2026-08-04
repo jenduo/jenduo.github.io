@@ -238,7 +238,15 @@ export const root: Dir = {
     {
       kind: 'dir',
       name: 'contact',
+      // Jen's preferred order, not alphabetical.
+      keepOrder: true,
       children: [
+        {
+          kind: 'file',
+          name: 'linkedin',
+          body: linkedin,
+          href: 'https://www.linkedin.com/in/jennifer-duong-b78933257/',
+        },
         {
           kind: 'file',
           name: 'email',
@@ -246,12 +254,6 @@ export const root: Dir = {
           href: 'mailto:jenniferduong.aa@gmail.com',
         },
         { kind: 'file', name: 'github', body: github, href: 'https://github.com/jenduo' },
-        {
-          kind: 'file',
-          name: 'linkedin',
-          body: linkedin,
-          href: 'https://www.linkedin.com/in/jennifer-duong-b78933257/',
-        },
       ],
     },
     {

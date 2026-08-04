@@ -43,6 +43,7 @@ describe('BOOT', () => {
       'multifidelity-optimisation',
       'cho-fed-batch-modelling',
     ])
+    expect(listing('contact')).toEqual(['linkedin', 'email', 'github'])
   })
 
   it('shows the banner and the greeting', () => {

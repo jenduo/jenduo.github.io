@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Drawn as shapes, not text: favicons render in a context where webfonts
+       are not guaranteed, so a <text> glyph can fall back to anything.
+       Kept deliberately chunky because the real display size is 16px. -->
+  <rect width="32" height="32" rx="7" fill="#0b0709" />
+  <!-- prompt chevron -->
+  <path
+    d="M7 9.5l6.5 6.5L7 22.5"
+    fill="none"
+    stroke="#ff3d8a"
+    stroke-width="4.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- cursor -->
+  <rect x="16.5" y="18.6" width="9.5" height="4" rx="2" fill="#ff3d8a" />
+</svg>

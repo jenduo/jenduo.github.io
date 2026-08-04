@@ -1,17 +1,20 @@
 :root {
-  --bg: #0b0709;
+  --bg: #070507;
   --fg: #ffa6c9;
   --fg-dim: #8a5f72;
   --accent: #ff3d8a;
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
-  /* Compared 0.04 / 0.10 / 0.16 / 0.24 in-browser. Above ~0.2 it bands. */
-  --scanline: rgba(255, 61, 138, 0.16);
-  /* Window chrome, desktop only. --desktop sits behind the window. */
-  --desktop: #050304;
-  --chrome: #150d11;
-  --chrome-border: #2e1c24;
+  /* The dominant source of background luminance: every visible line lifts the
+     whole field. 0.16 washed it out, 0.09 keeps the CRT texture readable while
+     letting the black stay black. */
+  --scanline: rgba(255, 61, 138, 0.09);
+  /* Window chrome, desktop only. --desktop must stay darker than --bg or the
+     window stops reading as a window sitting on a surface. */
+  --desktop: #030203;
+  --chrome: #120b0f;
+  --chrome-border: #291a21;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 

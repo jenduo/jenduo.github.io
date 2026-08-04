@@ -8,6 +8,10 @@
   --glow: rgba(255, 61, 138, 0.35);
   /* Compared 0.04 / 0.10 / 0.16 / 0.24 in-browser. Above ~0.2 it bands. */
   --scanline: rgba(255, 61, 138, 0.16);
+  /* Window chrome, desktop only. --desktop sits behind the window. */
+  --desktop: #050304;
+  --chrome: #150d11;
+  --chrome-border: #2e1c24;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -30,15 +34,110 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile is full bleed: no chrome, no gutter, the shell simply is the page.
+   The window treatment arrives at 680px, the same breakpoint the ASCII banner
+   uses, so one width switches the whole desktop presentation. */
+.window {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--bg);
+}
+
+.titlebar {
+  display: none;
+}
+
 .terminal {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  flex: 1;
+  min-height: 0;
   padding: clamp(16px, 4vw, 40px);
   overflow: hidden;
+}
+
+@media (min-width: 680px) {
+  body {
+    background: var(--desktop);
+  }
+
+  #root {
+    padding: 30px;
+  }
+
+  .window {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid var(--chrome-border);
+    border-radius: 10px;
+    box-shadow: 0 24px 70px rgb(0 0 0 / 65%);
+    /* Clips the terminal's square corners to the window's rounded ones. */
+    overflow: hidden;
+  }
+
+  .titlebar {
+    display: flex;
+    align-items: stretch;
+    flex: 0 0 auto;
+    height: 36px;
+    background: var(--chrome);
+    border-bottom: 1px solid var(--chrome-border);
+    user-select: none;
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    min-width: 0;
+    max-width: 60%;
+    padding: 0 14px;
+    background: var(--bg);
+    border-right: 1px solid var(--chrome-border);
+    font-size: 12.5px;
+  }
+
+  .tab-icon {
+    flex: 0 0 auto;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .tab-label {
+    overflow: hidden;
+    color: var(--fg-dim);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+  }
+
+  .ctl {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 100%;
+    color: var(--fg-dim);
+    font-size: 11px;
+  }
+
+  .ctl-close {
+    font-size: 12px;
+  }
 }
 
 .scrollback {

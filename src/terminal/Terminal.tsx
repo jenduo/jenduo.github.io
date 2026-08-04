@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { displayPath } from '../fs/resolve'
 import { complete } from './complete'
 import { Line } from './Line'
+import { TitleBar } from './TitleBar'
 import { useShell } from './useShell'
 
 const CHIPS = ['help', 'ls', 'tree', 'cat about.txt', 'cd projects', 'cat contact.txt']
@@ -67,47 +68,51 @@ export function Terminal() {
   }
 
   return (
-    <main className="terminal">
-      <div className="scanlines" aria-hidden="true" />
+    <div className="window">
+      <TitleBar cwd={cwd} />
 
-      {/* The input line lives inside the scroll flow so the prompt always sits
-          directly under the last line of output, like a real terminal. */}
-      <div className="scrollback" role="log" aria-live="polite" onClick={focusInput}>
-        {lines.map((line, index) => (
-          <Line key={index} line={line} onRun={run} />
-        ))}
+      <main className="terminal">
+        <div className="scanlines" aria-hidden="true" />
 
-        <div className="inputline">
-          <label className="prompt" htmlFor="jsh-input">
-            {displayPath(cwd)}
-          </label>
-          <span className="sigil">$</span>
-          <input
-            id="jsh-input"
-            ref={inputRef}
-            className="input"
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            onKeyDown={onKeyDown}
-            autoComplete="off"
-            autoCapitalize="off"
-            autoCorrect="off"
-            spellCheck={false}
-            aria-label="terminal input"
-            autoFocus
-          />
+        {/* The input line lives inside the scroll flow so the prompt always sits
+            directly under the last line of output, like a real terminal. */}
+        <div className="scrollback" role="log" aria-live="polite" onClick={focusInput}>
+          {lines.map((line, index) => (
+            <Line key={index} line={line} onRun={run} />
+          ))}
+
+          <div className="inputline">
+            <label className="prompt" htmlFor="jsh-input">
+              {displayPath(cwd)}
+            </label>
+            <span className="sigil">$</span>
+            <input
+              id="jsh-input"
+              ref={inputRef}
+              className="input"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={onKeyDown}
+              autoComplete="off"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              aria-label="terminal input"
+              autoFocus
+            />
+          </div>
+
+          <div ref={endRef} />
         </div>
 
-        <div ref={endRef} />
-      </div>
-
-      <div className="chips" aria-label="example commands">
-        {CHIPS.map((chip) => (
-          <button key={chip} type="button" className="chip" onClick={() => run(chip)}>
-            {chip}
-          </button>
-        ))}
-      </div>
-    </main>
+        <div className="chips" aria-label="example commands">
+          {CHIPS.map((chip) => (
+            <button key={chip} type="button" className="chip" onClick={() => run(chip)}>
+              {chip}
+            </button>
+          ))}
+        </div>
+      </main>
+    </div>
   )
 }

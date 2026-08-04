@@ -169,6 +169,12 @@ body {
   display: none;
 }
 
+/* Signals the banner is interactive without a pointer cursor, which would imply
+   it is a link. */
+.banner {
+  width: fit-content;
+}
+
 /* 680px is the narrowest viewport where 67 columns still fits at body size. */
 @media (min-width: 680px) {
   .line.art {

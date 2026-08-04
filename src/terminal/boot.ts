@@ -1,5 +1,5 @@
 import type { Line } from '../commands/types'
-import { art, hero, text } from '../commands/types'
+import { hero, text } from '../commands/types'
 
 // figlet -f standard "hi it's me, Jen :)", 67 columns, smiley included.
 // Shown on viewports wide enough to hold it; below 680px terminal.css swaps in
@@ -14,10 +14,10 @@ const BANNER = [
 ]
 
 export const BOOT: Line[] = [
-  ...BANNER.map(art),
+  { type: 'banner', rows: BANNER },
   hero("hi it's me, Jen :)"),
   text(''),
-  text('Jennifer Duong, Melbourne-based full-stack engineer', 'bright'),
+  text('Jennifer Duong, Melbourne based full-stack engineer', 'bright'),
   text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
   // Kept short so it does not wrap at phone width.

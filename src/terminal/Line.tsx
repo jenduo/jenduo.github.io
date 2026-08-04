@@ -1,3 +1,4 @@
+import { Banner } from './Banner'
 import type { Line as LineData } from '../commands/types'
 import { displayPath } from '../fs/resolve'
 
@@ -21,13 +22,13 @@ export function Line({ line, onRun }: Props) {
     )
   }
 
+  if (line.type === 'banner') {
+    return <Banner rows={line.rows} />
+  }
+
   if (line.type === 'text') {
     return (
-      <div
-        className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}
-        // Art is decorative; the hero line carries the same words for readers.
-        aria-hidden={line.variant === 'art' || undefined}
-      >
+      <div className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}>
         {line.text || ' '}
       </div>
     )

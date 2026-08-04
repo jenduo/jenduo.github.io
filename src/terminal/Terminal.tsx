@@ -44,11 +44,26 @@ export function Terminal() {
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    // Accept the ghost suggestion the way fish and zsh-autosuggestions do.
-    // Runs the complete command, never the half-typed frame on screen.
-    if (ghost.full && (event.key === 'ArrowRight' || event.key === 'Tab')) {
-      event.preventDefault()
-      run(ghost.full)
+    if (event.key === 'Tab') {
+      // Accept the idle suggestion. It only ever shows on an empty input, so
+      // this cannot shadow completion. Runs the complete command, never the
+      // half-typed frame currently on screen.
+      if (ghost.full) {
+        event.preventDefault()
+        run(ghost.full)
+        return
+      }
+
+      const completed = complete(input, root, cwd)
+      if (completed !== input) {
+        event.preventDefault()
+        setEngaged(true)
+        setInput(completed)
+      }
+
+      // Nothing to accept and nothing to complete, so let Tab do its normal job
+      // and move focus. Swallowing it unconditionally traps keyboard-only
+      // visitors in the input with no way out.
       return
     }
 
@@ -56,12 +71,6 @@ export function Terminal() {
 
     if (event.key === 'Enter') {
       run(input)
-      return
-    }
-
-    if (event.key === 'Tab') {
-      event.preventDefault()
-      setInput((current) => complete(current, root, cwd))
       return
     }
 
@@ -129,7 +138,7 @@ export function Terminal() {
               aria-label="terminal input"
               autoFocus
             />
-            {ghost.shown ? <span className="ghost-hint">&rarr; to run</span> : null}
+            {ghost.shown ? <span className="ghost-hint">tab to run</span> : null}
           </div>
 
           <div ref={endRef} />

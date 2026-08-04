@@ -26,6 +26,12 @@ export interface FileNode {
   lines?: Line[]
   /** When set, `open` navigates here. */
   href?: string
+  /**
+   * What `copy` should put on the clipboard, when the whole body is not it.
+   * `copy email` should yield the address, not the address plus the prose
+   * telling you what to do with it.
+   */
+  copyText?: string
 }
 
 export type FsNode = Dir | FileNode

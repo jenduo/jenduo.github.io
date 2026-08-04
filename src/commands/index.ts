@@ -1,5 +1,6 @@
 import { cat, open, tree } from './content'
 import { colour } from './colour'
+import { copy } from './copy'
 import { makeHelp } from './help'
 import { clear, exit, history, rm, sudo, whoami } from './misc'
 import { cd, ls, pwd } from './nav'
@@ -13,6 +14,7 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'cat', usage: 'cat <file>', summary: 'read a file', run: cat },
   { name: 'tree', usage: 'tree [path]', summary: 'see everything at once', run: tree },
   { name: 'open', usage: 'open <file>', summary: 'open its real link', run: open },
+  { name: 'copy', usage: 'copy <file>', summary: 'copy it to the clipboard', run: copy },
   { name: 'pwd', usage: 'pwd', summary: 'where am I', run: pwd },
   { name: 'whoami', usage: 'whoami', summary: 'the short version of me', run: whoami },
   { name: 'history', usage: 'history', summary: 'what I have typed', run: history },

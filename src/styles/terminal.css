@@ -83,7 +83,9 @@
 html,
 body,
 #root {
-  height: 100%;
+  /* --app-height tracks the visual viewport (see useViewportHeight); 100dvh is
+     the pre-JS fallback. Plain 100% would ignore an open mobile keyboard. */
+  height: var(--app-height, 100dvh);
 }
 
 body {

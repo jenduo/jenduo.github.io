@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { displayPath } from '../fs/resolve'
 import { complete } from './complete'
 import { SUGGESTIONS } from './ghost'
@@ -6,6 +6,7 @@ import { Line } from './Line'
 import { TitleBar } from './TitleBar'
 import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
+import { useViewportHeight } from './useViewportHeight'
 
 const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contact']
 
@@ -31,16 +32,33 @@ export function Terminal() {
 
   const ghost = useGhostTyping(idle && !engaged && input === '', SUGGESTIONS)
 
-  useEffect(() => {
+  const scrollToPrompt = useCallback(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
-  }, [lines])
+  }, [])
+
+  useEffect(scrollToPrompt, [lines, scrollToPrompt])
+
+  // Sizes the shell to the visible area, so an open keyboard shrinks the
+  // terminal instead of covering the prompt.
+  useViewportHeight(scrollToPrompt)
+
+  /**
+   * Touch devices open a keyboard whenever an input takes focus, so tapping a
+   * filename or the run button would summon one unasked. Only a device with a
+   * real pointer gets the caret handed back.
+   */
+  function refocusIfPointer() {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      inputRef.current?.focus()
+    }
+  }
 
   function run(command: string) {
     setEngaged(true)
     submit(command)
     setInput('')
     setHistoryIndex(null)
-    inputRef.current?.focus()
+    refocusIfPointer()
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -101,7 +119,7 @@ export function Terminal() {
       mid-selection, in which case stealing focus would fight a copy. */
   function focusInput() {
     if (window.getSelection()?.toString()) return
-    inputRef.current?.focus()
+    refocusIfPointer()
   }
 
   return (

@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { SUGGESTIONS, ghostFrames } from './ghost'
+import { SUGGESTIONS, ghostFrames, suggestionsFor } from './ghost'
 import { COMMANDS } from '../commands/index'
+import { fixtureRoot } from '../fs/fixture'
+import { resolve } from '../fs/resolve'
+import type { Dir } from '../fs/types'
+
+const dirAt = (cwd: string): Dir => {
+  const node = resolve(fixtureRoot, cwd, '.')
+  if (!node || node.kind !== 'dir') throw new Error(`no directory at ${cwd}`)
+  return node
+}
 
 describe('SUGGESTIONS', () => {
   // The suggestion is one keypress from running, so a non-command would greet a
@@ -15,6 +24,54 @@ describe('SUGGESTIONS', () => {
 
   it('is not empty', () => {
     expect(SUGGESTIONS.length).toBeGreaterThan(0)
+  })
+})
+
+describe('suggestionsFor', () => {
+  const names = COMMANDS.map((command) => command.name)
+
+  it('keeps the curated tour at the root rather than listing the home directory', () => {
+    expect(suggestionsFor(dirAt('/'), '/')).toEqual(SUGGESTIONS)
+  })
+
+  it('names real contents inside a directory', () => {
+    const suggestions = suggestionsFor(dirAt('/alpha'), '/alpha')
+    expect(suggestions).toContain('cat apple')
+    expect(suggestions).toContain('cd beta')
+  })
+
+  // Same rule as the root list: one keypress runs it, so it must be runnable.
+  it('only ever suggests real commands', () => {
+    for (const cwd of ['/', '/alpha', '/alpha/beta', '/mid', '/zulu']) {
+      for (const suggestion of suggestionsFor(dirAt(cwd), cwd)) {
+        expect(names, `${cwd}: ${suggestion}`).toContain(suggestion.split(' ')[0])
+      }
+    }
+  })
+
+  it('offers a way out of a directory', () => {
+    expect(suggestionsFor(dirAt('/alpha'), '/alpha')).toContain('cd ..')
+  })
+
+  it('offers only the way out of an empty directory', () => {
+    expect(suggestionsFor(dirAt('/mid'), '/mid')).toEqual(['cd ..'])
+  })
+
+  it('caps how many it offers, so a big directory does not drone on', () => {
+    const many: Dir = {
+      kind: 'dir',
+      name: 'many',
+      children: Array.from({ length: 12 }, (_, i) => ({
+        kind: 'file' as const,
+        name: `f${i}`,
+        body: '',
+      })),
+    }
+    expect(suggestionsFor(many, '/many').length).toBeLessThanOrEqual(4)
+  })
+
+  it('falls back to the curated list when the directory cannot be resolved', () => {
+    expect(suggestionsFor(null, '/somewhere')).toEqual(SUGGESTIONS)
   })
 })
 

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { displayPath } from '../fs/resolve'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { displayPath, resolve } from '../fs/resolve'
 import { complete } from './complete'
-import { SUGGESTIONS } from './ghost'
+import { suggestionsFor } from './ghost'
 import { Line } from './Line'
 import { TitleBar } from './TitleBar'
 import { useGhostTyping } from './useGhostTyping'
@@ -20,17 +20,25 @@ export function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
 
-  // Once someone has interacted they have understood the prompt, so the
-  // suggestion retires for good rather than reappearing mid-thought.
-  const [engaged, setEngaged] = useState(false)
+  // Typing dismisses the suggestion, but only until the next directory change:
+  // a new directory has different things worth trying, so it is worth offering
+  // again rather than retiring for the whole visit.
+  const [dismissed, setDismissed] = useState(false)
   const [idle, setIdle] = useState(false)
 
   useEffect(() => {
+    setDismissed(false)
+    setIdle(false)
     const id = setTimeout(() => setIdle(true), IDLE_MS)
     return () => clearTimeout(id)
-  }, [])
+  }, [cwd])
 
-  const ghost = useGhostTyping(idle && !engaged && input === '', SUGGESTIONS)
+  const suggestions = useMemo(() => {
+    const here = resolve(root, cwd, '.')
+    return suggestionsFor(here && here.kind === 'dir' ? here : null, cwd)
+  }, [root, cwd])
+
+  const ghost = useGhostTyping(idle && !dismissed && input === '', suggestions)
 
   const scrollToPrompt = useCallback(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
@@ -54,7 +62,7 @@ export function Terminal() {
   }
 
   function run(command: string) {
-    setEngaged(true)
+    setDismissed(true)
     submit(command)
     setInput('')
     setHistoryIndex(null)
@@ -75,7 +83,7 @@ export function Terminal() {
       const completed = complete(input, root, cwd)
       if (completed !== input) {
         event.preventDefault()
-        setEngaged(true)
+        setDismissed(true)
         setInput(completed)
       }
 
@@ -85,7 +93,7 @@ export function Terminal() {
       return
     }
 
-    setEngaged(true)
+    setDismissed(true)
 
     if (event.key === 'Enter') {
       run(input)

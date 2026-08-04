@@ -3,6 +3,14 @@ export interface Dir {
   kind: 'dir'
   name: string
   children: FsNode[]
+  /**
+   * Keep `children` in the order they are written instead of sorting them.
+   *
+   * Alphabetical is the right default for a filesystem, but meaningless for
+   * things with a chronology: sorting jobs by name buries the current one in
+   * the middle. Directories that opt in are authored newest first.
+   */
+  keepOrder?: boolean
 }
 
 export interface FileNode {

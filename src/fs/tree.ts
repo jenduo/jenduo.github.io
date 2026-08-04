@@ -257,6 +257,8 @@ export const root: Dir = {
     {
       kind: 'dir',
       name: 'experience',
+      // Newest first, as a CV reads. Alphabetical would bury the current job.
+      keepOrder: true,
       children: [
         { kind: 'file', name: 'investorhub', body: investorhub },
         { kind: 'file', name: 'unimelb-csl', body: unimelbCsl },
@@ -266,6 +268,8 @@ export const root: Dir = {
     {
       kind: 'dir',
       name: 'publications',
+      // Newest first, same reasoning as experience.
+      keepOrder: true,
       children: [
         {
           kind: 'file',

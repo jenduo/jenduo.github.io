@@ -1,4 +1,4 @@
-import { sortNodes } from '../commands/nav'
+import { childrenOf } from '../commands/nav'
 import type { Line, PathEntry } from '../commands/types'
 import { hero, text } from '../commands/types'
 import { root } from '../fs/tree'
@@ -21,7 +21,7 @@ const BANNER = [
  * root, and it silently fell out of date the moment the tree changed, hiding
  * `education` and `resume.pdf` from anyone who never ran `ls`.
  */
-const ROOT_ENTRIES: PathEntry[] = sortNodes(root.children).map((child) => ({
+const ROOT_ENTRIES: PathEntry[] = childrenOf(root).map((child) => ({
   name: child.name,
   kind: child.kind,
   path: `/${child.name}`,

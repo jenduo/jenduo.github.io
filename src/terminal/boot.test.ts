@@ -29,6 +29,22 @@ describe('BOOT', () => {
     }
   })
 
+  // Sorting these alphabetically would bury the current job in the middle and
+  // put the older paper first, so both directories are authored newest first.
+  it('lists experience and publications newest first, not alphabetically', () => {
+    const listing = (path: string) => {
+      const [line] = ls([path], { root, cwd: '/', history: [] }).lines
+      if (line.type !== 'paths') throw new Error(`expected paths for ${path}`)
+      return line.entries.map((entry) => entry.name)
+    }
+
+    expect(listing('experience')).toEqual(['investorhub', 'unimelb-csl', 'allmediadesk'])
+    expect(listing('publications')).toEqual([
+      'multifidelity-optimisation',
+      'cho-fed-batch-modelling',
+    ])
+  })
+
   it('shows the banner and the greeting', () => {
     expect(BOOT.some((line) => line.type === 'banner')).toBe(true)
     expect(BOOT.some((line) => line.type === 'text' && line.variant === 'hero')).toBe(true)

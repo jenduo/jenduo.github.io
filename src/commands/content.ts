@@ -1,6 +1,6 @@
 import { normalize, resolve } from '../fs/resolve'
 import type { Dir } from '../fs/types'
-import { sortNodes } from './nav'
+import { childrenOf } from './nav'
 import type { Command, Line } from './types'
 import { error, ok, text } from './types'
 
@@ -20,7 +20,7 @@ export const cat: Command = (args, ctx) => {
  */
 function walk(dir: Dir, dirPath: string, prefix: string): Line[] {
   const base = dirPath === '/' ? '' : dirPath
-  const children = sortNodes(dir.children)
+  const children = childrenOf(dir)
 
   return children.flatMap((child, index) => {
     const last = index === children.length - 1

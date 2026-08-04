@@ -1,5 +1,5 @@
 import { displayPath, normalize, resolve } from '../fs/resolve'
-import type { FsNode } from '../fs/types'
+import type { Dir, FsNode } from '../fs/types'
 import type { Command, PathEntry } from './types'
 import { error, ok, text } from './types'
 
@@ -12,9 +12,19 @@ export function sortNodes(nodes: FsNode[]): FsNode[] {
   )
 }
 
-function entriesOf(dirPath: string, children: FsNode[]): PathEntry[] {
+/**
+ * The children of a directory in display order: sorted, unless the directory
+ * asked to keep the order it was written in. Everything that lists a directory
+ * goes through here so `ls`, `tree`, the landing page and the suggestions can
+ * never disagree about ordering.
+ */
+export function childrenOf(dir: Dir): FsNode[] {
+  return dir.keepOrder ? dir.children : sortNodes(dir.children)
+}
+
+function entriesOf(dirPath: string, dir: Dir): PathEntry[] {
   const base = dirPath === '/' ? '' : dirPath
-  return sortNodes(children).map(({ name, kind }) => ({ name, kind, path: `${base}/${name}` }))
+  return childrenOf(dir).map(({ name, kind }) => ({ name, kind, path: `${base}/${name}` }))
 }
 
 export const ls: Command = (args, ctx) => {
@@ -22,7 +32,7 @@ export const ls: Command = (args, ctx) => {
   const node = resolve(ctx.root, ctx.cwd, target)
   if (!node) return ok(error(`ls: ${target}: No such file or directory`))
   if (node.kind === 'file') return ok(text(node.name))
-  return ok({ type: 'paths', entries: entriesOf(normalize(ctx.cwd, target), node.children) })
+  return ok({ type: 'paths', entries: entriesOf(normalize(ctx.cwd, target), node) })
 }
 
 export const cd: Command = (args, ctx) => {

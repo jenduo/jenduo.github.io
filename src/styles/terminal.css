@@ -146,12 +146,26 @@ body {
 
   #root {
     padding: 30px;
+    /* Centres the window in both axes now that it no longer fills the height. */
+    align-items: center;
+    justify-content: center;
   }
 
   .window {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
+    /* Sized by aspect ratio rather than stretched to the viewport. Filling the
+       height turned the window portrait on tall screens: 900px wide against a
+       1300px-tall 2K monitor is a standing rectangle, which reads as a document
+       rather than a terminal. Height is derived from width, so it is landscape
+       at every desktop size.
+
+       max-height still clamps on short screens, and because that shortens the
+       box without narrowing it, the result stays landscape there too. */
+    flex: 0 1 auto;
+    /* Content strings are hard-wrapped around 78 characters, so extra width
+       buys breathing room rather than longer, harder-to-read lines. */
+    width: min(100%, 1240px);
+    aspect-ratio: 16 / 10;
+    max-height: 100%;
     border: 1px solid var(--chrome-border);
     border-radius: 10px;
     box-shadow: 0 24px 70px rgb(0 0 0 / 65%);

@@ -11,7 +11,7 @@ import { useViewportHeight } from './useViewportHeight'
 const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contact']
 
 /** How long a visitor can sit still before the shell offers a suggestion. */
-const IDLE_MS = 4000
+const IDLE_MS = 1200
 
 export function Terminal() {
   const { cwd, lines, history, submit, root } = useShell()

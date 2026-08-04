@@ -35,7 +35,7 @@ export const BOOT: Line[] = [
   text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
   // Kept short so it does not wrap at phone width.
-  text("start with 'whoami', or click anything below.", 'dim'),
+  text("type 'help', or click anything below.", 'dim'),
   text(''),
   { type: 'paths', entries: ROOT_ENTRIES },
   text(''),

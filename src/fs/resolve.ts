@@ -23,13 +23,34 @@ export function normalize(cwd: string, input: string): string {
   return '/' + out.join('/')
 }
 
+/** Filename without its extension. Leading dots are kept, so `.bashrc` is whole. */
+export function stem(name: string): string {
+  const dot = name.lastIndexOf('.')
+  return dot <= 0 ? name : name.slice(0, dot)
+}
+
+/**
+ * Exact name first, then a unique match ignoring the extension.
+ *
+ * So `cat resume` finds `resume.pdf`, and nobody has to guess whether a file
+ * ends in `.md` or `.txt` before they can read it. Ambiguous stems resolve to
+ * nothing rather than picking one arbitrarily.
+ */
+function findChild(dir: Dir, segment: string): FsNode | undefined {
+  const exact = dir.children.find((child) => child.name === segment)
+  if (exact) return exact
+
+  const byStem = dir.children.filter((child) => stem(child.name) === segment)
+  return byStem.length === 1 ? byStem[0] : undefined
+}
+
 export function resolve(root: Dir, cwd: string, input: string): FsNode | null {
   let node: FsNode = root
   for (const segment of splitPath(normalize(cwd, input))) {
     if (node.kind !== 'dir') return null
     // Annotated because `node` is reassigned from it, which otherwise makes the
     // inference circular under strict mode.
-    const next: FsNode | undefined = node.children.find((child) => child.name === segment)
+    const next: FsNode | undefined = findChild(node, segment)
     if (!next) return null
     node = next
   }

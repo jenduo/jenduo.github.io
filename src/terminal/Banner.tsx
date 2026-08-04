@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import { radiusAt, spotlightRows } from './glitch'
+import { pulseRadius, spotlightRows } from './glitch'
 
-/** Reach of the effect in character columns, on arrival and once fully open. */
+/**
+ * Reach of the effect in character columns. The banner is 67 columns wide, so a
+ * peak past that guarantees the wave covers the whole thing wherever the pointer
+ * happens to be.
+ */
 const RADIUS_FROM = 2
-const RADIUS_TO = 16
-/** Ticks taken to open up, so roughly 1.6s at the tick below. */
-const GROW_TICKS = 26
+const RADIUS_TO = 75
+/** Grow, then collapse, then round again: about 2s per breath at the tick below. */
+const GROW_TICKS = 21
+const COLLAPSE_TICKS = 13
 /** Re-randomise this often so the noise shimmers rather than sitting still. */
 const TICK_MS = 60
 
@@ -72,21 +77,22 @@ export function Banner({ rows }: { rows: string[] }) {
     }
 
     if (timer.current === null) {
-      // Growth is tracked in ticks rather than restarted on every move, so
-      // sweeping the pointer around does not keep resetting the radius.
+      // The pulse is tracked in ticks rather than restarted on every move, so
+      // sweeping the pointer around does not keep resetting the breath.
       ticks.current = 0
       timer.current = window.setInterval(() => {
         const at = pointer.current
         if (!at) return
 
         ticks.current += 1
-        setShown(
-          spotlightRows(
-            rows,
-            { ...at, radius: radiusAt(ticks.current, RADIUS_FROM, RADIUS_TO, GROW_TICKS) },
-            Math.random,
-          ),
+        const radius = pulseRadius(
+          ticks.current,
+          RADIUS_FROM,
+          RADIUS_TO,
+          GROW_TICKS,
+          COLLAPSE_TICKS,
         )
+        setShown(spotlightRows(rows, { ...at, radius }, Math.random))
       }, TICK_MS)
     }
   }

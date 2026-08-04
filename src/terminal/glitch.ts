@@ -38,6 +38,28 @@ export function radiusAt(frame: number, from: number, to: number, frames: number
 }
 
 /**
+ * A repeating breath: the radius opens out to `to`, collapses back to `from`,
+ * and starts again, for as long as the pointer stays on the banner.
+ */
+export function pulseRadius(
+  tick: number,
+  from: number,
+  to: number,
+  growTicks: number,
+  collapseTicks: number,
+): number {
+  const period = growTicks + collapseTicks
+  if (period <= 0) return to
+
+  // Modulo twice so a negative tick still lands inside the period.
+  const phase = ((tick % period) + period) % period
+
+  return phase < growTicks
+    ? radiusAt(phase, from, to, growTicks)
+    : radiusAt(phase - growTicks, to, from, collapseTicks)
+}
+
+/**
  * `rand` is injected so the animation can be tested deterministically.
  * A null spotlight returns the rows untouched.
  */

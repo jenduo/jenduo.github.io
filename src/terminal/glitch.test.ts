@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { falloff, radiusAt, spotlightRows } from './glitch'
+import { falloff, pulseRadius, radiusAt, spotlightRows } from './glitch'
 import type { Spotlight } from './glitch'
 
 /** Always glitches wherever the chance is above zero. */
@@ -61,6 +61,55 @@ describe('radiusAt', () => {
 
   it('returns the large end for a zero-length window rather than dividing by it', () => {
     expect(radiusAt(0, 2, 14, 0)).toBe(14)
+  })
+})
+
+describe('pulseRadius', () => {
+  const from = 2
+  const to = 70
+  const grow = 20
+  const collapse = 12
+  const period = grow + collapse
+  const at = (tick: number) => pulseRadius(tick, from, to, grow, collapse)
+
+  it('starts collapsed', () => {
+    expect(at(0)).toBe(from)
+  })
+
+  it('peaks at the end of the growth phase', () => {
+    expect(at(grow)).toBe(to)
+  })
+
+  it('grows through the growth phase', () => {
+    expect(at(5)).toBeLessThan(at(15))
+  })
+
+  it('collapses after the peak', () => {
+    expect(at(grow + 6)).toBeLessThan(to)
+    expect(at(grow + 11)).toBeLessThan(at(grow + 6))
+  })
+
+  it('returns to the start by the end of the period', () => {
+    expect(at(period)).toBe(from)
+  })
+
+  // The whole point: it revives rather than settling once collapsed.
+  it('repeats every period', () => {
+    for (const tick of [0, 3, grow, grow + 5]) {
+      expect(at(tick + period), `tick ${tick}`).toBeCloseTo(at(tick))
+      expect(at(tick + period * 4), `tick ${tick}`).toBeCloseTo(at(tick))
+    }
+  })
+
+  it('never leaves the range', () => {
+    for (let tick = 0; tick < period * 3; tick++) {
+      expect(at(tick)).toBeGreaterThanOrEqual(from)
+      expect(at(tick)).toBeLessThanOrEqual(to)
+    }
+  })
+
+  it('handles a zero-length period rather than dividing by it', () => {
+    expect(pulseRadius(3, from, to, 0, 0)).toBe(to)
   })
 })
 

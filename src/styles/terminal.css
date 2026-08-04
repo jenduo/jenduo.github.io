@@ -18,6 +18,64 @@
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
+/* ─── palettes, switched by the `colour` command ────────────────────────────
+   Pink is the default above and is left untouched. Every palette keeps --error
+   warm and red: an error that blends into the theme stops reading as an error.
+   Lightness values mirror the pink set so contrast holds across all of them. */
+
+:root[data-theme='green'] {
+  --bg: #050706;
+  --fg: #9deccd;
+  --fg-dim: #5f8a7a;
+  --accent: #3dffb0;
+  --bright: #e6f5ee;
+  --glow: rgb(61 255 176 / 30%);
+  --scanline: rgb(61 255 176 / 9%);
+  --desktop: #020302;
+  --chrome: #0b1210;
+  --chrome-border: #1a2922;
+}
+
+:root[data-theme='blue'] {
+  --bg: #05060a;
+  --fg: #a6cdff;
+  --fg-dim: #5f7290;
+  --accent: #3d92ff;
+  --bright: #e6ecf5;
+  --glow: rgb(61 146 255 / 32%);
+  --scanline: rgb(61 146 255 / 9%);
+  --desktop: #020204;
+  --chrome: #0b0f18;
+  --chrome-border: #1a2233;
+}
+
+:root[data-theme='purple'] {
+  --bg: #07050a;
+  --fg: #c9a6ff;
+  --fg-dim: #745f90;
+  --accent: #a03dff;
+  --bright: #ede6f5;
+  --glow: rgb(160 61 255 / 32%);
+  --scanline: rgb(160 61 255 / 9%);
+  --desktop: #030205;
+  --chrome: #0f0b18;
+  --chrome-border: #221a33;
+}
+
+:root[data-theme='white'] {
+  --bg: #08080a;
+  --fg: #c2c5cc;
+  --fg-dim: #71747d;
+  --accent: #ffffff;
+  --bright: #f2f3f5;
+  /* Lower than the coloured themes: white glow hazes far more readily. */
+  --glow: rgb(255 255 255 / 18%);
+  --scanline: rgb(255 255 255 / 7%);
+  --desktop: #030304;
+  --chrome: #101114;
+  --chrome-border: #23252b;
+}
+
 * {
   box-sizing: border-box;
 }

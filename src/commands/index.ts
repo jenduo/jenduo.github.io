@@ -1,4 +1,5 @@
 import { cat, open, tree } from './content'
+import { colour } from './colour'
 import { makeHelp } from './help'
 import { clear, exit, history, rm, sudo, whoami } from './misc'
 import { cd, ls, pwd } from './nav'
@@ -16,6 +17,9 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'whoami', usage: 'whoami', summary: 'the short version of me', run: whoami },
   { name: 'history', usage: 'history', summary: 'what I have typed', run: history },
   { name: 'clear', usage: 'clear', summary: 'clear the output', run: clear },
+  { name: 'colour', usage: 'colour <name>', summary: 'recolour the terminal', run: colour },
+  // Same command under the American spelling, hidden so help lists one name.
+  { name: 'color', usage: 'color <name>', summary: '', hidden: true, run: colour },
   { name: 'sudo', usage: 'sudo', summary: '', hidden: true, run: sudo },
   { name: 'rm', usage: 'rm', summary: '', hidden: true, run: rm },
   { name: 'exit', usage: 'exit', summary: '', hidden: true, run: exit },

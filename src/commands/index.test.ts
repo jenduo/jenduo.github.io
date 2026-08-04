@@ -30,10 +30,17 @@ describe('help', () => {
     }
   })
 
+  // Compares the first token of each listed line rather than searching the whole
+  // output: 'rm' is a substring of 'terminal', so a bare contains() check fails
+  // on innocent summary text.
   it('does not leak the easter eggs', () => {
-    const output = asText(runCommand('help', ctx()))
+    const listed = runCommand('help', ctx())
+      .lines.flatMap((line) => ('text' in line ? [String(line.text)] : []))
+      .map((line) => line.trim().split(/\s+/)[0])
+      .filter(Boolean)
+
     for (const command of COMMANDS.filter((c) => c.hidden)) {
-      expect(output, command.name).not.toContain(command.name)
+      expect(listed, command.name).not.toContain(command.name)
     }
   })
 })

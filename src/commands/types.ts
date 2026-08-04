@@ -1,4 +1,5 @@
 import type { Dir } from '../fs/types'
+import type { ThemeName } from './themes'
 
 export type Tone = 'default' | 'dim' | 'bright' | 'accent' | 'error'
 
@@ -44,6 +45,8 @@ export interface CommandResult {
   clear?: boolean
   /** Set to navigate the browser to a URL. */
   openUrl?: string
+  /** Set to recolour the terminal. */
+  theme?: ThemeName
 }
 
 /**

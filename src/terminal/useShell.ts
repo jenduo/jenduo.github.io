@@ -25,6 +25,8 @@ export function useShell() {
 
     // Side effects belong here in the event handler, not in a state updater.
     if (result.openUrl) window.open(result.openUrl, '_blank', 'noopener,noreferrer')
+    // The palette lives in CSS; this only flips which block applies.
+    if (result.theme) document.documentElement.dataset.theme = result.theme
 
     const next: ShellState = {
       cwd: result.cwd ?? current.cwd,

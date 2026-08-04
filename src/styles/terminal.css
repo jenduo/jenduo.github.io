@@ -129,14 +129,14 @@ body {
   .ctl {
     display: grid;
     place-items: center;
-    width: 34px;
+    width: 40px;
     height: 100%;
     color: var(--fg-dim);
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .ctl-close {
-    font-size: 12px;
+    font-size: 17px;
   }
 }
 

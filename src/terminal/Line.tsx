@@ -8,7 +8,7 @@ interface Props {
 
 /**
  * Clickable paths are the accessibility story for this site, so they are real
- * buttons — focusable, keyboard-activatable and legible to a screen reader.
+ * buttons: focusable, keyboard-activatable and legible to a screen reader.
  */
 export function Line({ line, onRun }: Props) {
   if (line.type === 'prompt') {

@@ -14,7 +14,7 @@ export type Line =
   | { type: 'prompt'; cwd: string; input: string }
   /**
    * `hero` renders at display size; `art` is a row of ASCII art on the
-   * character grid. See terminal.css — the two are mutually exclusive by
+   * character grid. See terminal.css: the two are mutually exclusive by
    * viewport width.
    */
   | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' | 'art' }
@@ -47,7 +47,7 @@ export interface CommandSpec {
   name: string
   usage: string
   summary: string
-  /** Hidden from `help` — the easter eggs. */
+  /** Hidden from `help`: the easter eggs. */
   hidden?: boolean
   run: Command
 }

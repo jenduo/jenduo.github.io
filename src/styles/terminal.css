@@ -53,7 +53,7 @@ body {
 }
 
 /* The welcome banner exists in two forms and exactly one is ever visible.
-   The ASCII art is a fixed 62-column grid — it cannot reflow, only scale, and
+   The ASCII art is a fixed 67-column grid. It cannot reflow, only scale, and
    at phone width it scales down to illegible. So narrow screens get the same
    greeting as scalable display text instead. */
 .line.hero {
@@ -68,7 +68,7 @@ body {
   display: none;
 }
 
-/* 680px is the narrowest viewport where 62 columns still fits at body size. */
+/* 680px is the narrowest viewport where 67 columns still fits at body size. */
 @media (min-width: 680px) {
   .line.art {
     display: block;

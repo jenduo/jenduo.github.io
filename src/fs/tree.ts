@@ -4,29 +4,29 @@ import type { Dir } from './types'
 // This file is the entire content of the site. To update the site, edit here.
 //
 // [TODO] markers are load-bearing: they mark claims that were inferred from
-// public repos rather than confirmed. Fill them in or delete them — do not
+// public repos rather than confirmed. Fill them in or delete them, but do not
 // smooth them into confident prose.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // The identity line and tagline live in the boot banner (src/terminal/boot.ts),
-// so this file carries only substance — no repeating what the home page says.
+// so this file carries only substance, never repeating what the home page says.
 const about = `  Currently a software engineer at InvestorHub, working across the marketing
-  suite — newsflow distribution, a website builder, and webinar tooling wired
+  suite: newsflow distribution, a website builder, and webinar tooling wired
   into shareholder data.
 
   Before that, HPC and applied ML research at the University of Melbourne and
-  CSL: parallelising machine learning workloads on the Spartan cluster, and
-  wrapping researchers' models in APIs so people outside the lab could run
+  CSL. I parallelised machine learning workloads on the Spartan cluster and
+  wrapped researchers' models in APIs so people outside the lab could run
   them. Two papers came out of it.
 
   Try:  ls projects     ls experience     cat skills.txt
 `
 
 const skills = `languages    TypeScript · JavaScript · Python · SQL
-frontend     React · [TODO: confirm — Tailwind? plain CSS? something else?]
-backend      [TODO: confirm — Node? Rails? Django?]
+frontend     React · [TODO: confirm. Tailwind? plain CSS? something else?]
+backend      [TODO: confirm. Node? Rails? Django?]
 data / ML    PyTorch · BoTorch · Gaussian processes · Bayesian optimization
-tooling      Git · [TODO: confirm — Docker? CI? cloud platforms?]
+tooling      Git · [TODO: confirm. Docker? CI? cloud platforms?]
 
   [TODO: this list is inferred from your public repos, not from you. Delete
   anything you would not want to be interviewed on.]
@@ -39,7 +39,7 @@ linkedin   [TODO: your profile URL]
   Melbourne, VIC
 
   [Deliberately not here: your phone number. It is on your resume, which is
-  fine — a resume goes to people you chose. A public page is scraped.]
+  fine, because a resume goes to people you chose. A public page is scraped.]
 
   Try:  open resume.pdf
 `
@@ -50,9 +50,9 @@ node in src/fs/tree.ts. Until then 'open resume.pdf' says it is not up yet.]
 
 const investorhub = `# InvestorHub
 
-  [TODO: your title] · [TODO: start date] – present
+  [TODO: your title] · [TODO: start date] to present
 
-  InvestorHub builds investor relations software for listed companies —
+  InvestorHub builds investor relations software for listed companies:
   shareholder analytics, communications, and engagement tooling.
 
   What I work on:
@@ -69,7 +69,7 @@ const asxReadme = `# asx-company-info
   A tool for comparing ASX-listed companies side by side.
 
   People want two different things from a comparison tool: a fast throwaway
-  look, and a way to keep the comparisons that matter. So it does both — quick
+  look, and a way to keep the comparisons that matter. So it does both. Quick
   comparisons need no setup, and any comparison can be saved as a favourite,
   backed by SQL.
 
@@ -91,8 +91,8 @@ const mfboReadme = `# mfbo-framework
   expensive to evaluate: alongside the true function you sample cheap
   approximations, and let the model decide when a cheap look is good enough.
 
-  Runs against four synthetic benchmarks — Forrester, Branin, Borehole and
-  Hartmann — with EI, PI, UCB and KG acquisition functions, and either greedy
+  Runs against four synthetic benchmarks (Forrester, Branin, Borehole and
+  Hartmann) with EI, PI, UCB and KG acquisition functions, and either greedy
   or uncertainty-driven high-fidelity selection.
 
   Built for concurrent HPC experiments, so results stream to CSV with safe
@@ -108,7 +108,7 @@ const poketrackReadme = `# fleng-poketrack
   nothing accurate to say about it yet.
 
   If it is not portfolio-worthy, delete this whole directory from
-  src/fs/tree.ts — three strong projects beat four with a gap in them.]
+  src/fs/tree.ts. Three strong projects beat four with a gap in them.]
 
   open this file to go to the repo.
 `

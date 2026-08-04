@@ -59,7 +59,7 @@ export function Terminal() {
     }
   }
 
-  /** Clicking anywhere in the shell puts the caret back — unless the visitor is
+  /** Clicking anywhere in the shell puts the caret back, unless the visitor is
       mid-selection, in which case stealing focus would fight a copy. */
   function focusInput() {
     if (window.getSelection()?.toString()) return

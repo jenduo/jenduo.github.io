@@ -1,5 +1,7 @@
-import type { Line } from '../commands/types'
+import { sortNodes } from '../commands/nav'
+import type { Line, PathEntry } from '../commands/types'
 import { hero, text } from '../commands/types'
+import { root } from '../fs/tree'
 
 // figlet -f standard "hi it's me, Jen :)", 67 columns, smiley included.
 // Shown on viewports wide enough to hold it; below 680px terminal.css swaps in
@@ -13,6 +15,18 @@ const BANNER = [
   '                                       |/                      /_/ ',
 ]
 
+/**
+ * Everything at the top of the filesystem, in the same order `ls` would print
+ * it. Derived rather than listed: this used to be a hand-written copy of the
+ * root, and it silently fell out of date the moment the tree changed, hiding
+ * `education` and `resume.pdf` from anyone who never ran `ls`.
+ */
+const ROOT_ENTRIES: PathEntry[] = sortNodes(root.children).map((child) => ({
+  name: child.name,
+  kind: child.kind,
+  path: `/${child.name}`,
+}))
+
 export const BOOT: Line[] = [
   { type: 'banner', rows: BANNER },
   hero("hi it's me, Jen :)"),
@@ -23,15 +37,6 @@ export const BOOT: Line[] = [
   // Kept short so it does not wrap at phone width.
   text("start with 'whoami', or click anything below.", 'dim'),
   text(''),
-  {
-    type: 'paths',
-    entries: [
-      { name: 'experience', kind: 'dir', path: '/experience' },
-      { name: 'publications', kind: 'dir', path: '/publications' },
-      { name: 'other', kind: 'dir', path: '/other' },
-      { name: 'skills', kind: 'file', path: '/skills' },
-      { name: 'contact', kind: 'dir', path: '/contact' },
-    ],
-  },
+  { type: 'paths', entries: ROOT_ENTRIES },
   text(''),
 ]

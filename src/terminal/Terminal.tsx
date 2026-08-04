@@ -138,7 +138,22 @@ export function Terminal() {
               aria-label="terminal input"
               autoFocus
             />
-            {ghost.shown ? <kbd className="ghost-hint">tab</kbd> : null}
+            {/* Touch keyboards have no Tab key, so mobile gets a tap target
+                instead of a keycap naming a key that does not exist. CSS shows
+                exactly one of these. */}
+            {ghost.shown ? (
+              <>
+                <kbd className="ghost-hint">tab</kbd>
+                <button
+                  type="button"
+                  className="ghost-run"
+                  onClick={() => run(ghost.full)}
+                  aria-label={`run ${ghost.full}`}
+                >
+                  run &#9656;
+                </button>
+              </>
+            ) : null}
           </div>
 
           <div ref={endRef} />

@@ -402,6 +402,42 @@ body {
   opacity: 1;
 }
 
+/* Mobile substitute for the keycap: a real button, since there is no Tab key to
+   press. Hidden by default and swapped in below 680px. */
+.ghost-run {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .ghost-hint {
+    display: none;
+  }
+
+  .ghost-run {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    margin-left: 1.6ch;
+    padding: 3px 11px 4px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    background: none;
+    color: var(--accent);
+    font: 13px var(--mono);
+    letter-spacing: 0.03em;
+    text-shadow: none;
+  }
+
+  /* Grows the tap area to the 44px guideline without making the row taller.
+     The button itself is 24px, so 10px each side gets there. */
+  .ghost-run::after {
+    content: '';
+    position: absolute;
+    inset: -10px -12px;
+  }
+}
+
 /* Keycap for the accept key. A <kbd> so it reads as a key press rather than as
    a stray word in the output. */
 .ghost-hint {

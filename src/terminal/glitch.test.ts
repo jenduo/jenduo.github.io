@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { falloff, spotlightRows } from './glitch'
+import { falloff, radiusAt, spotlightRows } from './glitch'
 import type { Spotlight } from './glitch'
 
 /** Always glitches wherever the chance is above zero. */
@@ -31,6 +31,36 @@ describe('falloff', () => {
 
   it('is zero for a zero radius rather than dividing by it', () => {
     expect(falloff(0, 0)).toBe(0)
+  })
+})
+
+describe('radiusAt', () => {
+  it('starts at the small end', () => {
+    expect(radiusAt(0, 2, 14, 20)).toBe(2)
+  })
+
+  it('grows monotonically', () => {
+    const values = [0, 5, 10, 15, 20].map((frame) => radiusAt(frame, 2, 14, 20))
+    for (let i = 1; i < values.length; i++) {
+      expect(values[i]).toBeGreaterThan(values[i - 1])
+    }
+  })
+
+  it('reaches the large end exactly', () => {
+    expect(radiusAt(20, 2, 14, 20)).toBe(14)
+  })
+
+  // Hovering for a long time must hold steady, not keep expanding forever.
+  it('holds at the large end past the growth window', () => {
+    expect(radiusAt(500, 2, 14, 20)).toBe(14)
+  })
+
+  it('clamps a negative frame to the small end', () => {
+    expect(radiusAt(-5, 2, 14, 20)).toBe(2)
+  })
+
+  it('returns the large end for a zero-length window rather than dividing by it', () => {
+    expect(radiusAt(0, 2, 14, 0)).toBe(14)
   })
 })
 

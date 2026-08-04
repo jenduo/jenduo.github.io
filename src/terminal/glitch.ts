@@ -27,6 +27,17 @@ export function falloff(distance: number, radius: number): number {
 }
 
 /**
+ * The radius partway through its growth, so the spotlight opens up the longer
+ * the pointer rests on the banner. Clamped at both ends, so a frame count past
+ * the end simply holds at `to`.
+ */
+export function radiusAt(frame: number, from: number, to: number, frames: number): number {
+  if (frames <= 0) return to
+  const progress = Math.min(1, Math.max(0, frame / frames))
+  return from + (to - from) * progress
+}
+
+/**
  * `rand` is injected so the animation can be tested deterministically.
  * A null spotlight returns the rows untouched.
  */

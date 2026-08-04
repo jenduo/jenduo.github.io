@@ -30,6 +30,5 @@ export const cd: Command = (args, ctx) => {
   const node = resolve(ctx.root, ctx.cwd, target)
   if (!node) return ok(error(`cd: ${target}: No such file or directory`))
   if (node.kind === 'file') return ok(error(`cd: ${target}: Not a directory`))
-
   return { lines: [], cwd: normalize(ctx.cwd, target) }
 }

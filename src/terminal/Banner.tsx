@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
-import { glitchIntensity, glitchRows } from './glitch'
+import type { Spotlight } from './glitch'
+import { spotlightRows } from './glitch'
 
-const FRAMES = 14
-const FRAME_MS = 45
+/** Reach of the effect, in character columns. */
+const RADIUS = 8
+/** Re-randomise this often so the noise shimmers rather than sitting still. */
+const TICK_MS = 60
 
 /**
- * The ASCII banner, which scrambles and resolves on hover.
+ * The ASCII banner. Characters near the pointer scramble and settle as it moves.
  *
  * Hover-only is deliberate rather than a limitation: the art is already
  * desktop-only below 680px, so the interaction and the thing it acts on appear
- * and disappear together. Touch devices never see a hover affordance they
- * cannot use.
+ * and disappear together, and a touch device never sees an affordance it cannot
+ * use.
  */
 export function Banner({ rows }: { rows: string[] }) {
   const [shown, setShown] = useState(rows)
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const rowRef = useRef<HTMLDivElement>(null)
+  const spot = useRef<Spotlight | null>(null)
   const timer = useRef<number | null>(null)
 
   function stop() {
@@ -26,31 +32,58 @@ export function Banner({ rows }: { rows: string[] }) {
   // Unmounting mid-animation would otherwise leave the interval running.
   useEffect(() => stop, [])
 
-  function play() {
-    if (timer.current !== null) return
+  /**
+   * Character cell size, measured from the rendered row rather than assumed.
+   * The font is a system stack, so its metrics are not knowable up front.
+   */
+  function cell(): { width: number; height: number } | null {
+    const element = rowRef.current
+    const columns = rows[0]?.length ?? 0
+    if (!element || columns === 0) return null
+
+    const box = element.getBoundingClientRect()
+    if (box.width === 0) return null
+    return { width: box.width / columns, height: box.height }
+  }
+
+  function onPointerMove(event: React.MouseEvent<HTMLDivElement>) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    let frame = 0
-    timer.current = window.setInterval(() => {
-      frame += 1
-      const intensity = glitchIntensity(frame, FRAMES)
+    const wrap = wrapRef.current
+    const size = cell()
+    if (!wrap || !size) return
 
-      // Intensity hits zero on the last frame, so settling back to the real art
-      // is the natural end of the animation rather than a separate restore.
-      if (intensity <= 0) {
-        setShown(rows)
-        stop()
-        return
-      }
+    const box = wrap.getBoundingClientRect()
+    spot.current = {
+      col: (event.clientX - box.left) / size.width - 0.5,
+      row: (event.clientY - box.top) / size.height - 0.5,
+      radius: RADIUS,
+      aspect: size.height / size.width,
+    }
 
-      setShown(glitchRows(rows, intensity, Math.random))
-    }, FRAME_MS)
+    if (timer.current === null) {
+      timer.current = window.setInterval(() => {
+        setShown(spotlightRows(rows, spot.current, Math.random))
+      }, TICK_MS)
+    }
+  }
+
+  function onPointerLeave() {
+    spot.current = null
+    stop()
+    setShown(rows)
   }
 
   return (
-    <div className="banner" aria-hidden="true" onMouseEnter={play}>
+    <div
+      ref={wrapRef}
+      className="banner"
+      aria-hidden="true"
+      onMouseMove={onPointerMove}
+      onMouseLeave={onPointerLeave}
+    >
       {shown.map((row, index) => (
-        <div key={index} className="line art">
+        <div key={index} ref={index === 0 ? rowRef : undefined} className="line art">
           {row}
         </div>
       ))}

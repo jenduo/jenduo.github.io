@@ -1,34 +1,59 @@
 /**
- * Signal-interference effect for the ASCII banner.
+ * Pointer-local interference for the ASCII banner.
  *
  * Characters are replaced one for one and spaces are left alone, so the grid
- * never reflows and the silhouette of the lettering stays recognisable while
- * the strokes scramble.
+ * never reflows and the silhouette of the lettering stays readable while the
+ * strokes near the cursor scramble.
  */
 const GLITCH_CHARS = '!<>_/\\[]{}=+*^?#$%&|~'
 
-/** `rand` is injected so the animation can be tested deterministically. */
-export function glitchRow(row: string, intensity: number, rand: () => number): string {
-  let out = ''
-  for (const char of row) {
-    if (char === ' ' || rand() >= intensity) {
-      out += char
-      continue
-    }
-    out += GLITCH_CHARS[Math.floor(rand() * GLITCH_CHARS.length)]
-  }
-  return out
+export interface Spotlight {
+  /** Cursor position in character cells, fractional. */
+  col: number
+  row: number
+  /** Reach of the effect, measured in columns. */
+  radius: number
+  /**
+   * Cell height divided by cell width. A monospace cell is roughly twice as
+   * tall as it is wide, so without this the "circle" would be a tall ellipse.
+   */
+  aspect: number
 }
 
-export function glitchRows(rows: string[], intensity: number, rand: () => number): string[] {
-  return rows.map((row) => glitchRow(row, intensity, rand))
+/** 1 at the centre, falling linearly to 0 at the edge of the radius. */
+export function falloff(distance: number, radius: number): number {
+  if (radius <= 0 || distance >= radius) return 0
+  return 1 - distance / radius
 }
 
 /**
- * A burst that decays to nothing, so the banner resolves back to itself rather
- * than needing a separate restore step.
+ * `rand` is injected so the animation can be tested deterministically.
+ * A null spotlight returns the rows untouched.
  */
-export function glitchIntensity(frame: number, frames: number): number {
-  if (frame >= frames) return 0
-  return 0.45 * (1 - frame / frames)
+export function spotlightRows(
+  rows: string[],
+  spot: Spotlight | null,
+  rand: () => number,
+): string[] {
+  if (!spot) return rows
+
+  return rows.map((row, rowIndex) => {
+    let out = ''
+
+    for (let col = 0; col < row.length; col++) {
+      const char = row[col]
+      if (char === ' ') {
+        out += char
+        continue
+      }
+
+      const dx = col - spot.col
+      const dy = (rowIndex - spot.row) * spot.aspect
+      const chance = falloff(Math.hypot(dx, dy), spot.radius)
+
+      out += rand() < chance ? GLITCH_CHARS[Math.floor(rand() * GLITCH_CHARS.length)] : char
+    }
+
+    return out
+  })
 }

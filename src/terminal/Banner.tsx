@@ -8,10 +8,14 @@ import { pulseRadius, spotlightRows } from './glitch'
  */
 const RADIUS_FROM = 2
 const RADIUS_TO = 75
-/** Grow, then collapse, then round again: about 2s per breath at the tick below. */
-const GROW_TICKS = 21
-const COLLAPSE_TICKS = 13
-/** Re-randomise this often so the noise shimmers rather than sitting still. */
+/** Grow, then collapse, then round again: about 3s per breath at the tick below. */
+const GROW_TICKS = 30
+const COLLAPSE_TICKS = 20
+/**
+ * Re-randomise this often so the noise shimmers rather than sitting still.
+ * Slowing the breath means more ticks, not a longer tick: raising this instead
+ * would make the noise itself flicker chunkily.
+ */
 const TICK_MS = 60
 
 interface Pointer {

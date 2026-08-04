@@ -163,7 +163,7 @@ body {
     flex: 0 1 auto;
     /* Content strings are hard-wrapped around 78 characters, so extra width
        buys breathing room rather than longer, harder-to-read lines. */
-    width: min(100%, 1240px);
+    width: min(100%, 1100px);
     aspect-ratio: 16 / 10;
     max-height: 100%;
     border: 1px solid var(--chrome-border);

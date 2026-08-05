@@ -235,10 +235,10 @@ const thisSite = `# this site
 export const root: Dir = {
   kind: 'dir',
   name: '',
+  // Ordered deliberately: publications sits ahead of other, and the work
+  // comes before the loose files. Alphabetical would put other first.
+  keepOrder: true,
   children: [
-    { kind: 'file', name: 'skills', body: skills, lines: skillLines },
-    { kind: 'file', name: 'education', body: education },
-    { kind: 'file', name: 'resume.pdf', body: resume, href: '/resume.pdf' },
     {
       kind: 'dir',
       name: 'contact',
@@ -304,5 +304,8 @@ export const root: Dir = {
         },
       ],
     },
+    { kind: 'file', name: 'education', body: education },
+    { kind: 'file', name: 'resume.pdf', body: resume, href: '/resume.pdf' },
+    { kind: 'file', name: 'skills', body: skills, lines: skillLines },
   ],
 }

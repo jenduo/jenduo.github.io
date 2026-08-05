@@ -34,10 +34,11 @@ Fill in as you go with her:
 
 - [ ] `experience/unimelb-csl` — bullets are accurate but never reviewed with her
 - [ ] `experience/allmediadesk` — thin, three bullets
-- [x] `publications/multifidelity-optimisation` — done, and now the only paper
-      listed. A publication entry is a short summary and a link to the article,
-      nothing more: no tech stack line, no link to the code. Jen cut the CHO
-      preprint entry rather than fill it out, so do not restore it.
+- [x] `publications/` — done. Two entries, named by what they are:
+      `conference-paper` (ACM BCB '26, Jen is first author, so it leads and the
+      author line says so) and `article` (BioProcess International). An entry is
+      a short summary and a link, nothing more: no tech stack line, no link to
+      the code. Jen cut a third, the CHO preprint, rather than fill it out.
 - [ ] `education`, `skills`, `contact/*` — never reviewed with her
 - [ ] `other/volunteer` — never reviewed, and the only thing left in `other/`.
       Jen cut `this-site`, which described how the site was built; do not write

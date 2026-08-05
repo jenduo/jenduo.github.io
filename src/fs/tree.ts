@@ -146,7 +146,7 @@ Duong QCT (first author), Golzarijalal M, Aickelin U, Otte E.
 
 Optimising a biological process means expensive experiments, while cheaper sources like mechanistic models and small-scale runs sit unused because their accuracy and bias are hard to trust. This paper presents a multi-fidelity Bayesian optimisation framework that models how those sources correlate, quantifies its own uncertainty, and decides which evaluation is worth spending on next. On benchmark and real bioprocess datasets it beat single-fidelity approaches, and Knowledge Gradient was the strongest acquisition function on the real data.
 
-type 'open multifidelity-framework' to read the paper.
+type 'open conference-paper' to read the paper.
 `
 
 const multifidelity = `# Doing More with Less: Multifidelity Optimization in the Biopharmaceutical Industry
@@ -156,7 +156,7 @@ Golzarijalal M, Aickelin U, Duong QCT, Otte E.
 
 Monoclonal antibodies are in high demand, but the experiments that improve how they are manufactured are slow and expensive, so process development runs on very little data. Multifidelity optimisation gets around that by pairing the few high-quality experiments you can afford with cheap simulation data. In our case study, four extra real experiments lifted antibody productivity by around 25% over the historical baseline.
 
-type 'open multifidelity-optimisation' to read the article.
+type 'open article' to read the article.
 `
 
 const volunteer = `# University of Melbourne · Student Ambassador
@@ -214,13 +214,13 @@ export const root: Dir = {
       children: [
         {
           kind: 'file',
-          name: 'multifidelity-framework',
+          name: 'conference-paper',
           body: mfboFramework,
-          href: 'https://dl.acm.org/doi/10.1145/3807503.3819466',
+          href: 'https://doi.org/10.1145/3807503.3819466',
         },
         {
           kind: 'file',
-          name: 'multifidelity-optimisation',
+          name: 'article',
           body: multifidelity,
           href: 'https://www.bioprocessintl.com/qa-qc/doing-more-with-less-multifidelity-optimization-in-the-biopharmaceutical-industry',
         },

@@ -203,7 +203,7 @@ body {
       color-mix(in srgb, var(--accent) 28%, transparent),
       transparent
     );
-    animation: desk-drift 55s var(--drift-delay, 0s) ease-in-out infinite;
+    animation: desk-drift 22s var(--drift-delay, 0s) ease-in-out infinite;
     will-change: transform;
   }
 

@@ -15,7 +15,12 @@ describe('driftDelay', () => {
     }
   })
 
-  it('rounds to a tenth, since CSS gains nothing from more', () => {
+  it('trims to a tenth, since CSS gains nothing from more', () => {
     expect(driftDelay(10, () => 1 / 3)).toBe('-3.3s')
+  })
+
+  // Rounding up to the period would be the same as no offset at all.
+  it('never reaches the period, even on a draw just short of it', () => {
+    expect(driftDelay(22, () => 0.9999)).toBe('-21.9s')
   })
 })

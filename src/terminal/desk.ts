@@ -1,5 +1,5 @@
 /** Seconds for the desk light to complete one wander. Matches terminal.css. */
-export const DRIFT_PERIOD = 22
+export const DRIFT_PERIOD = 13
 
 /**
  * A random negative animation delay, in seconds.

@@ -203,7 +203,7 @@ body {
       color-mix(in srgb, var(--accent) 28%, transparent),
       transparent
     );
-    animation: desk-drift 22s var(--drift-delay, 0s) ease-in-out infinite;
+    animation: desk-drift 13s var(--drift-delay, 0s) infinite;
     will-change: transform;
   }
 
@@ -826,31 +826,72 @@ body {
   z-index: 1;
 }
 
-/* Waypoints on no particular grid, and the scale breathing on a different
-   rhythm to the movement, so the loop never announces itself. First and last
-   match, or the light would jump on every repeat. */
+/* Erratic on purpose, and it takes two things to get there.
+
+   The waypoints sit on no grid, and the time between them has nothing to do with
+   the distance covered: a long sweep in 4% of the cycle darts, a short hop in
+   11% loiters. That variation in speed is what stops it reading as a machine
+   tracing a circuit.
+
+   The second is the per-keyframe timing function, which sets the easing for the
+   segment starting there. Mixing linear runs, hard cubic-beziers and gentle
+   eases means no two moves have the same attack. One easing for the whole
+   animation would smooth all of that back out.
+
+   First and last waypoint match, or the light jumps on every repeat. */
 @keyframes desk-drift {
   0%,
   100% {
     transform: translate(-26%, -19%) scale(1);
+    animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
   }
-  12% {
-    transform: translate(9%, -31%) scale(1.09);
+  6% {
+    transform: translate(15%, -31%) scale(1.11);
+    animation-timing-function: linear;
   }
-  27% {
-    transform: translate(31%, -6%) scale(1.02);
+  10% {
+    transform: translate(22%, -23%) scale(1.02);
+    animation-timing-function: ease-out;
   }
-  39% {
-    transform: translate(22%, 24%) scale(1.12);
+  21% {
+    transform: translate(-5%, 29%) scale(1.15);
+    animation-timing-function: cubic-bezier(0.9, 0.05, 0.1, 0.95);
   }
-  54% {
-    transform: translate(-8%, 33%) scale(1.04);
+  26% {
+    transform: translate(-31%, 21%) scale(1.03);
+    animation-timing-function: linear;
   }
-  68% {
-    transform: translate(-33%, 14%) scale(1.1);
+  33% {
+    transform: translate(-21%, -9%) scale(1.09);
+    animation-timing-function: ease-in;
   }
-  83% {
-    transform: translate(-17%, -4%) scale(1.03);
+  45% {
+    transform: translate(31%, 13%) scale(1.05);
+    animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+  }
+  51% {
+    transform: translate(27%, -19%) scale(1.13);
+    animation-timing-function: linear;
+  }
+  62% {
+    transform: translate(-13%, -29%) scale(1);
+    animation-timing-function: ease-in-out;
+  }
+  70% {
+    transform: translate(-33%, 7%) scale(1.08);
+    animation-timing-function: linear;
+  }
+  76% {
+    transform: translate(-28%, 24%) scale(1.04);
+    animation-timing-function: cubic-bezier(0.95, 0.1, 0.05, 0.9);
+  }
+  87% {
+    transform: translate(9%, 31%) scale(1.02);
+    animation-timing-function: ease-out;
+  }
+  93% {
+    transform: translate(-19%, 15%) scale(1.1);
+    animation-timing-function: ease-in;
   }
 }
 

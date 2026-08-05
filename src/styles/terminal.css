@@ -6,9 +6,10 @@
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
-  /* Clickable commands. A second hue, so "you can run this" is not carried by
-     the same colour as every heading and directory name. */
-  --link: #c07dff;
+  /* The palette's second hue. It marks the things a visitor can act on, a
+     command to run or a link to follow, so that meaning is not carried by the
+     same colour as every heading and directory name. It also lights the desk. */
+  --second: #c07dff;
   /* The dominant source of background luminance: every visible line lifts the
      whole field. 0.16 washed it out, 0.09 keeps the CRT texture readable while
      letting the black stay black. */
@@ -37,7 +38,7 @@
   --bright: #e6f5ee;
   --glow: rgb(61 255 176 / 30%);
   --scanline: rgb(61 255 176 / 9%);
-  --link: #7dd0ff;
+  --second: #7dd0ff;
   --desktop: #020302;
   --chrome: #0b1210;
   --chrome-border: #1a2922;
@@ -51,7 +52,7 @@
   --bright: #e6ecf5;
   --glow: rgb(61 146 255 / 32%);
   --scanline: rgb(61 146 255 / 9%);
-  --link: #b07dff;
+  --second: #b07dff;
   --desktop: #020204;
   --chrome: #0b0f18;
   --chrome-border: #1a2233;
@@ -66,7 +67,7 @@
   --glow: rgb(160 61 255 / 32%);
   --scanline: rgb(160 61 255 / 9%);
   /* Accent is purple here, so the link takes the pink: swapped, not repeated. */
-  --link: #ff7dd0;
+  --second: #ff7dd0;
   --desktop: #030205;
   --chrome: #0f0b18;
   --chrome-border: #221a33;
@@ -82,7 +83,7 @@
   --glow: rgb(255 255 255 / 18%);
   --scanline: rgb(255 255 255 / 7%);
   /* Monochrome by design, so the link differs by weight of white, not by hue. */
-  --link: #d8d9ff;
+  --second: #d8d9ff;
   --desktop: #030304;
   --chrome: #101114;
   --chrome-border: #23252b;
@@ -213,7 +214,7 @@ body {
     pointer-events: none;
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--link) 34%, transparent),
+      color-mix(in srgb, var(--second) 34%, transparent),
       transparent
     );
     animation: desk-drift 13s var(--drift-delay, 0s) infinite;
@@ -261,7 +262,7 @@ body {
        exactly the part that would be brightest. */
     box-shadow:
       0 24px 70px rgb(0 0 0 / 65%),
-      0 0 130px color-mix(in srgb, var(--link) 34%, transparent);
+      0 0 130px color-mix(in srgb, var(--second) 34%, transparent);
     /* Clips the terminal's square corners to the window's rounded ones. */
     overflow: hidden;
   }
@@ -594,6 +595,10 @@ body {
   color: var(--error);
 }
 
+.tone-link {
+  color: var(--second);
+}
+
 .prompt {
   color: var(--accent);
   font-weight: 700;
@@ -690,7 +695,7 @@ body {
   padding: 0;
   border: 0;
   background: none;
-  color: var(--link);
+  color: var(--second);
   font: inherit;
   text-shadow: inherit;
   text-decoration: underline dotted;
@@ -706,7 +711,7 @@ body {
 }
 
 .cmd:focus-visible {
-  outline: 1px solid var(--link);
+  outline: 1px solid var(--second);
   outline-offset: 2px;
 }
 
@@ -757,10 +762,10 @@ body {
     align-items: center;
     margin-left: 1.6ch;
     padding: 3px 11px 4px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--second);
     border-radius: 999px;
     background: none;
-    color: var(--accent);
+    color: var(--second);
     font: 13px var(--mono);
     letter-spacing: 0.03em;
     text-shadow: none;
@@ -782,9 +787,9 @@ body {
   align-self: center;
   margin-left: 2ch;
   padding: 1px 7px 2px;
-  border: 1px solid var(--fg-dim);
+  border: 1px solid color-mix(in srgb, var(--second) 40%, transparent);
   border-radius: 4px;
-  color: var(--fg-dim);
+  color: color-mix(in srgb, var(--second) 75%, var(--bg));
   font: 11px var(--mono);
   letter-spacing: 0.03em;
   text-shadow: none;
@@ -813,10 +818,10 @@ body {
   .chip {
     flex: 0 0 auto;
     padding: 6px 10px;
-    border: 1px solid var(--fg-dim);
+    border: 1px solid color-mix(in srgb, var(--second) 45%, transparent);
     border-radius: 999px;
     background: none;
-    color: var(--fg);
+    color: var(--second);
     font: 13px var(--mono);
     white-space: nowrap;
   }

@@ -1,7 +1,7 @@
 import type { Dir } from '../fs/types'
 import type { ThemeName } from './themes'
 
-export type Tone = 'default' | 'dim' | 'bright' | 'accent' | 'error' | 'link'
+export type Tone = 'default' | 'dim' | 'bright' | 'accent' | 'error'
 
 export interface PathEntry {
   name: string

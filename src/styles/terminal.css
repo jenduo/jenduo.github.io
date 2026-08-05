@@ -6,9 +6,10 @@
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
-  /* The palette's second hue. It marks the things a visitor can act on, a
-     command to run or a link to follow, so that meaning is not carried by the
-     same colour as every heading and directory name. It also lights the desk. */
+  /* The palette's second hue, used in exactly two places: the clickable command
+     in a hint, and the light on the desk. Kept narrow on purpose. Spreading it
+     across files, metadata and every affordance was tried and reverted: with two
+     colours competing everywhere, neither meant anything. */
   --second: #c07dff;
   /* The dominant source of background luminance: every visible line lifts the
      whole field. 0.16 washed it out, 0.09 keeps the CRT texture readable while
@@ -522,11 +523,7 @@ body {
 
 .titlecard-sub {
   margin-top: 0.2em;
-  /* Metadata, so it stays quiet, but in the second hue rather than grey: it
-     belongs to the title above it, not to the output around it. 78% lands at a
-     contrast of 4.8, a little above the grey it replaced, since a tinted dim
-     reads darker than a neutral one at the same mix. */
-  color: color-mix(in srgb, var(--second) 78%, var(--bg));
+  color: var(--fg-dim);
   font-size: 0.95em;
 }
 
@@ -599,10 +596,6 @@ body {
   color: var(--error);
 }
 
-.tone-link {
-  color: var(--second);
-}
-
 .prompt {
   color: var(--accent);
   font-weight: 700;
@@ -630,9 +623,7 @@ body {
 
 .icons-label {
   flex: 0 0 11ch;
-  /* A category name, so accent: the same family as every other heading, mixed
-     down to 4.2 against the background rather than competing with the row. */
-  color: color-mix(in srgb, var(--accent) 80%, var(--bg));
+  color: var(--fg-dim);
 }
 
 .icons-item {
@@ -683,10 +674,8 @@ body {
   font-weight: 700;
 }
 
-/* A directory is somewhere to go, a file is something to open, so they take the
-   two hues rather than differing only in weight. */
 .entry-file {
-  color: var(--second);
+  color: var(--fg);
 }
 
 .entry:hover,
@@ -770,10 +759,10 @@ body {
     align-items: center;
     margin-left: 1.6ch;
     padding: 3px 11px 4px;
-    border: 1px solid var(--second);
+    border: 1px solid var(--accent);
     border-radius: 999px;
     background: none;
-    color: var(--second);
+    color: var(--accent);
     font: 13px var(--mono);
     letter-spacing: 0.03em;
     text-shadow: none;
@@ -795,9 +784,9 @@ body {
   align-self: center;
   margin-left: 2ch;
   padding: 1px 7px 2px;
-  border: 1px solid color-mix(in srgb, var(--second) 40%, transparent);
+  border: 1px solid var(--fg-dim);
   border-radius: 4px;
-  color: color-mix(in srgb, var(--second) 75%, var(--bg));
+  color: var(--fg-dim);
   font: 11px var(--mono);
   letter-spacing: 0.03em;
   text-shadow: none;
@@ -826,10 +815,10 @@ body {
   .chip {
     flex: 0 0 auto;
     padding: 6px 10px;
-    border: 1px solid color-mix(in srgb, var(--second) 45%, transparent);
+    border: 1px solid var(--fg-dim);
     border-radius: 999px;
     background: none;
-    color: var(--second);
+    color: var(--fg);
     font: 13px var(--mono);
     white-space: nowrap;
   }

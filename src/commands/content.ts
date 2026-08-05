@@ -82,5 +82,5 @@ export const open: Command = (args, ctx) => {
   if (!node) return { lines: missing('open', target, ctx) }
   if (node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
   if (!node.href) return ok(error(`open: ${target}: no link to follow`))
-  return { lines: [text(`opening ${node.href}`, 'link')], openUrl: node.href }
+  return { lines: [text(`opening ${node.href}`, 'dim')], openUrl: node.href }
 }

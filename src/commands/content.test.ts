@@ -108,12 +108,6 @@ describe('open', () => {
     expect(open(['alpha'], ctx('/')).lines[0]).toMatchObject({ tone: 'error' })
   })
 
-  // The URL is in the same hue as the commands and links, not the dim grey of
-  // ordinary output: it is the thing that was followed.
-  it('prints the URL in the link tone', () => {
-    expect(open(['linked'], ctx('/')).lines[0]).toMatchObject({ tone: 'link' })
-  })
-
   it('requires an argument', () => {
     expect(open([], ctx('/')).lines[0]).toMatchObject({ text: 'usage: open <file>' })
   })

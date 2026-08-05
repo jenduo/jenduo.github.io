@@ -26,12 +26,11 @@ traps that have already cost time once.
   `bindHints` rewrites the click to the full path while leaving the text short.
   Jen chose this so the site does not teach people a shell that does not exist.
   Do not "fix" the typed case by making it lenient.
-- **Two hues, and they mean different things.** `--accent` is structure and
-  identity: headings, prompts, directory names, the grid on the desk. `--second`
-  is what a visitor can act on: runnable commands, the mobile chips, the accept
-  key, a URL that was followed, and the light on the desk. Every palette defines
-  both, so `colour` carries the distinction. Adding a third colour, or reaching
-  for `--accent` on something clickable, undoes it.
+- **`--second` is used in two places only:** the clickable command inside a hint,
+  and the light on the desk. `--accent` does everything else. Spreading the second
+  hue across filenames, card metadata, the chips and the accept key was tried and
+  reverted at Jen's call: with two colours competing everywhere, neither read as
+  meaning anything. Resist the urge to reintroduce it, and check with her first.
 - Verify visual changes by measuring in the browser (`agent-browser`), not by
   reasoning about CSS. Several bugs below were found only that way.
 - Use `agent-browser`, never the Claude-for-Chrome tools. They are denied.

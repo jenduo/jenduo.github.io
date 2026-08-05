@@ -144,13 +144,17 @@ const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
 
 Golzarijalal M, Aickelin U, Duong QCT, Otte E.
 
-Multi-fidelity optimisation earns its complexity when the objective is expensive to evaluate: alongside the true function you sample cheap approximations, and let the model decide when a cheap look is good enough.
+Monoclonal antibodies target antigens selectively, which makes them effective against a lot of diseases, and demand for them is growing fast. The trouble is that the experiments that improve how they are manufactured are slow and expensive, so process development runs on very little data.
 
-The framework behind it is a generalised multi-fidelity Bayesian optimisation setup, running the Forrester, Branin, Borehole and Hartmann benchmarks with EI, PI, UCB and KG acquisition functions, and either greedy or uncertainty-driven high-fidelity selection. Built for concurrent HPC experiments, so results stream to CSV with safe concurrent writes.
+Multifidelity optimisation is a way around that small-data problem: pair the few high-quality experiments you can afford with cheap simulation data, and let the model decide when an approximation is good enough to learn from.
+
+In our case study, four extra real experiments were enough to lift antibody productivity by around 25% over the historical baseline.
+
+Underneath is a generalised multifidelity Bayesian optimisation framework, built to run concurrently on HPC.
 
 Python · PyTorch · BoTorch · GPyTorch
 
-open this file for the code.
+open this file to read it in BioProcess International. The code is at github.com/jenduo/mfbo-framework.
 `
 
 const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
@@ -229,7 +233,7 @@ export const root: Dir = {
           kind: 'file',
           name: 'multifidelity-optimisation',
           body: multifidelity,
-          href: 'https://github.com/jenduo/mfbo-framework',
+          href: 'https://www.bioprocessintl.com/qa-qc/doing-more-with-less-multifidelity-optimization-in-the-biopharmaceutical-industry',
         },
         {
           kind: 'file',

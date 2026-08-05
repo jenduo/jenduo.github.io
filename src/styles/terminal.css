@@ -522,7 +522,11 @@ body {
 
 .titlecard-sub {
   margin-top: 0.2em;
-  color: var(--fg-dim);
+  /* Metadata, so it stays quiet, but in the second hue rather than grey: it
+     belongs to the title above it, not to the output around it. 78% lands at a
+     contrast of 4.8, a little above the grey it replaced, since a tinted dim
+     reads darker than a neutral one at the same mix. */
+  color: color-mix(in srgb, var(--second) 78%, var(--bg));
   font-size: 0.95em;
 }
 
@@ -626,7 +630,9 @@ body {
 
 .icons-label {
   flex: 0 0 11ch;
-  color: var(--fg-dim);
+  /* A category name, so accent: the same family as every other heading, mixed
+     down to 4.2 against the background rather than competing with the row. */
+  color: color-mix(in srgb, var(--accent) 80%, var(--bg));
 }
 
 .icons-item {
@@ -677,8 +683,10 @@ body {
   font-weight: 700;
 }
 
+/* A directory is somewhere to go, a file is something to open, so they take the
+   two hues rather than differing only in weight. */
 .entry-file {
-  color: var(--fg);
+  color: var(--second);
 }
 
 .entry:hover,

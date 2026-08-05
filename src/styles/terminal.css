@@ -153,6 +153,35 @@ body {
     background: var(--desktop);
   }
 
+  /* The surface the window sits on. A pool of light, as though the screen were
+     lighting the desk, over a faint grid so the space is not a plain void. Both
+     are mixed from --accent, so `colour` recolours the desk with the terminal,
+     and both are masked away at the edges to keep the window the subject. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        58% 52% at 50% 46%,
+        color-mix(in srgb, var(--accent) 13%, transparent),
+        transparent 70%
+      ),
+      repeating-linear-gradient(
+        to right,
+        color-mix(in srgb, var(--accent) 7%, transparent) 0 1px,
+        transparent 1px 48px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--accent) 7%, transparent) 0 1px,
+        transparent 1px 48px
+      );
+    mask-image: radial-gradient(75% 75% at 50% 50%, #000 35%, transparent 100%);
+  }
+
   .terminal {
     /* The scroll column owns the right edge and the scrollback owns the bottom
        spacing, so both move off the terminal: otherwise the padding is applied
@@ -162,6 +191,9 @@ body {
   }
 
   #root {
+    /* Above the desk, so the window reads as sitting on it. */
+    position: relative;
+    z-index: 1;
     padding: 30px;
     /* Centres the window in both axes now that it no longer fills the height. */
     align-items: center;

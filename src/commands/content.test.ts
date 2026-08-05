@@ -33,6 +33,18 @@ describe('cat', () => {
   it('reads a file by stem, without its extension', () => {
     expect(cat(['notes'], ctx('/')).lines[0]).toMatchObject({ text: 'notes' })
   })
+
+  // Every hint on the site names a file relative to its own directory, so
+  // following one from anywhere else used to be an error.
+  it('reads a file named from the wrong directory, saying where it is', () => {
+    const result = cat(['apple'], ctx('/'))
+    expect(result.lines[0]).toMatchObject({ text: 'found at ~/alpha/apple', tone: 'dim' })
+    expect(result.lines[1]).toMatchObject({ text: 'apple' })
+  })
+
+  it('says nothing extra when the file was where you are', () => {
+    expect(cat(['readme'], ctx('/')).lines[0]).toMatchObject({ text: 'line one' })
+  })
 })
 
 describe('tree', () => {
@@ -86,5 +98,12 @@ describe('open', () => {
 
   it('requires an argument', () => {
     expect(open([], ctx('/')).lines[0]).toMatchObject({ text: 'usage: open <file>' })
+  })
+
+  // The hint reads `type 'open linked' ...`, wherever the visitor has wandered.
+  it('follows a link named from the wrong directory', () => {
+    const result = open(['linked'], ctx('/alpha/beta'))
+    expect(result.openUrl).toBe('https://example.com/linked')
+    expect(result.lines[0]).toMatchObject({ text: 'found at ~/linked', tone: 'dim' })
   })
 })

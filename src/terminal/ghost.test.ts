@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { SUGGESTIONS, ghostFrames, suggestionsFor } from './ghost'
 import { COMMANDS } from '../commands/index'
+import { isTheme } from '../commands/themes'
 import { fixtureRoot } from '../fs/fixture'
 import { resolve } from '../fs/resolve'
 import type { Dir } from '../fs/types'
@@ -24,6 +25,15 @@ describe('SUGGESTIONS', () => {
 
   it('is not empty', () => {
     expect(SUGGESTIONS.length).toBeGreaterThan(0)
+  })
+
+  // `colour teal` would type out perfectly and then fail on the keypress.
+  it('names a real theme wherever it suggests a colour', () => {
+    const colours = SUGGESTIONS.filter((suggestion) => suggestion.startsWith('colour '))
+    expect(colours.length).toBeGreaterThan(0)
+    for (const suggestion of colours) {
+      expect(isTheme(suggestion.slice('colour '.length)), suggestion).toBe(true)
+    }
   })
 })
 

@@ -11,7 +11,16 @@ import type { Dir } from '../fs/types'
  * Hand-picked rather than derived: at the root the useful thing is a tour, not a
  * list of what happens to sit in the home directory.
  */
-export const SUGGESTIONS = ['whoami', 'ls experience', 'cat skills', 'tree', 'ls publications']
+export const SUGGESTIONS = [
+  'whoami',
+  'ls experience',
+  'cat skills',
+  'tree',
+  'ls publications',
+  // Last, and a real colour rather than bare `colour`: the suggestion runs on a
+  // keypress, so it should recolour the terminal rather than print its usage.
+  'colour blue',
+]
 
 /** How many of each kind to offer, so a large directory does not drone on. */
 const MAX_FILES = 3

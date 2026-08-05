@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { displayPath, normalize, resolve, stem } from './resolve'
+import { displayPath, locate, normalize, resolve, stem } from './resolve'
 import type { Dir } from './types'
 
 const root: Dir = {
@@ -136,5 +136,69 @@ describe('displayPath', () => {
   it('renders home as ~', () => {
     expect(displayPath('/')).toBe('~')
     expect(displayPath('/projects/alpha')).toBe('~/projects/alpha')
+  })
+})
+
+describe('locate', () => {
+  it('resolves a path the ordinary way, reporting where it looked', () => {
+    const found = locate(root, '/', 'projects')
+    expect(found?.path).toBe('/projects')
+    expect(found?.elsewhere).toBe(false)
+  })
+
+  // The site prints `open article`, which only resolves inside publications/.
+  it('finds a bare name from the wrong directory', () => {
+    const found = locate(root, '/projects', 'about.txt')
+    expect(found?.path).toBe('/about.txt')
+    expect(found?.elsewhere).toBe(true)
+  })
+
+  it('finds a nested name from the root', () => {
+    expect(locate(root, '/', 'alpha')?.path).toBe('/projects/alpha')
+  })
+
+  it('prefers what is actually in the current directory', () => {
+    const twice: Dir = {
+      kind: 'dir',
+      name: '',
+      children: [
+        { kind: 'file', name: 'notes', body: 'root' },
+        { kind: 'dir', name: 'sub', children: [{ kind: 'file', name: 'notes', body: 'sub' }] },
+      ],
+    }
+    const found = locate(twice, '/sub', 'notes')
+    expect(found?.path).toBe('/sub/notes')
+    expect(found?.elsewhere).toBe(false)
+  })
+
+  // Two candidates, so guessing would be worse than saying no.
+  it('refuses an ambiguous name', () => {
+    const twice: Dir = {
+      kind: 'dir',
+      name: '',
+      children: [
+        { kind: 'dir', name: 'a', children: [{ kind: 'file', name: 'notes', body: '1' }] },
+        { kind: 'dir', name: 'b', children: [{ kind: 'file', name: 'notes', body: '2' }] },
+      ],
+    }
+    expect(locate(twice, '/', 'notes')).toBeNull()
+  })
+
+  // A path was typed deliberately, so it is not second-guessed.
+  it('does not search when the input contains a slash', () => {
+    expect(locate(root, '/', 'nowhere/alpha')).toBeNull()
+  })
+
+  it('leaves . and .. to mean exactly what they say', () => {
+    expect(locate(root, '/projects', '..')?.path).toBe('/')
+    expect(locate(root, '/projects', '.')?.path).toBe('/projects')
+  })
+
+  it('finds a name by its stem, as resolve does', () => {
+    expect(locate(root, '/projects', 'about')?.path).toBe('/about.txt')
+  })
+
+  it('returns null for a name that is nowhere', () => {
+    expect(locate(root, '/', 'nope')).toBeNull()
   })
 })

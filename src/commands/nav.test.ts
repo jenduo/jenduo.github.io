@@ -87,3 +87,19 @@ describe('cd', () => {
     expect(result.lines[0]).toMatchObject({ tone: 'error' })
   })
 })
+
+describe('finding things from the wrong directory', () => {
+  it('cd walks to a directory named from anywhere', () => {
+    expect(cd(['beta'], ctx('/'))).toMatchObject({ cwd: '/alpha/beta' })
+  })
+
+  it('ls lists a directory named from anywhere', () => {
+    const [line] = ls(['beta'], ctx('/')).lines
+    expect(line.type === 'paths' && line.entries[0].path).toBe('/alpha/beta/deep')
+  })
+
+  // `..` and `.` are path syntax, not names to go looking for.
+  it('leaves .. alone at the root', () => {
+    expect(cd(['..'], ctx('/'))).toMatchObject({ cwd: '/' })
+  })
+})

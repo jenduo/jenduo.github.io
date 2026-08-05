@@ -60,3 +60,43 @@ export function resolve(root: Dir, cwd: string, input: string): FsNode | null {
 export function displayPath(path: string): string {
   return path === '/' ? '~' : '~' + path
 }
+
+export interface Located {
+  node: FsNode
+  /** Absolute path of what was found, so a caller can say where it looked. */
+  path: string
+  /** True when the literal path missed and the name was found elsewhere. */
+  elsewhere: boolean
+}
+
+/** Every node in the tree, each with its absolute path. */
+function walk(dir: Dir, base: string): Located[] {
+  return dir.children.flatMap((child) => {
+    const path = `${base === '/' ? '' : base}/${child.name}`
+    const here: Located = { node: child, path, elsewhere: true }
+    return child.kind === 'dir' ? [here, ...walk(child, path)] : [here]
+  })
+}
+
+/**
+ * Resolves a path, and if that misses, looks for the name anywhere in the tree.
+ *
+ * The site tells visitors to type `open article`, which only resolves from
+ * inside `publications/`. Rather than answering a correct-looking command with
+ * `No such file`, a bare name that exists in exactly one place is found. Callers
+ * report the real path, so the shortcut teaches the layout instead of hiding it.
+ *
+ * Deliberately narrow: anything containing a slash was meant literally, and an
+ * ambiguous name finds nothing rather than guessing between two files.
+ */
+export function locate(root: Dir, cwd: string, input: string): Located | null {
+  const direct = resolve(root, cwd, input)
+  if (direct) return { node: direct, path: normalize(cwd, input), elsewhere: false }
+
+  if (input.includes('/') || input === '.' || input === '..') return null
+
+  const matches = walk(root, '/').filter(
+    ({ node }) => node.name === input || stem(node.name) === input,
+  )
+  return matches.length === 1 ? matches[0] : null
+}

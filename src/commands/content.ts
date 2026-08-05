@@ -1,18 +1,25 @@
 import { formatBody } from '../fs/markup'
-import { normalize, resolve } from '../fs/resolve'
+import { displayPath, locate, normalize, resolve } from '../fs/resolve'
 import type { Dir } from '../fs/types'
 import { childrenOf } from './nav'
 import type { Command, Line } from './types'
 import { error, ok, text } from './types'
 
+/**
+ * Says where a name was found when it was not where the visitor was standing.
+ * The point is to teach the path, not to silently paper over the miss.
+ */
+const foundAt = (path: string): Line => text(`found at ${displayPath(path)}`, 'dim')
+
 export const cat: Command = (args, ctx) => {
   const target = args[0]
   if (!target) return ok(error('usage: cat <file>'))
-  const node = resolve(ctx.root, ctx.cwd, target)
-  if (!node) return ok(error(`cat: ${target}: No such file or directory`))
-  if (node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
-  if (node.lines) return { lines: node.lines }
-  return { lines: formatBody(node.body) }
+  const found = locate(ctx.root, ctx.cwd, target)
+  if (!found) return ok(error(`cat: ${target}: No such file or directory`))
+  if (found.node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
+
+  const body = found.node.lines ?? formatBody(found.node.body)
+  return { lines: found.elsewhere ? [foundAt(found.path), ...body] : body }
 }
 
 /**
@@ -48,9 +55,15 @@ export const tree: Command = (args, ctx) => {
 export const open: Command = (args, ctx) => {
   const target = args[0]
   if (!target) return ok(error('usage: open <file>'))
-  const node = resolve(ctx.root, ctx.cwd, target)
-  if (!node) return ok(error(`open: ${target}: No such file or directory`))
-  if (node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
-  if (!node.href) return ok(error(`open: ${target}: no link to follow`))
-  return { lines: [text(`opening ${node.href}`, 'dim')], openUrl: node.href }
+  const found = locate(ctx.root, ctx.cwd, target)
+  if (!found) return ok(error(`open: ${target}: No such file or directory`))
+  if (found.node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
+  const { href } = found.node
+  if (!href) return ok(error(`open: ${target}: no link to follow`))
+
+  const opening = text(`opening ${href}`, 'dim')
+  return {
+    lines: found.elsewhere ? [foundAt(found.path), opening] : [opening],
+    openUrl: href,
+  }
 }

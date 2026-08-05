@@ -120,9 +120,8 @@ const linkedin = `linkedin.com/in/jennifer-duong-b78933257
   type 'open linkedin' to open my LinkedIn.
 `
 
-const investorhub = `# InvestorHub · Melbourne CBD, VIC
-
-  Junior Software Engineer · Dec 2025 to present
+const investorhub = `# InvestorHub · Software Engineer
+## Melbourne CBD, VIC · Dec 2025 to present
 
   InvestorHub builds investor relations software for listed companies:
   shareholder analytics, communications and engagement tooling.
@@ -136,9 +135,8 @@ const investorhub = `# InvestorHub · Melbourne CBD, VIC
     and webinar tooling wired into shareholder data.
 `
 
-const unimelbCsl = `# University of Melbourne & CSL · Carlton, VIC
-
-  Technical Research Assistant · Aug 2024 to Nov 2025
+const unimelbCsl = `# University of Melbourne & CSL · Technical Research Assistant
+## Carlton, VIC · Aug 2024 to Nov 2025
 
   - Wrote parallelised machine learning scripts in Python and ran them on
     Spartan, the university's HPC cluster, to speed up research workflows.
@@ -149,9 +147,8 @@ const unimelbCsl = `# University of Melbourne & CSL · Carlton, VIC
   Two papers came out of this work:  ls publications
 `
 
-const allmediadesk = `# AllMediaDesk · Melbourne CBD, VIC
-
-  Software Engineer Intern · Feb 2023 to Sept 2023
+const allmediadesk = `# AllMediaDesk · Software Engineer Intern
+## Melbourne CBD, VIC · Feb 2023 to Sept 2023
 
   - Worked with the sales and release teams on performance and usability
     problems.
@@ -160,9 +157,9 @@ const allmediadesk = `# AllMediaDesk · Melbourne CBD, VIC
 `
 
 const multifidelity = `# Doing More with Less: Multifidelity Optimization in the Biopharmaceutical Industry
+## BioProcess International, 24(2) · February 2026
 
   Golzarijalal M, Aickelin U, Duong QCT, Otte E.
-  BioProcess International, 24(2) · February 2026
 
   Multi-fidelity optimisation earns its complexity when the objective is
   expensive to evaluate: alongside the true function you sample cheap
@@ -180,16 +177,15 @@ const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
 `
 
 const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
+## SSRN preprint · August 2025 · doi:10.2139/ssrn.5591701
 
   Golzarijalal M, et al. (incl. Duong QCT)
-  SSRN preprint · August 2025 · doi:10.2139/ssrn.5591701
 
   open this file for the preprint.
 `
 
-const volunteer = `# University of Melbourne
-
-  Student Ambassador · Mar 2025 to present
+const volunteer = `# University of Melbourne · Student Ambassador
+## Mar 2025 to present
 
   Representing the faculty at Open Day and other outreach events: panels,
   tours and content creation.

@@ -13,8 +13,8 @@ export interface PathEntry {
 export type Line =
   /** An echoed prompt line, e.g. `~/projects $ ls`. */
   | { type: 'prompt'; cwd: string; input: string }
-  /** `hero` is display size, `heading` a file's title. See terminal.css. */
-  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' | 'heading' }
+  /** `hero` renders at display size. See terminal.css. */
+  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' }
   /**
    * The ASCII banner. All rows travel as one line so the component that renders
    * them can animate them as a single unit.
@@ -22,6 +22,8 @@ export type Line =
   | { type: 'banner'; rows: string[] }
   /** A real photograph, tinted to the palette by terminal.css. */
   | { type: 'portrait'; src: string; alt: string }
+  /** A file's title, framed and centred, with an optional second line. */
+  | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */
   | { type: 'paths'; entries: PathEntry[] }
   /** A labelled row of technologies, each with an optional logo. */

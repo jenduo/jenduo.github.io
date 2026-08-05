@@ -31,6 +31,15 @@ export function Line({ line, onRun }: Props) {
     return <Portrait src={line.src} alt={line.alt} />
   }
 
+  if (line.type === 'titlecard') {
+    return (
+      <div className="titlecard">
+        <div className="titlecard-title">{line.title}</div>
+        {line.subtitle ? <div className="titlecard-sub">{line.subtitle}</div> : null}
+      </div>
+    )
+  }
+
   if (line.type === 'text') {
     return (
       <div className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}>

@@ -344,16 +344,30 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* A file's title: larger, centred and in the accent, so a document announces
-   itself. Long titles wrap and stay centred, which is why the two publication
-   titles were joined into single lines rather than split by hand. */
-.line.heading {
-  margin: 0.15em 0 0.7em;
+/* A file's title, framed so a document opens with something that reads as a
+   header rather than as the first line of output. Bordered in the accent and
+   centred; the toolbar uses a background instead, so the two do not read as the
+   same kind of thing. */
+.titlecard {
+  margin: 0.3em 0 1.15em;
+  padding: 0.6em 1.5ch;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.titlecard-title {
   color: var(--accent);
   font-size: 1.35em;
   font-weight: 700;
   line-height: 1.3;
-  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.titlecard-sub {
+  margin-top: 0.2em;
+  color: var(--fg-dim);
+  font-size: 0.95em;
 }
 
 .line.art {

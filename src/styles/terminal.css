@@ -194,6 +194,10 @@ body {
      visitor joins it differs every time. Keep the period in step with
      DRIFT_PERIOD in terminal/desk.ts, which is what that offset is drawn from.
 
+     Lit in --link, not --accent: purple light against the pink grid separates
+     the surface from the terminal's own colour, and every palette already
+     defines a second hue for exactly this reason.
+
      Transform rather than background-position: the browser can move a layer on
      the GPU, and repainting a full-screen gradient sixty times a second to shift
      it a fraction of a pixel is not worth it. */
@@ -209,7 +213,7 @@ body {
     pointer-events: none;
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 28%, transparent),
+      color-mix(in srgb, var(--link) 34%, transparent),
       transparent
     );
     animation: desk-drift 13s var(--drift-delay, 0s) infinite;
@@ -257,7 +261,7 @@ body {
        exactly the part that would be brightest. */
     box-shadow:
       0 24px 70px rgb(0 0 0 / 65%),
-      0 0 130px color-mix(in srgb, var(--accent) 30%, transparent);
+      0 0 130px color-mix(in srgb, var(--link) 34%, transparent);
     /* Clips the terminal's square corners to the window's rounded ones. */
     overflow: hidden;
   }

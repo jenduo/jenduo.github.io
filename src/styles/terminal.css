@@ -181,8 +181,9 @@ body {
   }
 
   /* A pool of light wandering the desk, so the surface is never quite the same
-     twice. The path is fixed and long enough to read as aimless; App.tsx offsets
-     the start at random, so where a visitor joins it differs every time.
+     twice. The path is fixed; App.tsx offsets the start at random, so where a
+     visitor joins it differs every time. Keep the period in step with
+     DRIFT_PERIOD in terminal/desk.ts, which is what that offset is drawn from.
 
      Transform rather than background-position: the browser can move a layer on
      the GPU, and repainting a full-screen gradient sixty times a second to shift
@@ -202,7 +203,7 @@ body {
       color-mix(in srgb, var(--accent) 15%, transparent),
       transparent
     );
-    animation: desk-drift 150s var(--drift-delay, 0s) ease-in-out infinite;
+    animation: desk-drift 55s var(--drift-delay, 0s) ease-in-out infinite;
     will-change: transform;
   }
 

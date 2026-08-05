@@ -149,14 +149,6 @@ Monoclonal antibodies are in high demand, but the experiments that improve how t
 type 'open multifidelity-optimisation' to read the article.
 `
 
-const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
-## SSRN preprint · August 2025 · doi:10.2139/ssrn.5591701
-
-Golzarijalal M, et al. (incl. Duong QCT)
-
-type 'open cho-fed-batch-modelling' to read the preprint.
-`
-
 const volunteer = `# University of Melbourne · Student Ambassador
 ## Mar 2025 to present
 
@@ -215,12 +207,6 @@ export const root: Dir = {
           name: 'multifidelity-optimisation',
           body: multifidelity,
           href: 'https://www.bioprocessintl.com/qa-qc/doing-more-with-less-multifidelity-optimization-in-the-biopharmaceutical-industry',
-        },
-        {
-          kind: 'file',
-          name: 'cho-fed-batch-modelling',
-          body: choFedBatch,
-          href: 'https://doi.org/10.2139/ssrn.5591701',
         },
       ],
     },

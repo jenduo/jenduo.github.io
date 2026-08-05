@@ -56,8 +56,8 @@ describe('entriesOf', () => {
     }
   })
 
-  // Sorting these alphabetically would bury the current job in the middle and
-  // put the older paper first, so both are authored newest first.
+  // Sorting alphabetically would bury the current job in the middle of the
+  // experience list, so those are authored newest first.
   it('keeps the authored order where a directory asked for it', () => {
     // publications ahead of other, which alphabetical ordering would reverse.
     expect(entriesOf('/', dirAt('/')).map((e) => e.name)).toEqual([
@@ -73,10 +73,6 @@ describe('entriesOf', () => {
       'investorhub',
       'unimelb-csl',
       'allmediadesk',
-    ])
-    expect(entriesOf('/publications', dirAt('/publications')).map((e) => e.name)).toEqual([
-      'multifidelity-optimisation',
-      'cho-fed-batch-modelling',
     ])
     expect(entriesOf('/contact', dirAt('/contact')).map((e) => e.name)).toEqual([
       'linkedin',

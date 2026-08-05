@@ -344,6 +344,13 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* A file's title. Bold and in the accent so a document announces itself,
+   rather than the `#` printing literally as it used to. */
+.line.heading {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .line.art {
   display: none;
 }

@@ -124,12 +124,9 @@ const investorhub = `# InvestorHub
 Melbourne CBD, VIC
 
   Junior Software Engineer · Dec 2025 to present
-  Software Engineer Intern · Nov 2023 to Feb 2024
 
   InvestorHub builds investor relations software for listed companies:
   shareholder analytics, communications and engagement tooling.
-
-  Now, as a junior engineer:
 
   - Built an in-house video recording tool on Chrome's MediaRecorder API, so
     companies can capture and embed video without leaving the platform.
@@ -138,18 +135,6 @@ Melbourne CBD, VIC
   - Shipped full-stack features across the marketing suite: newsflow
     distribution to email, LinkedIn and Twitter, a flexible website builder,
     and webinar tooling wired into shareholder data.
-
-  Earlier, as an intern:
-
-  - Built a demo site from scratch emulating the product, with AI-generated
-    questions and answers. It is still used in sales meetings today.
-    React, Elixir, PostgreSQL on GCP.
-  - Built a monthly dashboard in React and Tailwind so companies could
-    download summaries of their reach.
-  - Built a statistics page graphing backend data on shareholder growth and
-    user engagement.
-
-  I interned here, left for a Masters and research, and came back.
 `
 
 const unimelbCsl = `# University of Melbourne & CSL

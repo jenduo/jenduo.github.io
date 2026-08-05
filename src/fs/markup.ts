@@ -29,6 +29,11 @@ export function formatBody(body: string): Line[] {
       const next = rows[i + 1]?.match(/^##\s+(.*)$/)
       if (next) i += 1
       lines.push({ type: 'titlecard', title: title[1], subtitle: next?.[1] })
+
+      // The card carries its own space beneath it, so a blank line written after
+      // one in the source would double the gap. Bodies are still authored with
+      // that blank, because a title butted against its text is hard to read.
+      if (rows[i + 1] === '') i += 1
       continue
     }
 

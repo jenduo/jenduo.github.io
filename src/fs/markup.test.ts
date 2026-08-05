@@ -33,6 +33,22 @@ describe('formatBody', () => {
     expect(textAt('# Title\n## Sub\nbody', 1).text).toBe('body')
   })
 
+  // The card has its own margin, so an authored blank underneath doubled the gap.
+  it('swallows a single blank line after a card, keeping the source readable', () => {
+    const lines = formatBody('# Title\n## Sub\n\nbody')
+    expect(lines).toHaveLength(2)
+    expect(textAt('# Title\n## Sub\n\nbody', 1).text).toBe('body')
+  })
+
+  it('swallows the blank after a card with no subtitle too', () => {
+    expect(textAt('# Title\n\nbody', 1).text).toBe('body')
+  })
+
+  // Only one: a deliberate double blank still opens a gap.
+  it('keeps a second blank line after a card', () => {
+    expect(textAt('# Title\n\n\nbody', 1).text).toBe('')
+  })
+
   it('marks ordinary lines as body prose, keeping the text intact', () => {
     const line = textAt('Melbourne CBD, VIC')
     expect(line.text).toBe('Melbourne CBD, VIC')

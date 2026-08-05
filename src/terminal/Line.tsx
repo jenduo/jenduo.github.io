@@ -48,6 +48,27 @@ export function Line({ line, onRun }: Props) {
     )
   }
 
+  // The quotes stay put: the sentence still reads as an instruction to type,
+  // and clicking is the shortcut for anyone who would rather not.
+  if (line.type === 'hint') {
+    return (
+      <div className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}>
+        {'type '}
+        <span className="quote">'</span>
+        <button
+          type="button"
+          className="cmd"
+          onClick={() => onRun(line.command)}
+          aria-label={`run ${line.command}`}
+        >
+          {line.command}
+        </button>
+        <span className="quote">'</span>
+        {line.after}
+      </div>
+    )
+  }
+
   if (line.type === 'icons') {
     return (
       <div className="line icons">

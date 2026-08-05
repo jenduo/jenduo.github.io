@@ -597,6 +597,38 @@ body {
   outline-offset: 2px;
 }
 
+/* The command inside a hint. Underlined rather than boxed, so the sentence still
+   reads as a sentence, and dotted rather than solid so it is not mistaken for a
+   link off the site. */
+.cmd {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-shadow: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.cmd:hover,
+.cmd:focus-visible {
+  color: var(--bright);
+  text-decoration-style: solid;
+  outline: none;
+}
+
+.cmd:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Quotes belong to the sentence, not the button, so they stay quiet. */
+.quote {
+  color: var(--fg-dim);
+}
+
 .inputline {
   display: flex;
   align-items: baseline;

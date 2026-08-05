@@ -1,4 +1,5 @@
 import type { Line } from '../commands/types'
+import { asHint } from '../commands/types'
 
 /**
  * Turns a file body into lines.
@@ -15,7 +16,8 @@ import type { Line } from '../commands/types'
  *   ## subtitle   attaches to the title above it, in the same card
  *
  * A `##` with no `#` before it stays plain text rather than silently producing a
- * card with no title. A `- ` prefix marks a bullet.
+ * card with no title. A `- ` prefix marks a bullet, and a line of the form
+ * `type 'cmd' ...` becomes a hint with the command clickable.
  */
 export function formatBody(body: string): Line[] {
   const lines: Line[] = []
@@ -34,6 +36,13 @@ export function formatBody(body: string): Line[] {
       // one in the source would double the gap. Bodies are still authored with
       // that blank, because a title butted against its text is hard to read.
       if (rows[i + 1] === '') i += 1
+      continue
+    }
+
+    const hint = asHint(row)
+    if (hint) {
+      // Indented like the prose around it. The boot screen's hint is not.
+      lines.push({ ...hint, variant: 'body' })
       continue
     }
 

@@ -16,7 +16,10 @@ traps that have already cost time once.
 - **Every linked file ends with `type 'open <name>' to <do the thing>.`** One
   wording for the whole site, with the name as the visitor would type it from
   that directory. `tree.test.ts` enforces both the form and that the name still
-  resolves, so a rename cannot leave a hint pointing at nothing.
+  resolves, so a rename cannot leave a hint pointing at nothing. The wording is
+  load-bearing beyond style: `asHint` in `commands/types.ts` matches it and turns
+  the quoted command into a button, so a hint phrased any other way silently
+  stops being clickable.
 - Verify visual changes by measuring in the browser (`agent-browser`), not by
   reasoning about CSS. Several bugs below were found only that way.
 - Use `agent-browser`, never the Claude-for-Chrome tools. They are denied.

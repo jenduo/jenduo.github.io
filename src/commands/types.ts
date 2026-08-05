@@ -26,8 +26,22 @@ export type Line =
   | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */
   | { type: 'paths'; entries: PathEntry[] }
+  /**
+   * `type 'open github' to see my repos.`, with the command clickable for
+   * visitors who would rather not type. `after` is the rest of the sentence.
+   */
+  | HintLine
   /** A labelled row of technologies, each with an optional logo. */
   | { type: 'icons'; label: string; items: IconItem[] }
+
+export interface HintLine {
+  type: 'hint'
+  command: string
+  /** The rest of the sentence, from the closing quote onwards. */
+  after: string
+  tone?: Tone
+  variant?: 'body'
+}
 
 export interface IconItem {
   name: string
@@ -69,6 +83,16 @@ export interface CommandSpec {
 }
 
 export const text = (value: string, tone?: Tone): Line => ({ type: 'text', text: value, tone })
+
+/**
+ * Turns `type 'cmd' rest of sentence` into a hint line, or returns null if the
+ * row is not one. The whole site writes these the same way, so one pattern
+ * covers every hint and there is nothing to keep in sync by hand.
+ */
+export function asHint(row: string, tone?: Tone): HintLine | null {
+  const match = row.match(/^type '([^']+)'(.*)$/)
+  return match ? { type: 'hint', command: match[1], after: match[2], tone } : null
+}
 
 export const hero = (value: string): Line => ({ type: 'text', text: value, variant: 'hero' })
 export const error = (message: string): Line => ({ type: 'text', text: message, tone: 'error' })

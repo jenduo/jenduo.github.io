@@ -49,6 +49,35 @@ describe('formatBody', () => {
     expect(textAt('# Title\n\n\nbody', 1).text).toBe('')
   })
 
+  // The command is clickable, so it travels as data rather than inside a string.
+  describe('hints', () => {
+    const hintAt = (body: string, index = 0) => {
+      const line = formatBody(body)[index]
+      if (line.type !== 'hint') throw new Error(`line ${index} is not a hint`)
+      return line
+    }
+
+    it('splits the command out of the sentence', () => {
+      const hint = hintAt("type 'open github' to see my repos.")
+      expect(hint.command).toBe('open github')
+      expect(hint.after).toBe(' to see my repos.')
+    })
+
+    it('indents like the prose it sits among', () => {
+      expect(hintAt("type 'open github' to see my repos.").variant).toBe('body')
+    })
+
+    // Otherwise the boot screen's hint would run 'help,' with the comma.
+    it('stops the command at the closing quote', () => {
+      expect(hintAt("type 'help', or click anything above.").command).toBe('help')
+    })
+
+    it('leaves prose that merely quotes something alone', () => {
+      expect(textAt("she said 'hello' to me").variant).toBe('body')
+      expect(textAt('type this out by hand').variant).toBe('body')
+    })
+  })
+
   it('marks ordinary lines as body prose, keeping the text intact', () => {
     const line = textAt('Melbourne CBD, VIC')
     expect(line.text).toBe('Melbourne CBD, VIC')

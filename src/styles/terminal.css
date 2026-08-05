@@ -16,6 +16,9 @@
   --chrome: #120b0f;
   --chrome-border: #291a21;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Makes native UI, including Firefox's fallback scrollbar, render dark. */
+  color-scheme: dark;
 }
 
 /* ─── palettes, switched by the `colour` command ────────────────────────────
@@ -130,12 +133,17 @@ body {
 }
 
 .terminal {
+  --gutter: clamp(16px, 4vw, 40px);
+
   position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  padding: clamp(16px, 4vw, 40px);
+  /* No right padding: the scroll column owns that edge, the way a real terminal
+     puts its scrollbar in a gutter against the window frame rather than floating
+     it in the text margin. */
+  padding: var(--gutter) 0 var(--gutter) var(--gutter);
   overflow: hidden;
 }
 
@@ -236,14 +244,12 @@ body {
    padding to sit flush against the titlebar, edge to edge, on its own
    background. Without that it reads as just another line of output. */
 .dirbar {
-  --gutter: clamp(16px, 4vw, 40px);
-
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.2em 1.4ch;
-  margin: calc(-1 * var(--gutter)) calc(-1 * var(--gutter)) 1em;
+  margin: calc(-1 * var(--gutter)) 0 1em calc(-1 * var(--gutter));
   padding: 0.45em var(--gutter);
   background: var(--chrome);
   border-bottom: 1px solid var(--chrome-border);
@@ -298,31 +304,33 @@ body {
   overflow-y: auto;
   overscroll-behavior: contain;
   cursor: text;
-  /* Kept, rather than hidden: it is the only signal that there is history above.
-     Thin and near-invisible until hovered, so it stops being furniture. */
+
+  /* A drawn scroll channel. Chrome on macOS uses overlay scrollbars: they float
+     above the content, occupy no layout width, and cannot be given a track, so
+     ::-webkit-scrollbar reserves nothing even at 40px and is ignored outright
+     once scrollbar-color is set. The gutter therefore has to come from the
+     container: reserve the width, then paint its inner edge.
+
+     The gradient is positioned against the padding box and does not scroll with
+     the content, so the divider stays put. */
+  padding-right: 15px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+    to right,
+    transparent calc(100% - 15px),
+    var(--chrome-border) calc(100% - 15px) calc(100% - 14px),
+    transparent calc(100% - 14px)
+  );
+
+  /* Kept rather than hidden: it is the only signal that there is history above. */
   scrollbar-width: thin;
   scrollbar-color: var(--chrome-border) transparent;
 }
 
-.scrollback::-webkit-scrollbar {
-  width: 8px;
+.scrollback:hover {
+  scrollbar-color: var(--fg-dim) transparent;
 }
 
-.scrollback::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollback::-webkit-scrollbar-thumb {
-  background: var(--chrome-border);
-  border: 2px solid transparent;
-  border-radius: 99px;
-  background-clip: content-box;
-}
-
-.scrollback:hover::-webkit-scrollbar-thumb {
-  background: var(--fg-dim);
-  background-clip: content-box;
-}
 
 .line {
   white-space: pre-wrap;

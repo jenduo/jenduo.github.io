@@ -230,15 +230,47 @@ body {
 }
 
 /* What is in the current directory. Sits outside the scrollback because it
-   changes as you navigate, and the scrollback is a transcript. */
+   changes as you navigate, and the scrollback is a transcript.
+
+   Styled as a toolbar rather than as text: it breaks out of the terminal's
+   padding to sit flush against the titlebar, edge to edge, on its own
+   background. Without that it reads as just another line of output. */
 .dirbar {
+  --gutter: clamp(16px, 4vw, 40px);
+
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
-  gap: 0.15em 1.5ch;
-  padding-bottom: 0.5em;
-  margin-bottom: 0.7em;
+  align-items: center;
+  gap: 0.2em 1.4ch;
+  margin: calc(-1 * var(--gutter)) calc(-1 * var(--gutter)) 1em;
+  padding: 0.45em var(--gutter);
+  background: var(--chrome);
   border-bottom: 1px solid var(--chrome-border);
+  font-size: 13.5px;
+}
+
+/* Where you are, as a label for the row. */
+.dirbar-path {
+  margin-right: 0.6ch;
+  color: var(--fg-dim);
+  font-weight: 700;
+}
+
+.dirbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55ch;
+}
+
+.dirbar-glyph {
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
+  /* Nudged down: the glyph's optical centre sits above the text baseline. */
+  margin-top: -0.05em;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .dirbar-empty {

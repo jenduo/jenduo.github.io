@@ -120,8 +120,7 @@ const linkedin = `linkedin.com/in/jennifer-duong-b78933257
   type 'open linkedin' to open my LinkedIn.
 `
 
-const investorhub = `# InvestorHub
-Melbourne CBD, VIC
+const investorhub = `# InvestorHub · Melbourne CBD, VIC
 
   Junior Software Engineer · Dec 2025 to present
 
@@ -137,8 +136,7 @@ Melbourne CBD, VIC
     and webinar tooling wired into shareholder data.
 `
 
-const unimelbCsl = `# University of Melbourne & CSL
-Carlton, VIC
+const unimelbCsl = `# University of Melbourne & CSL · Carlton, VIC
 
   Technical Research Assistant · Aug 2024 to Nov 2025
 
@@ -151,8 +149,7 @@ Carlton, VIC
   Two papers came out of this work:  ls publications
 `
 
-const allmediadesk = `# AllMediaDesk
-Melbourne CBD, VIC
+const allmediadesk = `# AllMediaDesk · Melbourne CBD, VIC
 
   Software Engineer Intern · Feb 2023 to Sept 2023
 
@@ -162,8 +159,7 @@ Melbourne CBD, VIC
   - Containerised AdPerform and AdOptimize, cutting upgrade times.
 `
 
-const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
-  Biopharmaceutical Industry
+const multifidelity = `# Doing More with Less: Multifidelity Optimization in the Biopharmaceutical Industry
 
   Golzarijalal M, Aickelin U, Duong QCT, Otte E.
   BioProcess International, 24(2) · February 2026
@@ -183,8 +179,7 @@ const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
   open this file for the code.
 `
 
-const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on
-  Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
+const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
 
   Golzarijalal M, et al. (incl. Duong QCT)
   SSRN preprint · August 2025 · doi:10.2139/ssrn.5591701

@@ -344,11 +344,16 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* A file's title. Bold and in the accent so a document announces itself,
-   rather than the `#` printing literally as it used to. */
+/* A file's title: larger, centred and in the accent, so a document announces
+   itself. Long titles wrap and stay centred, which is why the two publication
+   titles were joined into single lines rather than split by hand. */
 .line.heading {
+  margin: 0.15em 0 0.7em;
   color: var(--accent);
+  font-size: 1.35em;
   font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
 }
 
 .line.art {

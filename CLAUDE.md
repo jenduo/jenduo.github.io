@@ -30,8 +30,9 @@ Fill in as you go with her:
 
 - [ ] `experience/unimelb-csl` — bullets are accurate but never reviewed with her
 - [ ] `experience/allmediadesk` — thin, three bullets
-- [ ] `publications/multifidelity-optimisation` — my summary of her paper, likely
-      too technical, needs her voice on why the work mattered
+- [x] `publications/multifidelity-optimisation` — done. A publication entry is a
+      short summary and a link to the article, nothing more: no tech stack line,
+      no link to the code. The paper is the artefact.
 - [ ] `publications/cho-fed-batch-modelling` — almost empty, just authors and a link
 - [ ] `education`, `skills`, `contact/*` — never reviewed with her
 - [ ] `other/this-site` — my description of my own work; she may want to own it

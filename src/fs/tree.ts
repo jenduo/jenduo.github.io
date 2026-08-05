@@ -144,17 +144,9 @@ const multifidelity = `# Doing More with Less: Multifidelity Optimization in the
 
 Golzarijalal M, Aickelin U, Duong QCT, Otte E.
 
-Monoclonal antibodies target antigens selectively, which makes them effective against a lot of diseases, and demand for them is growing fast. The trouble is that the experiments that improve how they are manufactured are slow and expensive, so process development runs on very little data.
+Monoclonal antibodies are in high demand, but the experiments that improve how they are manufactured are slow and expensive, so process development runs on very little data. Multifidelity optimisation gets around that by pairing the few high-quality experiments you can afford with cheap simulation data. In our case study, four extra real experiments lifted antibody productivity by around 25% over the historical baseline.
 
-Multifidelity optimisation is a way around that small-data problem: pair the few high-quality experiments you can afford with cheap simulation data, and let the model decide when an approximation is good enough to learn from.
-
-In our case study, four extra real experiments were enough to lift antibody productivity by around 25% over the historical baseline.
-
-Underneath is a generalised multifidelity Bayesian optimisation framework, built to run concurrently on HPC.
-
-Python · PyTorch · BoTorch · GPyTorch
-
-open this file to read it in BioProcess International. The code is at github.com/jenduo/mfbo-framework.
+open this file to read the article.
 `
 
 const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture

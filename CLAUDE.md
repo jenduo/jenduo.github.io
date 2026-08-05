@@ -13,6 +13,10 @@ traps that have already cost time once.
 - **Ask in plain prose, not multiple choice.** No option lists.
 - **All prose lives in `src/fs/tree.ts`.** One file. If you are editing content
   anywhere else, you are in the wrong place.
+- **Every linked file ends with `type 'open <name>' to <do the thing>.`** One
+  wording for the whole site, with the name as the visitor would type it from
+  that directory. `tree.test.ts` enforces both the form and that the name still
+  resolves, so a rename cannot leave a hint pointing at nothing.
 - Verify visual changes by measuring in the browser (`agent-browser`), not by
   reasoning about CSS. Several bugs below were found only that way.
 - Use `agent-browser`, never the Claude-for-Chrome tools. They are denied.

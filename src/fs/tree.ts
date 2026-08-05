@@ -146,7 +146,7 @@ Golzarijalal M, Aickelin U, Duong QCT, Otte E.
 
 Monoclonal antibodies are in high demand, but the experiments that improve how they are manufactured are slow and expensive, so process development runs on very little data. Multifidelity optimisation gets around that by pairing the few high-quality experiments you can afford with cheap simulation data. In our case study, four extra real experiments lifted antibody productivity by around 25% over the historical baseline.
 
-open this file to read the article.
+type 'open multifidelity-optimisation' to read the article.
 `
 
 const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on Genome-Scale Flux Balance Analysis for CHO Fed-Batch Culture
@@ -154,7 +154,7 @@ const choFedBatch = `# A Dynamic and Generalizable Modelling Framework Based on 
 
 Golzarijalal M, et al. (incl. Duong QCT)
 
-open this file for the preprint.
+type 'open cho-fed-batch-modelling' to read the preprint.
 `
 
 const volunteer = `# University of Melbourne · Student Ambassador
@@ -173,7 +173,7 @@ React and TypeScript on Vite, with no runtime dependencies beyond React. The fil
 
 Deployed by GitHub Actions on push, with the test suite running before the build, so a broken command cannot reach the live site.
 
-open this file for the source.
+type 'open this-site' to see the source.
 `
 
 export const root: Dir = {

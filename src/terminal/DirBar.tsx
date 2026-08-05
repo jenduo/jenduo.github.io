@@ -54,7 +54,7 @@ export function DirBar({ root, cwd, onRun }: Props) {
           aria-label="go up one directory"
         >
           <Glyph kind="up" />
-          up
+          ../
         </button>
       ) : null}
 

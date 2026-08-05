@@ -20,8 +20,8 @@ export type Line =
    * them can animate them as a single unit.
    */
   | { type: 'banner'; rows: string[] }
-  /** An image on the character grid. Rows travel together so it can be scaled. */
-  | { type: 'photo'; rows: string[] }
+  /** A real photograph, tinted to the palette by terminal.css. */
+  | { type: 'portrait'; src: string; alt: string }
   /** Path names rendered as clickable buttons. */
   | { type: 'paths'; entries: PathEntry[] }
   /** A labelled row of technologies, each with an optional logo. */

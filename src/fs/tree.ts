@@ -1,6 +1,4 @@
 import type { Line } from '../commands/types'
-import { text as textLine } from '../commands/types'
-import { ASCII } from './ascii'
 import { ICONS } from './icons'
 import type { Dir } from './types'
 
@@ -10,6 +8,10 @@ import type { Dir } from './types'
 // Extensions are optional to type (see fs/resolve.ts), so filenames are bare
 // words. `resume.pdf` keeps its extension because the extension is the point.
 // ─────────────────────────────────────────────────────────────────────────────
+
+/** Shown by `whoami`. Cropped to Jen alone: the original frame had someone
+ *  else's face on a phone screen in it. */
+export const portrait = { src: '/jen.jpg', alt: 'Jennifer Duong' }
 
 /** Printed by `whoami`, so the intro is a command rather than a file. */
 export const intro = `  software engineer in Melbourne, currently at InvestorHub.
@@ -230,19 +232,6 @@ const thisSite = `# this site
   open this file for the source.
 `
 
-/**
- * DEMO ONLY. Google's wordmark is a trademark and Jen has no association with
- * them, so this must be replaced with one of her own images before it ships.
- */
-const demoArt = ASCII.google ?? []
-const demoBody = demoArt.join('\n')
-const demoLines: Line[] = [
-  textLine(''),
-  { type: 'photo', rows: demoArt },
-  textLine(''),
-  textLine('  a picture, drawn with characters.', 'dim'),
-]
-
 export const root: Dir = {
   kind: 'dir',
   name: '',
@@ -307,7 +296,6 @@ export const root: Dir = {
       name: 'other',
       children: [
         { kind: 'file', name: 'volunteer', body: volunteer },
-        { kind: 'file', name: 'photo-demo', body: demoBody, lines: demoLines },
         {
           kind: 'file',
           name: 'this-site',

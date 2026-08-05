@@ -1,4 +1,6 @@
 import type { Line } from '../commands/types'
+import { photo, text as textLine } from '../commands/types'
+import { ASCII } from './ascii'
 import { ICONS } from './icons'
 import type { Dir } from './types'
 
@@ -228,6 +230,19 @@ const thisSite = `# this site
   open this file for the source.
 `
 
+/**
+ * DEMO ONLY. Google's wordmark is a trademark and Jen has no association with
+ * them, so this must be replaced with one of her own images before it ships.
+ */
+const demoArt = ASCII.google ?? []
+const demoBody = demoArt.join('\n')
+const demoLines: Line[] = [
+  textLine(''),
+  ...demoArt.map(photo),
+  textLine(''),
+  textLine('  a picture, drawn with characters.', 'dim'),
+]
+
 export const root: Dir = {
   kind: 'dir',
   name: '',
@@ -292,6 +307,7 @@ export const root: Dir = {
       name: 'other',
       children: [
         { kind: 'file', name: 'volunteer', body: volunteer },
+        { kind: 'file', name: 'photo-demo', body: demoBody, lines: demoLines },
         {
           kind: 'file',
           name: 'this-site',

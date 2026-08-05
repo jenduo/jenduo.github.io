@@ -230,6 +230,9 @@ body {
 }
 
 .scrollback {
+  /* A container so photos can size themselves against the usable width rather
+     than the viewport: the window is capped at 1100px, so vw would overflow. */
+  container-type: inline-size;
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -256,6 +259,20 @@ body {
 
 .line.art {
   display: none;
+}
+
+/* Images rendered as characters. Leading is tight because each row is a row of
+   pixels, and prose leading would stretch the picture vertically; the generator
+   squashes rows for exactly this ratio. The glow is off so it stays crisp.
+
+   Width is the hard part: the art is a fixed number of columns and cannot
+   reflow, so the font shrinks to fit the container instead. */
+.line.photo {
+  font-size: 15px;
+  font-size: min(15px, 1.5cqw);
+  line-height: 1;
+  white-space: pre;
+  text-shadow: none;
 }
 
 /* Signals the banner is interactive without a pointer cursor, which would imply

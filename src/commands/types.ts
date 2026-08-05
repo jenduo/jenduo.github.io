@@ -13,8 +13,8 @@ export interface PathEntry {
 export type Line =
   /** An echoed prompt line, e.g. `~/projects $ ls`. */
   | { type: 'prompt'; cwd: string; input: string }
-  /** `hero` renders at display size. See terminal.css. */
-  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' }
+  /** `hero` renders at display size, `photo` on a tight pixel grid. See terminal.css. */
+  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' | 'photo' }
   /**
    * The ASCII banner. All rows travel as one line so the component that renders
    * them can animate them as a single unit.
@@ -67,5 +67,6 @@ export interface CommandSpec {
 export const text = (value: string, tone?: Tone): Line => ({ type: 'text', text: value, tone })
 
 export const hero = (value: string): Line => ({ type: 'text', text: value, variant: 'hero' })
+export const photo = (value: string): Line => ({ type: 'text', text: value, variant: 'photo' })
 export const error = (message: string): Line => ({ type: 'text', text: message, tone: 'error' })
 export const ok = (...lines: Line[]): CommandResult => ({ lines })

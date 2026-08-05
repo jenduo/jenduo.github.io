@@ -119,8 +119,6 @@ type 'open linkedin' to open my LinkedIn.
 const investorhub = `# InvestorHub · Junior Software Engineer
 ## Melbourne CBD, VIC · Dec 2025 to present
 
-InvestorHub builds investor relations software for listed companies: shareholder analytics, communications and engagement tooling.
-
 - Built an in-house video recording tool on Chrome's MediaRecorder API, so companies can capture and embed video without leaving the platform.
 - Consolidated a content block system that had duplicated code across every style variant, so adding a variant is cheap instead of copy-paste.
 - Shipped full-stack features across the marketing suite: newsflow distribution to email, LinkedIn and Twitter, a flexible website builder, and webinar tooling wired into shareholder data.

@@ -22,12 +22,14 @@ traps that have already cost time once.
 The content pass is unfinished. Everything below is my wording, not Jen's, and
 she is going through it section by section. `experience/investorhub` is done and
 is the model to follow: `# Place · Role` on the title line, `## Location · Dates`
-beneath, a sentence of context, then bullets of what she actually built.
+beneath, then straight into bullets of what she actually built. She cut the
+company-explainer sentence from that entry, so do not reintroduce one elsewhere:
+the site is about her work, not her employers.
 
 Fill in as you go with her:
 
-- [ ] `experience/unimelb-csl` — bullets are accurate but have no context line
-- [ ] `experience/allmediadesk` — thin, three bullets and no context
+- [ ] `experience/unimelb-csl` — bullets are accurate but never reviewed with her
+- [ ] `experience/allmediadesk` — thin, three bullets
 - [ ] `publications/multifidelity-optimisation` — my summary of her paper, likely
       too technical, needs her voice on why the work mattered
 - [ ] `publications/cho-fed-batch-modelling` — almost empty, just authors and a link

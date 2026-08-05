@@ -4,6 +4,7 @@ import { complete } from './complete'
 import { suggestionsFor } from './ghost'
 import { DirBar } from './DirBar'
 import { Line } from './Line'
+import { Scrollbar } from './Scrollbar'
 import { TitleBar } from './TitleBar'
 import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
@@ -20,6 +21,7 @@ export function Terminal() {
   const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   // Typing dismisses the suggestion, but only until the next directory change:
   // a new directory has different things worth trying, so it is worth offering
@@ -140,19 +142,29 @@ export function Terminal() {
 
         <DirBar root={root} cwd={cwd} onRun={run} />
 
-        {/* The input line lives inside the scroll flow so the prompt always sits
-            directly under the last line of output, like a real terminal. */}
-        <div className="scrollback" role="log" aria-live="polite" onClick={focusInput}>
-          {lines.map((line, index) => (
-            <Line key={index} line={line} onRun={run} />
-          ))}
+        {/* The scrollbar is a sibling of the scrolling element, not inside it, so
+            it can stay put while the content moves. It comes second because this
+            is a flex row: first would put the column down the left-hand side. */}
+        <div className="scrollarea">
+          {/* The input line lives inside the scroll flow so the prompt always
+              sits directly under the last line of output, like a real terminal. */}
+          <div
+            className="scrollback"
+            ref={scrollRef}
+            role="log"
+            aria-live="polite"
+            onClick={focusInput}
+          >
+            {lines.map((line, index) => (
+              <Line key={index} line={line} onRun={run} />
+            ))}
 
-          <div className="inputline">
-            <label className="prompt" htmlFor="jsh-input">
-              {displayPath(cwd)}
-            </label>
-            <span className="sigil">$</span>
-            <input
+            <div className="inputline">
+              <label className="prompt" htmlFor="jsh-input">
+                {displayPath(cwd)}
+              </label>
+              <span className="sigil">$</span>
+              <input
               id="jsh-input"
               ref={inputRef}
               className="input"
@@ -183,9 +195,12 @@ export function Terminal() {
                 </button>
               </>
             ) : null}
+            </div>
+
+            <div ref={endRef} />
           </div>
 
-          <div ref={endRef} />
+          <Scrollbar target={scrollRef} revision={lines.length} />
         </div>
 
         <div className="chips" aria-label="example commands">

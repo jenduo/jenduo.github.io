@@ -134,6 +134,8 @@ body {
 
 .terminal {
   --gutter: clamp(16px, 4vw, 40px);
+  /* Width of the scroll column, drawn by Scrollbar.tsx. */
+  --channel: 12px;
 
   position: relative;
   display: flex;
@@ -147,6 +149,14 @@ body {
 @media (min-width: 680px) {
   body {
     background: var(--desktop);
+  }
+
+  .terminal {
+    /* The scroll column owns the right edge and the scrollback owns the bottom
+       spacing, so both move off the terminal: otherwise the padding is applied
+       twice and the column stops short of the frame. */
+    padding-right: 0;
+    padding-bottom: 0;
   }
 
   #root {
@@ -296,60 +306,67 @@ body {
   }
 }
 
+/* Holds the scrolling element and the scrollbar side by side, so the bar can
+   stay put while the content moves. */
+.scrollarea {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
 .scrollback {
   flex: 1;
+  min-width: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   cursor: text;
-  /* Owns the spacing that used to sit on the terminal, so its box, and therefore
-     the scroll channel painted on it, runs the full height. */
   padding-top: 1em;
+  /* The native bar is hidden because it cannot be shaped: overlay scrollbars
+     ignore ::-webkit-scrollbar, so their rounded thumb and their position are
+     fixed by the OS. Scrollbar.tsx draws one instead. */
+  scrollbar-width: none;
 }
 
-/* The scroll channel, desktop only: a phone has no window frame to sit against,
-   and 14px of reserved gutter is worth more as text there. */
+.scrollback::-webkit-scrollbar {
+  display: none;
+}
+
+/* Our own scroll column: a rectangle filling the channel, divided from the text
+   like a terminal's. Desktop only, since a phone has no frame to sit against and
+   the width is worth more as text. */
+.scrollbar {
+  display: none;
+}
+
+.scrollbar-thumb {
+  position: absolute;
+  right: 0;
+  left: 0;
+  background: var(--chrome-border);
+  cursor: default;
+}
+
+.scrollbar-thumb:hover {
+  background: var(--fg-dim);
+}
+
 @media (min-width: 680px) {
-  .terminal {
-    /* --channel is the whole scroll column. The scrollbar always draws at the
-       scroll box's right edge, so the only way to move it off the frame is to end
-       that box short of it: --thumb-inset is the gap that leaves, sized to centre
-       the thumb in the column. */
-    --channel: 14px;
-    --thumb-inset: 4px;
-
-    padding: var(--gutter) var(--thumb-inset) 0 var(--gutter);
-  }
-
   .scrollback {
-    /* This plus the terminal's --thumb-inset equals --gutter, so text stays inset
-       equally on both sides however the column is arranged. */
-    padding-right: calc(var(--gutter) - var(--thumb-inset));
     padding-bottom: var(--gutter);
-    background-repeat: no-repeat;
-    /* Positioned against the padding box and not scrolled with the content, so
-       the divider stays put and spans the full height. Offset by --thumb-inset
-       because this box stops short of the frame. */
-    background-image: linear-gradient(
-      to right,
-      transparent calc(100% - var(--channel) + var(--thumb-inset)),
-      var(--chrome-border) calc(100% - var(--channel) + var(--thumb-inset))
-        calc(100% - var(--channel) + var(--thumb-inset) + 1px),
-      transparent calc(100% - var(--channel) + var(--thumb-inset) + 1px)
-    );
+    /* Matches the terminal's left padding, which the terminal no longer has on
+       the right, so text is inset equally on both sides. */
+    padding-right: calc(var(--gutter) - var(--channel));
+  }
+
+  .scrollbar {
+    position: relative;
+    display: block;
+    flex: 0 0 var(--channel);
+    border-left: 1px solid var(--chrome-border);
   }
 }
 
-/* Kept rather than hidden: it is the only signal that there is history above.
-   Darker than the divider so the column reads as the structure and the thumb as
-   something moving inside it. */
-.scrollback {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--chrome-border) 60%, var(--chrome)) transparent;
-}
-
-.scrollback:hover {
-  scrollbar-color: var(--chrome-border) transparent;
-}
 
 
 

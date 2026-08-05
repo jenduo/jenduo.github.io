@@ -129,8 +129,6 @@ const unimelbCsl = `# University of Melbourne & CSL · Technical Research Assist
 
 - Wrote parallelised machine learning scripts in Python and ran them on Spartan, the university's HPC cluster, to speed up research workflows.
 - Built FastAPI services that put PhD researchers' computational models into other people's hands, moving data in and out through Databricks and hosting on Posit Connect.
-
-Two papers came out of this work:  ls publications
 `
 
 const allmediadesk = `# AllMediaDesk · Software Engineer Intern

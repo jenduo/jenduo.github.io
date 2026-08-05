@@ -229,6 +229,38 @@ body {
   }
 }
 
+/* What is in the current directory. Sits outside the scrollback because it
+   changes as you navigate, and the scrollback is a transcript. */
+.dirbar {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 0.15em 1.5ch;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.7em;
+  border-bottom: 1px solid var(--chrome-border);
+}
+
+.dirbar-empty {
+  color: var(--fg-dim);
+}
+
+/* Wrapping seven entries costs four lines and a tenth of a phone screen, so it
+   scrolls sideways instead. The fade is what stops a cut-off entry looking like
+   the end of the list. */
+@media (max-width: 680px) {
+  .dirbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, #000 0 calc(100% - 26px), transparent 100%);
+  }
+
+  .dirbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .scrollback {
   flex: 1;
   overflow-y: auto;

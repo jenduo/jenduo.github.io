@@ -22,7 +22,11 @@ export function childrenOf(dir: Dir): FsNode[] {
   return dir.keepOrder ? dir.children : sortNodes(dir.children)
 }
 
-function entriesOf(dirPath: string, dir: Dir): PathEntry[] {
+/**
+ * A directory's children as clickable entries. Shared by `ls` and the directory
+ * bar so the two can never disagree about contents or order.
+ */
+export function entriesOf(dirPath: string, dir: Dir): PathEntry[] {
   const base = dirPath === '/' ? '' : dirPath
   return childrenOf(dir).map(({ name, kind }) => ({ name, kind, path: `${base}/${name}` }))
 }

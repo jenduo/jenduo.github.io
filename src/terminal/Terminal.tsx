@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { displayPath, resolve } from '../fs/resolve'
 import { complete } from './complete'
 import { suggestionsFor } from './ghost'
+import { DirBar } from './DirBar'
 import { Line } from './Line'
 import { TitleBar } from './TitleBar'
 import { useGhostTyping } from './useGhostTyping'
@@ -136,6 +137,8 @@ export function Terminal() {
 
       <main className="terminal">
         <div className="scanlines" aria-hidden="true" />
+
+        <DirBar root={root} cwd={cwd} onRun={run} />
 
         {/* The input line lives inside the scroll flow so the prompt always sits
             directly under the last line of output, like a real terminal. */}

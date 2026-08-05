@@ -1,7 +1,5 @@
-import { childrenOf } from '../commands/nav'
-import type { Line, PathEntry } from '../commands/types'
+import type { Line } from '../commands/types'
 import { hero, text } from '../commands/types'
-import { root } from '../fs/tree'
 
 // figlet -f standard "hi it's me, Jen :)", 67 columns, smiley included.
 // Shown on viewports wide enough to hold it; below 680px terminal.css swaps in
@@ -15,18 +13,6 @@ const BANNER = [
   '                                       |/                      /_/ ',
 ]
 
-/**
- * Everything at the top of the filesystem, in the same order `ls` would print
- * it. Derived rather than listed: this used to be a hand-written copy of the
- * root, and it silently fell out of date the moment the tree changed, hiding
- * `education` and `resume.pdf` from anyone who never ran `ls`.
- */
-const ROOT_ENTRIES: PathEntry[] = childrenOf(root).map((child) => ({
-  name: child.name,
-  kind: child.kind,
-  path: `/${child.name}`,
-}))
-
 export const BOOT: Line[] = [
   { type: 'banner', rows: BANNER },
   hero("hi it's me, Jen :)"),
@@ -34,9 +20,8 @@ export const BOOT: Line[] = [
   text('Jennifer Duong, Melbourne based full-stack engineer', 'bright'),
   text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
-  // Kept short so it does not wrap at phone width.
-  text("type 'help', or click anything below.", 'dim'),
-  text(''),
-  { type: 'paths', entries: ROOT_ENTRIES },
+  // Kept short so it does not wrap at phone width. "above" because the
+  // clickable directory bar sits at the top of the terminal, not in the output.
+  text("type 'help', or click anything above.", 'dim'),
   text(''),
 ]

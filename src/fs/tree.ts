@@ -139,6 +139,16 @@ const allmediadesk = `# AllMediaDesk · Software Engineer Intern
 - Containerised AdPerform and AdOptimize, cutting upgrade times.
 `
 
+const mfboFramework = `# A Generalized Framework for Multi-fidelity Acquisition Functions for Bioprocessing Applications
+## ACM BCB '26 · June 2026 · doi:10.1145/3807503.3819466
+
+Duong QCT (first author), Golzarijalal M, Aickelin U, Otte E.
+
+Optimising a biological process means expensive experiments, while cheaper sources like mechanistic models and small-scale runs sit unused because their accuracy and bias are hard to trust. This paper presents a multi-fidelity Bayesian optimisation framework that models how those sources correlate, quantifies its own uncertainty, and decides which evaluation is worth spending on next. On benchmark and real bioprocess datasets it beat single-fidelity approaches, and Knowledge Gradient was the strongest acquisition function on the real data.
+
+type 'open multifidelity-framework' to read the paper.
+`
+
 const multifidelity = `# Doing More with Less: Multifidelity Optimization in the Biopharmaceutical Industry
 ## BioProcess International, 24(2) · February 2026
 
@@ -202,6 +212,12 @@ export const root: Dir = {
       // Newest first, same reasoning as experience.
       keepOrder: true,
       children: [
+        {
+          kind: 'file',
+          name: 'multifidelity-framework',
+          body: mfboFramework,
+          href: 'https://dl.acm.org/doi/10.1145/3807503.3819466',
+        },
         {
           kind: 'file',
           name: 'multifidelity-optimisation',

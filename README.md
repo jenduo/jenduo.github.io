@@ -1,7 +1,7 @@
 # jenduo.github.io
 
 My portfolio, built as an interactive terminal. Visitors explore it with real
-shell commands — `ls`, `cd`, `cat`, `tree` — or by clicking any filename, so it
+shell commands (`ls`, `cd`, `cat`, `tree`) or by clicking any filename, so it
 works whether or not you live in a shell.
 
 Live at [jenduo.github.io](https://jenduo.github.io/).

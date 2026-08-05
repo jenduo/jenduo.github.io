@@ -116,7 +116,7 @@ const linkedin = `linkedin.com/in/jennifer-duong-b78933257
 type 'open linkedin' to open my LinkedIn.
 `
 
-const investorhub = `# InvestorHub · Software Engineer
+const investorhub = `# InvestorHub · Junior Software Engineer
 ## Melbourne CBD, VIC · Dec 2025 to present
 
 InvestorHub builds investor relations software for listed companies: shareholder analytics, communications and engagement tooling.

@@ -140,10 +140,7 @@ body {
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  /* No right padding: the scroll column owns that edge, the way a real terminal
-     puts its scrollbar in a gutter against the window frame rather than floating
-     it in the text margin. */
-  padding: var(--gutter) 0 var(--gutter) var(--gutter);
+  padding: var(--gutter);
   overflow: hidden;
 }
 
@@ -249,7 +246,7 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.2em 1.4ch;
-  margin: calc(-1 * var(--gutter)) 0 1em calc(-1 * var(--gutter));
+  margin: calc(-1 * var(--gutter)) calc(-1 * var(--gutter)) 0;
   padding: 0.45em var(--gutter);
   background: var(--chrome);
   border-bottom: 1px solid var(--chrome-border);
@@ -304,36 +301,55 @@ body {
   overflow-y: auto;
   overscroll-behavior: contain;
   cursor: text;
+  /* Owns the spacing that used to sit on the terminal, so its box, and therefore
+     the scroll channel painted on it, runs the full height. */
+  padding-top: 1em;
+}
 
-  /* A drawn scroll channel. Chrome on macOS uses overlay scrollbars: they float
-     above the content, occupy no layout width, and cannot be given a track, so
-     ::-webkit-scrollbar reserves nothing even at 40px and is ignored outright
-     once scrollbar-color is set. The gutter therefore has to come from the
-     container: reserve the width, then paint its inner edge.
+/* The scroll channel, desktop only: a phone has no window frame to sit against,
+   and 14px of reserved gutter is worth more as text there. */
+@media (min-width: 680px) {
+  .terminal {
+    /* --channel is the whole column; --thumb-inset is the space left to the right
+       of the thumb so it sits centred in the column rather than jammed against
+       the frame. The scrollbar always draws at this box's right edge, so the only
+       way to move it inwards is to end the box short of the frame. */
+    --channel: 14px;
+    --thumb-inset: 4px;
 
-     The gradient is positioned against the padding box and does not scroll with
-     the content, so the divider stays put.
+    padding: var(--gutter) var(--thumb-inset) 0 var(--gutter);
+  }
 
-     The padding matches --gutter, which is the terminal's left padding: the
-     terminal has none on the right, so this stands in for it and the text ends
-     up inset equally on both sides. */
-  padding-right: var(--gutter);
-  background-repeat: no-repeat;
-  background-image: linear-gradient(
-    to right,
-    transparent calc(100% - 14px),
-    var(--chrome-border) calc(100% - 14px) calc(100% - 13px),
-    transparent calc(100% - 13px)
-  );
+  .scrollback {
+    /* Left padding plus this equals --gutter on both sides, so text stays
+       symmetric even though the right side also carries the channel. */
+    padding-right: calc(var(--gutter) - var(--thumb-inset));
+    padding-bottom: var(--gutter);
+    background-repeat: no-repeat;
+    /* Positioned against the padding box and not scrolled with the content, so
+       the divider stays put and spans the full height. */
+    background-image: linear-gradient(
+      to right,
+      transparent calc(100% - var(--channel) + var(--thumb-inset)),
+      var(--chrome-border) calc(100% - var(--channel) + var(--thumb-inset))
+        calc(100% - var(--channel) + var(--thumb-inset) + 1px),
+      transparent calc(100% - var(--channel) + var(--thumb-inset) + 1px)
+    );
+  }
+}
 
-  /* Kept rather than hidden: it is the only signal that there is history above. */
+/* Kept rather than hidden: it is the only signal that there is history above.
+   Darker than the divider so the column reads as the structure and the thumb as
+   something moving inside it. */
+.scrollback {
   scrollbar-width: thin;
-  scrollbar-color: var(--chrome-border) transparent;
+  scrollbar-color: color-mix(in srgb, var(--chrome-border) 60%, var(--chrome)) transparent;
 }
 
 .scrollback:hover {
-  scrollbar-color: var(--fg-dim) transparent;
+  scrollbar-color: var(--chrome-border) transparent;
 }
+
 
 
 .line {

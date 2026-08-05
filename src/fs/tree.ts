@@ -165,17 +165,6 @@ Representing the faculty at Open Day and other outreach events: panels, tours an
 Melbourne Plus: People Leadership · Aug 2025
 `
 
-const thisSite = `# this site
-
-You are standing in it. A portfolio built as a shell.
-
-React and TypeScript on Vite, with no runtime dependencies beyond React. The filesystem you are browsing is a plain data structure, and every command is a pure function from arguments to output, which is why they can be tested without a browser at all.
-
-Deployed by GitHub Actions on push, with the test suite running before the build, so a broken command cannot reach the live site.
-
-type 'open this-site' to see the source.
-`
-
 export const root: Dir = {
   kind: 'dir',
   name: '',
@@ -238,15 +227,7 @@ export const root: Dir = {
     {
       kind: 'dir',
       name: 'other',
-      children: [
-        { kind: 'file', name: 'volunteer', body: volunteer },
-        {
-          kind: 'file',
-          name: 'this-site',
-          body: thisSite,
-          href: 'https://github.com/jenduo/jenduo.github.io',
-        },
-      ],
+      children: [{ kind: 'file', name: 'volunteer', body: volunteer }],
     },
     { kind: 'file', name: 'education', body: education },
     { kind: 'file', name: 'resume.pdf', body: resume, href: '/resume.pdf' },

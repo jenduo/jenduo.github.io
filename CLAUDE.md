@@ -39,8 +39,10 @@ Fill in as you go with her:
       no link to the code. The paper is the artefact.
 - [ ] `publications/cho-fed-batch-modelling` — almost empty, just authors and a link
 - [ ] `education`, `skills`, `contact/*` — never reviewed with her
-- [ ] `other/this-site` — my description of my own work; she may want to own it
-- [ ] `other/volunteer` — never reviewed
+- [ ] `other/volunteer` — never reviewed, and the only thing left in `other/`.
+      Jen cut `this-site`, which described how the site was built; do not write
+      another one. If `volunteer` goes too, drop the directory rather than
+      leaving an empty one.
 
 ### Open questions for her
 

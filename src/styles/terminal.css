@@ -6,6 +6,9 @@
   --bright: #f5e6ed;
   --error: #ff5c7a;
   --glow: rgba(255, 61, 138, 0.35);
+  /* Clickable commands. A second hue, so "you can run this" is not carried by
+     the same colour as every heading and directory name. */
+  --link: #c07dff;
   /* The dominant source of background luminance: every visible line lifts the
      whole field. 0.16 washed it out, 0.09 keeps the CRT texture readable while
      letting the black stay black. */
@@ -34,6 +37,7 @@
   --bright: #e6f5ee;
   --glow: rgb(61 255 176 / 30%);
   --scanline: rgb(61 255 176 / 9%);
+  --link: #7dd0ff;
   --desktop: #020302;
   --chrome: #0b1210;
   --chrome-border: #1a2922;
@@ -47,6 +51,7 @@
   --bright: #e6ecf5;
   --glow: rgb(61 146 255 / 32%);
   --scanline: rgb(61 146 255 / 9%);
+  --link: #b07dff;
   --desktop: #020204;
   --chrome: #0b0f18;
   --chrome-border: #1a2233;
@@ -60,6 +65,8 @@
   --bright: #ede6f5;
   --glow: rgb(160 61 255 / 32%);
   --scanline: rgb(160 61 255 / 9%);
+  /* Accent is purple here, so the link takes the pink: swapped, not repeated. */
+  --link: #ff7dd0;
   --desktop: #030205;
   --chrome: #0f0b18;
   --chrome-border: #221a33;
@@ -74,6 +81,8 @@
   /* Lower than the coloured themes: white glow hazes far more readily. */
   --glow: rgb(255 255 255 / 18%);
   --scanline: rgb(255 255 255 / 7%);
+  /* Monochrome by design, so the link differs by weight of white, not by hue. */
+  --link: #d8d9ff;
   --desktop: #030304;
   --chrome: #101114;
   --chrome-border: #23252b;
@@ -677,7 +686,7 @@ body {
   padding: 0;
   border: 0;
   background: none;
-  color: var(--accent);
+  color: var(--link);
   font: inherit;
   text-shadow: inherit;
   text-decoration: underline dotted;
@@ -693,7 +702,7 @@ body {
 }
 
 .cmd:focus-visible {
-  outline: 1px solid var(--accent);
+  outline: 1px solid var(--link);
   outline-offset: 2px;
 }
 

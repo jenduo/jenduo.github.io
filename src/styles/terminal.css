@@ -312,14 +312,18 @@ body {
      container: reserve the width, then paint its inner edge.
 
      The gradient is positioned against the padding box and does not scroll with
-     the content, so the divider stays put. */
-  padding-right: 15px;
+     the content, so the divider stays put.
+
+     The padding matches --gutter, which is the terminal's left padding: the
+     terminal has none on the right, so this stands in for it and the text ends
+     up inset equally on both sides. */
+  padding-right: var(--gutter);
   background-repeat: no-repeat;
   background-image: linear-gradient(
     to right,
-    transparent calc(100% - 15px),
-    var(--chrome-border) calc(100% - 15px) calc(100% - 14px),
-    transparent calc(100% - 14px)
+    transparent calc(100% - 14px),
+    var(--chrome-border) calc(100% - 14px) calc(100% - 13px),
+    transparent calc(100% - 13px)
   );
 
   /* Kept rather than hidden: it is the only signal that there is history above. */

@@ -136,6 +136,8 @@ body {
   --gutter: clamp(16px, 4vw, 40px);
   /* Width of the scroll column, drawn by Scrollbar.tsx. */
   --channel: 12px;
+  /* Focus ring: 1px outline at a 2px offset. */
+  --ring: 3px;
 
   position: relative;
   display: flex;
@@ -318,6 +320,12 @@ body {
 .scrollback {
   flex: 1;
   min-width: 0;
+  /* Room for the focus ring on anything starting at column zero, which is every
+     top-level entry in `tree`. Scrolling clips at the padding edge, so without
+     this the ring's left side is cut off. The negative margin puts the text back
+     where it was. */
+  padding-left: var(--ring);
+  margin-left: calc(-1 * var(--ring));
   overflow-y: auto;
   overscroll-behavior: contain;
   cursor: text;
@@ -354,9 +362,11 @@ body {
 @media (min-width: 680px) {
   .scrollback {
     padding-bottom: var(--gutter);
-    /* Matches the terminal's left padding, which the terminal no longer has on
-       the right, so text is inset equally on both sides. */
-    padding-right: calc(var(--gutter) - var(--channel));
+    /* The scroll column reads as an edge, like the frame does, so the text is
+       inset from it by the same gutter it gets on the left. Subtracting the
+       channel instead would centre the text in the frame, which measures equal
+       but looks tighter on the right because the divider is what you see. */
+    padding-right: var(--gutter);
   }
 
   .scrollbar {

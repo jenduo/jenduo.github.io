@@ -200,7 +200,7 @@ body {
     pointer-events: none;
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 15%, transparent),
+      color-mix(in srgb, var(--accent) 28%, transparent),
       transparent
     );
     animation: desk-drift 55s var(--drift-delay, 0s) ease-in-out infinite;
@@ -248,7 +248,7 @@ body {
        exactly the part that would be brightest. */
     box-shadow:
       0 24px 70px rgb(0 0 0 / 65%),
-      0 0 120px color-mix(in srgb, var(--accent) 22%, transparent);
+      0 0 130px color-mix(in srgb, var(--accent) 30%, transparent);
     /* Clips the terminal's square corners to the window's rounded ones. */
     overflow: hidden;
   }

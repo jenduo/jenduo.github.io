@@ -297,8 +297,31 @@ body {
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-color: var(--fg-dim) transparent;
   cursor: text;
+  /* Kept, rather than hidden: it is the only signal that there is history above.
+     Thin and near-invisible until hovered, so it stops being furniture. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--chrome-border) transparent;
+}
+
+.scrollback::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollback::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollback::-webkit-scrollbar-thumb {
+  background: var(--chrome-border);
+  border: 2px solid transparent;
+  border-radius: 99px;
+  background-clip: content-box;
+}
+
+.scrollback:hover::-webkit-scrollbar-thumb {
+  background: var(--fg-dim);
+  background-clip: content-box;
 }
 
 .line {
@@ -368,6 +391,23 @@ body {
   margin-top: 0.2em;
   color: var(--fg-dim);
   font-size: 0.95em;
+}
+
+/* File prose. Indented here rather than in the content, so a wrapped line lines
+   up with the one above it instead of resetting to column zero. */
+.line.body {
+  padding-left: 2ch;
+}
+
+/* Hanging indent: the marker sits at 2ch and wrapped text aligns at 4ch, under
+   the words rather than under the dash. */
+.line.bullet {
+  padding-left: 4ch;
+  text-indent: -2ch;
+}
+
+.line.bullet::before {
+  content: '- ';
 }
 
 .line.art {

@@ -13,8 +13,8 @@ export interface PathEntry {
 export type Line =
   /** An echoed prompt line, e.g. `~/projects $ ls`. */
   | { type: 'prompt'; cwd: string; input: string }
-  /** `hero` renders at display size. See terminal.css. */
-  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' }
+  /** See terminal.css: `hero` is display size, `body` and `bullet` are file prose. */
+  | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' | 'body' | 'bullet' }
   /**
    * The ASCII banner. All rows travel as one line so the component that renders
    * them can animate them as a single unit.

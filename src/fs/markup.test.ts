@@ -33,10 +33,21 @@ describe('formatBody', () => {
     expect(textAt('# Title\n## Sub\nbody', 1).text).toBe('body')
   })
 
-  it('leaves ordinary lines alone', () => {
+  it('marks ordinary lines as body prose, keeping the text intact', () => {
     const line = textAt('Melbourne CBD, VIC')
     expect(line.text).toBe('Melbourne CBD, VIC')
-    expect(line.variant).toBeUndefined()
+    expect(line.variant).toBe('body')
+  })
+
+  // The marker is added by CSS so a wrapped bullet can hang under its own text.
+  it('marks a bullet and strips its dash', () => {
+    const line = textAt('- Built a thing')
+    expect(line.text).toBe('Built a thing')
+    expect(line.variant).toBe('bullet')
+  })
+
+  it('does not treat a dash inside prose as a bullet', () => {
+    expect(textAt('full-stack work').variant).toBe('body')
   })
 
   it('preserves blank lines, which carry the spacing', () => {
@@ -59,7 +70,9 @@ describe('formatBody', () => {
     expect(card.subtitle).toBeUndefined()
   })
 
-  it('keeps leading spaces, which the bodies rely on for indentation', () => {
+  // Bodies are authored unindented now; extra spaces are still passed through
+  // for the rare line that wants them.
+  it('passes leading spaces through untouched', () => {
     expect(textAt('  indented').text).toBe('  indented')
   })
 })

@@ -50,7 +50,7 @@ export function DirBar({ root, cwd, onRun }: Props) {
         <button
           type="button"
           className="entry entry-dir dirbar-item"
-          onClick={() => onRun(`cd ${parent}`)}
+          onClick={() => onRun('cd ..')}
           aria-label="go up one directory"
         >
           <Glyph kind="up" />
@@ -63,7 +63,11 @@ export function DirBar({ root, cwd, onRun }: Props) {
           key={entry.path}
           type="button"
           className={`entry entry-${entry.kind} dirbar-item`}
-          onClick={() => onRun(`${entry.kind === 'dir' ? 'cd' : 'cat'} ${entry.path}`)}
+          // The bare name, not the absolute path: the bar always lists the
+          // directory you are standing in, so this echoes what a person would
+          // actually type. Entries in scrollback output keep absolute paths,
+          // because those stay clickable after you have moved elsewhere.
+          onClick={() => onRun(`${entry.kind === 'dir' ? 'cd' : 'cat'} ${entry.name}`)}
           aria-label={`${entry.kind === 'dir' ? 'open directory' : 'read file'} ${entry.name}`}
         >
           <Glyph kind={entry.kind} />

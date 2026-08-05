@@ -5,10 +5,20 @@
  * and the result is reviewable as text in the repo.
  *
  * Usage:
- *   node scripts/generate-ascii.mjs <key> <image> [--cols 100] [--invert]
+ *   node scripts/generate-ascii.mjs <key> <image> [options]
+ *     --cols N            columns of output, default 100
+ *     --invert            for a dark subject on a light background
+ *     --crop WxH+X+Y      crop before scaling
+ *     --normalize         stretch the histogram to the full range
+ *     --gamma N           <1 darkens midtones, >1 lightens them
  *
- * --invert suits art on a light background: the subject is dark in the source
- * but needs to be the bright part on a dark terminal.
+ * On a dark terminal, character density reads as brightness, so a photo wants
+ * no --invert. --invert suits a dark mark on a light background, where the mark
+ * should be the bright part.
+ *
+ * Photographs almost always need --normalize and a tight --crop: a full scene is
+ * mostly midtones, which fills every cell with a dense character and comes out
+ * as noise rather than a picture.
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
@@ -29,20 +39,33 @@ if (!key || !image) {
   process.exit(1)
 }
 
-const cols = Number(rest[rest.indexOf('--cols') + 1]) || 100
+const flag = (name) => (rest.includes(name) ? rest[rest.indexOf(name) + 1] : undefined)
+const cols = Number(flag('--cols')) || 100
 const invert = rest.includes('--invert')
+const crop = flag('--crop')
+const normalize = rest.includes('--normalize')
+const gamma = flag('--gamma')
 
-const size = execFileSync('magick', ['identify', '-format', '%w %h', image], { encoding: 'utf8' })
-const [srcWidth, srcHeight] = size.trim().split(' ').map(Number)
+// Measure after cropping, so the aspect ratio matches what is actually drawn.
+const measured = crop
+  ? crop.split('+')[0].split('x').map(Number)
+  : execFileSync('magick', ['identify', '-format', '%w %h', image], { encoding: 'utf8' })
+      .trim()
+      .split(' ')
+      .map(Number)
+const [srcWidth, srcHeight] = measured
 const rows = Math.max(1, Math.round(srcHeight * (cols / srcWidth) * CELL_ASPECT))
 
 // P2 is plain-text PGM: one grey value per pixel, trivial to parse without a
 // decoding library.
-const pgm = execFileSync(
-  'magick',
-  [image, '-resize', `${cols}x${rows}!`, '-colorspace', 'Gray', '-depth', '8', '-compress', 'none', 'pgm:-'],
-  { encoding: 'latin1', maxBuffer: 64 * 1024 * 1024 },
-)
+const args = [image]
+if (crop) args.push('-crop', crop, '+repage')
+args.push('-colorspace', 'Gray')
+if (normalize) args.push('-normalize')
+if (gamma) args.push('-gamma', gamma)
+args.push('-resize', `${cols}x${rows}!`, '-depth', '8', '-compress', 'none', 'pgm:-')
+
+const pgm = execFileSync('magick', args, { encoding: 'latin1', maxBuffer: 64 * 1024 * 1024 })
 
 const tokens = pgm
   .split('\n')

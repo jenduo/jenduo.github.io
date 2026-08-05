@@ -1,5 +1,5 @@
 import type { Line } from '../commands/types'
-import { photo, text as textLine } from '../commands/types'
+import { text as textLine } from '../commands/types'
 import { ASCII } from './ascii'
 import { ICONS } from './icons'
 import type { Dir } from './types'
@@ -238,7 +238,7 @@ const demoArt = ASCII.google ?? []
 const demoBody = demoArt.join('\n')
 const demoLines: Line[] = [
   textLine(''),
-  ...demoArt.map(photo),
+  { type: 'photo', rows: demoArt },
   textLine(''),
   textLine('  a picture, drawn with characters.', 'dim'),
 ]

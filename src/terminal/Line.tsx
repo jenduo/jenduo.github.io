@@ -1,4 +1,5 @@
 import { Banner } from './Banner'
+import { Photo } from './Photo'
 import type { Line as LineData } from '../commands/types'
 import { displayPath } from '../fs/resolve'
 
@@ -24,6 +25,10 @@ export function Line({ line, onRun }: Props) {
 
   if (line.type === 'banner') {
     return <Banner rows={line.rows} />
+  }
+
+  if (line.type === 'photo') {
+    return <Photo rows={line.rows} />
   }
 
   if (line.type === 'text') {

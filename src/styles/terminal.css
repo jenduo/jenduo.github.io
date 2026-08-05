@@ -261,18 +261,23 @@ body {
   display: none;
 }
 
-/* Images rendered as characters. Leading is tight because each row is a row of
-   pixels, and prose leading would stretch the picture vertically; the generator
-   squashes rows for exactly this ratio. The glow is off so it stays crisp.
+/* Images rendered as characters.
+   Leading is tight because each row is a row of pixels, and prose leading would
+   stretch the picture vertically; the generator squashes rows for exactly this
+   ratio. The glow is off so it stays crisp.
 
-   Width is the hard part: the art is a fixed number of columns and cannot
-   reflow, so the font shrinks to fit the container instead. */
-.line.photo {
+   The art cannot reflow, only scale, so the font is derived from the column
+   count the component publishes: 0.62 is the character aspect ratio plus a
+   little margin. Art of any width then fits without the CSS knowing its size. */
+.photo {
   font-size: 15px;
-  font-size: min(15px, 1.5cqw);
+  font-size: min(15px, calc(100cqw / (var(--photo-columns, 96) * 0.62)));
   line-height: 1;
-  white-space: pre;
   text-shadow: none;
+}
+
+.photo-row {
+  white-space: pre;
 }
 
 /* Signals the banner is interactive without a pointer cursor, which would imply

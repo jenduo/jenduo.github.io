@@ -180,6 +180,32 @@ body {
     mask-image: radial-gradient(140% 120% at 50% 50%, #000 55%, transparent 100%);
   }
 
+  /* A pool of light wandering the desk, so the surface is never quite the same
+     twice. The path is fixed and long enough to read as aimless; App.tsx offsets
+     the start at random, so where a visitor joins it differs every time.
+
+     Transform rather than background-position: the browser can move a layer on
+     the GPU, and repainting a full-screen gradient sixty times a second to shift
+     it a fraction of a pixel is not worth it. */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 95vmax;
+    height: 95vmax;
+    margin: -47.5vmax;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--accent) 15%, transparent),
+      transparent
+    );
+    animation: desk-drift 150s var(--drift-delay, 0s) ease-in-out infinite;
+    will-change: transform;
+  }
+
   .terminal {
     /* The scroll column owns the right edge and the scrollback owns the bottom
        spacing, so both move off the terminal: otherwise the padding is applied
@@ -799,9 +825,42 @@ body {
   z-index: 1;
 }
 
+/* Waypoints on no particular grid, and the scale breathing on a different
+   rhythm to the movement, so the loop never announces itself. First and last
+   match, or the light would jump on every repeat. */
+@keyframes desk-drift {
+  0%,
+  100% {
+    transform: translate(-26%, -19%) scale(1);
+  }
+  12% {
+    transform: translate(9%, -31%) scale(1.09);
+  }
+  27% {
+    transform: translate(31%, -6%) scale(1.02);
+  }
+  39% {
+    transform: translate(22%, 24%) scale(1.12);
+  }
+  54% {
+    transform: translate(-8%, 33%) scale(1.04);
+  }
+  68% {
+    transform: translate(-33%, 14%) scale(1.1);
+  }
+  83% {
+    transform: translate(-17%, -4%) scale(1.03);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scanlines {
     display: none;
+  }
+
+  /* The light stays, it simply stops wandering. */
+  body::after {
+    animation: none;
   }
 
   body {

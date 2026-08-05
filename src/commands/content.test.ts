@@ -34,16 +34,28 @@ describe('cat', () => {
     expect(cat(['notes'], ctx('/')).lines[0]).toMatchObject({ text: 'notes' })
   })
 
-  // Every hint on the site names a file relative to its own directory, so
-  // following one from anywhere else used to be an error.
-  it('reads a file named from the wrong directory, saying where it is', () => {
+  // A shell resolves against the working directory, so typing a name that lives
+  // somewhere else must not read it. It says where to look instead.
+  it('refuses a name from the wrong directory and points at the real path', () => {
     const result = cat(['apple'], ctx('/'))
-    expect(result.lines[0]).toMatchObject({ text: 'found at ~/alpha/apple', tone: 'dim' })
-    expect(result.lines[1]).toMatchObject({ text: 'apple' })
+    expect(result.lines[0]).toMatchObject({ tone: 'error' })
+    expect(result.lines[1]).toMatchObject({ type: 'hint', verb: 'try', command: 'cat ~/alpha/apple' })
   })
 
-  it('says nothing extra when the file was where you are', () => {
-    expect(cat(['readme'], ctx('/')).lines[0]).toMatchObject({ text: 'line one' })
+  it('offers no correction for a name that is nowhere at all', () => {
+    expect(cat(['nope'], ctx('/')).lines).toHaveLength(1)
+  })
+
+  // The text reads as it would from the file's own directory; the click carries
+  // the path, so clicking works from anywhere in the tree.
+  it('points a hint click at the full path of what it names', () => {
+    const hint = cat(['alpha/hinted'], ctx('/')).lines.find((line) => line.type === 'hint')
+    expect(hint).toMatchObject({ command: 'cat apple', run: 'cat ~/alpha/apple' })
+  })
+
+  it('binds the same path whether the file was reached by path or from inside', () => {
+    const [line] = cat(['hinted'], ctx('/alpha')).lines.filter((l) => l.type === 'hint')
+    expect(line).toMatchObject({ run: 'cat ~/alpha/apple' })
   })
 })
 
@@ -100,10 +112,10 @@ describe('open', () => {
     expect(open([], ctx('/')).lines[0]).toMatchObject({ text: 'usage: open <file>' })
   })
 
-  // The hint reads `type 'open linked' ...`, wherever the visitor has wandered.
-  it('follows a link named from the wrong directory', () => {
+  // Typing it in the wrong place opens nothing: the visitor is learning a shell.
+  it('opens nothing from the wrong directory, and says where the file is', () => {
     const result = open(['linked'], ctx('/alpha/beta'))
-    expect(result.openUrl).toBe('https://example.com/linked')
-    expect(result.lines[0]).toMatchObject({ text: 'found at ~/linked', tone: 'dim' })
+    expect(result.openUrl).toBeUndefined()
+    expect(result.lines[1]).toMatchObject({ verb: 'try', command: 'open ~/linked' })
   })
 })

@@ -35,6 +35,9 @@ export const fixtureRoot: Dir = {
           children: [{ kind: 'file', name: 'deep', body: 'deep\n' }],
         },
         { kind: 'file', name: 'apple', body: 'apple\n' },
+        // Names its neighbour the way a real body does, relative to this
+        // directory, which is what the click has to cope with.
+        { kind: 'file', name: 'hinted', body: "has a hint\n\ntype 'cat apple' to read it.\n" },
         { kind: 'file', name: 'apricot', body: 'apricot\n' },
       ],
     },

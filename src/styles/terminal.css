@@ -153,10 +153,13 @@ body {
     background: var(--desktop);
   }
 
-  /* The surface the window sits on. A pool of light, as though the screen were
-     lighting the desk, over a faint grid so the space is not a plain void. Both
-     are mixed from --accent, so `colour` recolours the desk with the terminal,
-     and both are masked away at the edges to keep the window the subject. */
+  /* The surface the window sits on: a grid, in the theme's accent, so `colour`
+     recolours the desk with the terminal.
+
+     The mask fades it into the corners, and it must stay wide. A tighter mask
+     put the fade exactly where the desk is visible, since the window covers the
+     middle, and the whole thing measured 3 levels above the background: present
+     in the pixels, invisible on a screen. */
   body::before {
     content: '';
     position: fixed;
@@ -164,22 +167,17 @@ body {
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(
-        58% 52% at 50% 46%,
-        color-mix(in srgb, var(--accent) 13%, transparent),
-        transparent 70%
-      ),
       repeating-linear-gradient(
         to right,
-        color-mix(in srgb, var(--accent) 7%, transparent) 0 1px,
+        color-mix(in srgb, var(--accent) 15%, transparent) 0 1px,
         transparent 1px 48px
       ),
       repeating-linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--accent) 7%, transparent) 0 1px,
+        color-mix(in srgb, var(--accent) 15%, transparent) 0 1px,
         transparent 1px 48px
       );
-    mask-image: radial-gradient(75% 75% at 50% 50%, #000 35%, transparent 100%);
+    mask-image: radial-gradient(140% 120% at 50% 50%, #000 55%, transparent 100%);
   }
 
   .terminal {
@@ -217,7 +215,13 @@ body {
     max-height: 100%;
     border: 1px solid var(--chrome-border);
     border-radius: 10px;
-    box-shadow: 0 24px 70px rgb(0 0 0 / 65%);
+    /* The drop shadow grounds the window; the second is the screen's own light
+       spilling onto the desk around it, which is where a glow is actually
+       visible. A centred gradient behind the window is not: the window covers
+       exactly the part that would be brightest. */
+    box-shadow:
+      0 24px 70px rgb(0 0 0 / 65%),
+      0 0 120px color-mix(in srgb, var(--accent) 22%, transparent);
     /* Clips the terminal's square corners to the window's rounded ones. */
     overflow: hidden;
   }

@@ -36,12 +36,30 @@ export type Line =
 
 export interface HintLine {
   type: 'hint'
+  /** Reads `type 'cmd' ...` in prose, `try 'cmd'` when correcting a mistake. */
+  verb: 'type' | 'try'
+  /** Shown in quotes, exactly as a visitor would type it. */
   command: string
+  /**
+   * What a click actually runs, when that differs from what is shown. A hint
+   * names its file the way it reads from its own directory, so the click carries
+   * the full path and works from anywhere, while the text stays short.
+   */
+  run?: string
   /** The rest of the sentence, from the closing quote onwards. */
   after: string
   tone?: Tone
   variant?: 'body'
 }
+
+/** A correction: `try 'cat publications/article'`, clickable like any hint. */
+export const tryHint = (command: string): Line => ({
+  type: 'hint',
+  verb: 'try',
+  command,
+  after: '',
+  tone: 'dim',
+})
 
 export interface IconItem {
   name: string
@@ -91,7 +109,7 @@ export const text = (value: string, tone?: Tone): Line => ({ type: 'text', text:
  */
 export function asHint(row: string, tone?: Tone): HintLine | null {
   const match = row.match(/^type '([^']+)'(.*)$/)
-  return match ? { type: 'hint', command: match[1], after: match[2], tone } : null
+  return match ? { type: 'hint', verb: 'type', command: match[1], after: match[2], tone } : null
 }
 
 export const hero = (value: string): Line => ({ type: 'text', text: value, variant: 'hero' })

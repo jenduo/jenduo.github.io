@@ -1,25 +1,48 @@
 import { formatBody } from '../fs/markup'
-import { displayPath, locate, normalize, resolve } from '../fs/resolve'
+import { displayPath, normalize, resolve } from '../fs/resolve'
 import type { Dir } from '../fs/types'
 import { childrenOf } from './nav'
+import { missing } from './missing'
 import type { Command, Line } from './types'
 import { error, ok, text } from './types'
 
+/** The directory a path sits in. */
+function parentOf(path: string): string {
+  const cut = path.lastIndexOf('/')
+  return cut <= 0 ? '/' : path.slice(0, cut)
+}
+
 /**
- * Says where a name was found when it was not where the visitor was standing.
- * The point is to teach the path, not to silently paper over the miss.
+ * Points each hint's click at the full path of what it names.
+ *
+ * A hint is written the way it reads from its own directory, `open article`, so
+ * clicking one from anywhere else would otherwise fail. The text stays as
+ * written, which is what a visitor would type once they are in the right place;
+ * only the click target changes.
  */
-const foundAt = (path: string): Line => text(`found at ${displayPath(path)}`, 'dim')
+function bindHints(lines: Line[], root: Dir, dirPath: string): Line[] {
+  return lines.map((line) => {
+    if (line.type !== 'hint') return line
+
+    const space = line.command.indexOf(' ')
+    if (space < 0) return line
+    const verb = line.command.slice(0, space)
+    const arg = line.command.slice(space + 1)
+
+    if (!resolve(root, dirPath, arg)) return line
+    return { ...line, run: `${verb} ${displayPath(normalize(dirPath, arg))}` }
+  })
+}
 
 export const cat: Command = (args, ctx) => {
   const target = args[0]
   if (!target) return ok(error('usage: cat <file>'))
-  const found = locate(ctx.root, ctx.cwd, target)
-  if (!found) return ok(error(`cat: ${target}: No such file or directory`))
-  if (found.node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
+  const node = resolve(ctx.root, ctx.cwd, target)
+  if (!node) return { lines: missing('cat', target, ctx) }
+  if (node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
 
-  const body = found.node.lines ?? formatBody(found.node.body)
-  return { lines: found.elsewhere ? [foundAt(found.path), ...body] : body }
+  const body = node.lines ?? formatBody(node.body)
+  return { lines: bindHints(body, ctx.root, parentOf(normalize(ctx.cwd, target))) }
 }
 
 /**
@@ -47,7 +70,7 @@ function walk(dir: Dir, dirPath: string, prefix: string): Line[] {
 export const tree: Command = (args, ctx) => {
   const target = args[0] ?? '.'
   const node = resolve(ctx.root, ctx.cwd, target)
-  if (!node) return ok(error(`tree: ${target}: No such file or directory`))
+  if (!node) return { lines: missing('tree', target, ctx) }
   if (node.kind === 'file') return ok(text(node.name))
   return { lines: [text('.'), ...walk(node, normalize(ctx.cwd, target), '')] }
 }
@@ -55,15 +78,9 @@ export const tree: Command = (args, ctx) => {
 export const open: Command = (args, ctx) => {
   const target = args[0]
   if (!target) return ok(error('usage: open <file>'))
-  const found = locate(ctx.root, ctx.cwd, target)
-  if (!found) return ok(error(`open: ${target}: No such file or directory`))
-  if (found.node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
-  const { href } = found.node
-  if (!href) return ok(error(`open: ${target}: no link to follow`))
-
-  const opening = text(`opening ${href}`, 'dim')
-  return {
-    lines: found.elsewhere ? [foundAt(found.path), opening] : [opening],
-    openUrl: href,
-  }
+  const node = resolve(ctx.root, ctx.cwd, target)
+  if (!node) return { lines: missing('open', target, ctx) }
+  if (node.kind === 'dir') return ok(error(`open: ${target}: Is a directory`))
+  if (!node.href) return ok(error(`open: ${target}: no link to follow`))
+  return { lines: [text(`opening ${node.href}`, 'dim')], openUrl: node.href }
 }

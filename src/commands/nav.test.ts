@@ -88,14 +88,17 @@ describe('cd', () => {
   })
 })
 
-describe('finding things from the wrong directory', () => {
-  it('cd walks to a directory named from anywhere', () => {
-    expect(cd(['beta'], ctx('/'))).toMatchObject({ cwd: '/alpha/beta' })
+describe('naming something that is somewhere else', () => {
+  it('cd stays put and offers the path it would have taken', () => {
+    const result = cd(['beta'], ctx('/'))
+    expect(result.cwd).toBeUndefined()
+    expect(result.lines[1]).toMatchObject({ verb: 'try', command: 'cd ~/alpha/beta' })
   })
 
-  it('ls lists a directory named from anywhere', () => {
-    const [line] = ls(['beta'], ctx('/')).lines
-    expect(line.type === 'paths' && line.entries[0].path).toBe('/alpha/beta/deep')
+  it('ls lists nothing and offers the path instead', () => {
+    const result = ls(['beta'], ctx('/'))
+    expect(result.lines[0]).toMatchObject({ tone: 'error' })
+    expect(result.lines[1]).toMatchObject({ verb: 'try', command: 'ls ~/alpha/beta' })
   })
 
   // `..` and `.` are path syntax, not names to go looking for.

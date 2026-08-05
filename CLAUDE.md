@@ -20,6 +20,12 @@ traps that have already cost time once.
   load-bearing beyond style: `asHint` in `commands/types.ts` matches it and turns
   the quoted command into a button, so a hint phrased any other way silently
   stops being clickable.
+- **Typing and clicking are deliberately not the same.** Typed paths resolve
+  against the working directory, like a real shell: `open article` from `~` fails
+  and offers `try 'open ~/publications/article'`. Clicking always works, because
+  `bindHints` rewrites the click to the full path while leaving the text short.
+  Jen chose this so the site does not teach people a shell that does not exist.
+  Do not "fix" the typed case by making it lenient.
 - Verify visual changes by measuring in the browser (`agent-browser`), not by
   reasoning about CSS. Several bugs below were found only that way.
 - Use `agent-browser`, never the Claude-for-Chrome tools. They are denied.

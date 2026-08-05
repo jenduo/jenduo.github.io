@@ -53,12 +53,12 @@ export function Line({ line, onRun }: Props) {
   if (line.type === 'hint') {
     return (
       <div className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}>
-        {'type '}
+        {line.verb}{' '}
         <span className="quote">'</span>
         <button
           type="button"
           className="cmd"
-          onClick={() => onRun(line.command)}
+          onClick={() => onRun(line.run ?? line.command)}
           aria-label={`run ${line.command}`}
         >
           {line.command}

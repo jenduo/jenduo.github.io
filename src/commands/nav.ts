@@ -1,5 +1,6 @@
-import { displayPath, locate } from '../fs/resolve'
+import { displayPath, normalize, resolve } from '../fs/resolve'
 import type { Dir, FsNode } from '../fs/types'
+import { missing } from './missing'
 import type { Command, PathEntry } from './types'
 import { error, ok, text } from './types'
 
@@ -33,17 +34,16 @@ export function entriesOf(dirPath: string, dir: Dir): PathEntry[] {
 
 export const ls: Command = (args, ctx) => {
   const target = args[0] ?? '.'
-  const found = locate(ctx.root, ctx.cwd, target)
-  if (!found) return ok(error(`ls: ${target}: No such file or directory`))
-  if (found.node.kind === 'file') return ok(text(found.node.name))
-  return ok({ type: 'paths', entries: entriesOf(found.path, found.node) })
+  const node = resolve(ctx.root, ctx.cwd, target)
+  if (!node) return { lines: missing('ls', target, ctx) }
+  if (node.kind === 'file') return ok(text(node.name))
+  return ok({ type: 'paths', entries: entriesOf(normalize(ctx.cwd, target), node) })
 }
 
 export const cd: Command = (args, ctx) => {
   const target = args[0] ?? '~'
-  const found = locate(ctx.root, ctx.cwd, target)
-  if (!found) return ok(error(`cd: ${target}: No such file or directory`))
-  if (found.node.kind === 'file') return ok(error(`cd: ${target}: Not a directory`))
-  // No note needed: the prompt and the directory bar both show where you landed.
-  return { lines: [], cwd: found.path }
+  const node = resolve(ctx.root, ctx.cwd, target)
+  if (!node) return { lines: missing('cd', target, ctx) }
+  if (node.kind === 'file') return ok(error(`cd: ${target}: Not a directory`))
+  return { lines: [], cwd: normalize(ctx.cwd, target) }
 }

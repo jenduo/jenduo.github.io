@@ -1,5 +1,4 @@
-import type { Flower, Line, Tone } from '../commands/types'
-import type { Bloom } from './bloom'
+import type { Line, Tone } from '../commands/types'
 import { asHint, hero, text } from '../commands/types'
 
 /** Same wording as the file bodies, so it is one pattern everywhere. */
@@ -41,44 +40,8 @@ const PHONE_BANNER = [
   '+-+-+-+ +-+-+',
 ]
 
-/**
- * Flowers for the wide banner, grown into the gaps rather than set beside it.
- *
- * Every position sits inside an empty run of the art: row 5 is clear from column
- * 0 to 38 and again from 41 to 62, and row 0 from 18 to 47. Sizes above 1 make
- * them larger than the letters, which is the point, so the taller ones sit on the
- * bottom row where there is nothing above them to crowd.
- */
-const WIDE_FLOWERS: Flower[] = [
-  { glyph: '✿', col: 2.4, row: 4.6, size: 3 },
-  { glyph: '✽', col: 6.4, row: 5.05, size: 2.1 },
-  { glyph: '❀', col: 9.6, row: 4.7, size: 2.6 },
-  { glyph: '✧', col: 13.6, row: 5.1, size: 1.7 },
-  { glyph: '❀', col: 20.8, row: 0.02, size: 2 },
-  { glyph: '✿', col: 25.6, row: 0.1, size: 1.5 },
-  { glyph: '✽', col: 43.4, row: 4.65, size: 2.7 },
-  { glyph: '❀', col: 47.8, row: 5.1, size: 1.8 },
-  { glyph: '✿', col: 51, row: 4.75, size: 2.3 },
-  { glyph: '✧', col: 55, row: 5.15, size: 1.5 },
-]
-
-/**
- * Cells of the art drawn as flowers, so part of the lettering is flowers rather
- * than flowers being arranged around it.
- *
- * All four are already round: the dots on the two i's of "hi it's", and the two
- * dots of the colon in the smiley. A flower stands in for a dot without the
- * letter losing its shape, which is not true of the strokes.
- */
-const WIDE_BLOOMS: Bloom[] = [
-  { row: 1, col: 7, glyph: '✿' },
-  { row: 1, col: 11, glyph: '❀' },
-  { row: 2, col: 63, glyph: '✿' },
-  { row: 4, col: 63, glyph: '❀' },
-]
-
 export const BOOT: Line[] = [
-  { type: 'banner', rows: BANNER, fits: 'wide', flowers: WIDE_FLOWERS, blooms: WIDE_BLOOMS },
+  { type: 'banner', rows: BANNER, fits: 'wide' },
   { type: 'banner', rows: PHONE_BANNER, fits: 'phone' },
   hero("hi it's me, Jen :)"),
   text(''),

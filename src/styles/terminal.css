@@ -578,42 +578,6 @@ body {
   width: fit-content;
 }
 
-/* A cell of the art drawn as a flower: the dots on the i's and the dots of the
-   colon. Slightly larger than the cell it replaces, since a flower at exactly one
-   cell reads as a smudge, and centred in place so the row's spacing is untouched:
-   inline-block with a zero width would collapse the column it sits in. */
-.art-bloom {
-  display: inline-block;
-  width: 1ch;
-  color: var(--second);
-  font-size: 1.25em;
-  line-height: 0;
-  text-align: center;
-  vertical-align: baseline;
-  text-shadow: none;
-}
-
-/* A flower growing in the art rather than beside it, larger than a character
-   cell so the bed reads as something growing through the letters. Behind the art
-   in the stacking order, so a big one passes under a stroke instead of cutting
-   through it. Positions come from Banner.tsx as percentages of this box. */
-.banner-flower {
-  position: absolute;
-  z-index: -1;
-  color: var(--second);
-  line-height: 1;
-  pointer-events: none;
-  animation: bloom 3.7s ease-in-out infinite;
-}
-
-/* Phones keep the bouquet beside the name: three rows of boxes leave nowhere to
-   grow one into. */
-@media (max-width: 680px) {
-  .banner-flower {
-    display: none;
-  }
-}
-
 /* The phone art. Sized to fill the line: --cols comes from Banner.tsx, and 0.6em
    is the advance of a monospace cell, so the whole thing scales with the screen
    instead of being pinned to one font size that is too small on a large phone and
@@ -1007,12 +971,6 @@ body {
   /* The light stays, it simply stops wandering. */
   body::after {
     animation: none;
-  }
-
-  /* The flowers stay, they simply stop opening. */
-  .banner-flower {
-    animation: none;
-    opacity: 0.85;
   }
 
 

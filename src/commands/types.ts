@@ -1,4 +1,3 @@
-import type { Bloom } from '../terminal/bloom'
 import type { Dir } from '../fs/types'
 import type { ThemeName } from './themes'
 
@@ -21,14 +20,7 @@ export type Line =
    * them can animate them as a single unit. There are two, a wide one for
    * desktops and a compact one for phones; terminal.css shows exactly one.
    */
-  | {
-      type: 'banner'
-      rows: string[]
-      fits: 'wide' | 'phone'
-      flowers?: Flower[]
-      /** Cells of the art that are drawn as flowers. See terminal/bloom.ts. */
-      blooms?: Bloom[]
-    }
+  | { type: 'banner'; rows: string[]; fits: 'wide' | 'phone' }
   /** A file's title, framed and centred, with an optional second line. */
   | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */
@@ -40,21 +32,6 @@ export type Line =
   | HintLine
   /** A labelled row of technologies, each with an optional logo. */
   | { type: 'icons'; label: string; items: IconItem[] }
-
-/**
- * A flower grown into the banner's empty space. Placed on the art's own grid, in
- * cells rather than pixels, so it lands where nothing is drawn at any font size.
- * Fractional positions are deliberate: a bed of flowers on exact cell centres
- * reads as a pattern rather than as something growing.
- */
-export interface Flower {
-  glyph: string
-  /** Column and row on the art grid, fractions allowed. */
-  col: number
-  row: number
-  /** Size relative to a character cell, so a flower can be bigger than a letter. */
-  size: number
-}
 
 export interface HintLine {
   type: 'hint'

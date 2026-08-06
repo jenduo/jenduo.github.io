@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
-import type { Flower } from '../commands/types'
-import type { Bloom } from './bloom'
-import { bloomRow, bloomsIn } from './bloom'
 import { pulseRadius, spotlightRows } from './glitch'
 
 /**
@@ -37,19 +34,7 @@ interface Pointer {
  * and disappear together, and a touch device never sees an affordance it cannot
  * use.
  */
-export function Banner({
-  rows,
-  fits,
-  flowers = [],
-  blooms = [],
-}: {
-  rows: string[]
-  fits: 'wide' | 'phone'
-  flowers?: Flower[]
-  blooms?: Bloom[]
-}) {
-  /** The art's width in cells, which is the grid the flowers are placed on. */
-  const columns = Math.max(...rows.map((row) => row.length))
+export function Banner({ rows, fits }: { rows: string[]; fits: 'wide' | 'phone' }) {
   const [shown, setShown] = useState(rows)
   const wrapRef = useRef<HTMLDivElement>(null)
   const rowRef = useRef<HTMLDivElement>(null)
@@ -137,37 +122,8 @@ export function Banner({
     >
       {shown.map((row, index) => (
         <div key={index} ref={index === 0 ? rowRef : undefined} className="line art">
-          {/* `shown` rather than `rows`: the scramble has already had its turn, so
-              a cell it changed still blooms instead of the two fighting. */}
-          {bloomRow(row, bloomsIn(blooms, index)).map((segment, at) =>
-            'glyph' in segment ? (
-              <span key={at} className="art-bloom">
-                {segment.glyph}
-              </span>
-            ) : (
-              segment.text
-            ),
-          )}
+          {row}
         </div>
-      ))}
-
-      {/* Positioned as a fraction of the banner box rather than in em. An em in
-          `left` resolves against the element's own font-size, so a bigger flower
-          would sit further right by exactly the amount it grew: the first attempt
-          scattered them below the art. A percentage resolves against the box,
-          which is the grid. */}
-      {flowers.map((flower, index) => (
-        <span
-          key={index}
-          className="banner-flower"
-          style={{
-            left: `${(flower.col / columns) * 100}%`,
-            top: `${(flower.row / rows.length) * 100}%`,
-            fontSize: `${flower.size}em`,
-          }}
-        >
-          {flower.glyph}
-        </span>
       ))}
     </div>
   )

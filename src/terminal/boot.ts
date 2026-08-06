@@ -20,8 +20,23 @@ const BANNER = [
   '                                       |/                      /_/ ',
 ]
 
+/**
+ * figlet -f digital "hi it's me, Jen :)", 37 columns.
+ *
+ * A phone cannot hold 67 columns at a readable size, but it can hold 37, so it
+ * gets art too rather than a line of large text. This font is boxed, which is
+ * what survives being small: the strokes cannot thin out or merge the way the
+ * standard font's do.
+ */
+const PHONE_BANNER = [
+  '+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+ +-+-+',
+  "|h|i| |i|t|'|s| |m|e|,| |J|e|n| |:|)|",
+  '+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+ +-+-+',
+]
+
 export const BOOT: Line[] = [
-  { type: 'banner', rows: BANNER },
+  { type: 'banner', rows: BANNER, fits: 'wide' },
+  { type: 'banner', rows: PHONE_BANNER, fits: 'phone' },
   hero("hi it's me, Jen :)"),
   text(''),
   text('Jennifer Duong, Melbourne based full-stack engineer', 'bright'),

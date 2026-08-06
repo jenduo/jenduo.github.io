@@ -512,33 +512,16 @@ body {
   letter-spacing: -0.02em;
 }
 
-@media (max-width: 680px) {
-  .line.hero {
-    display: inline-block;
-    width: calc(var(--chars, 18) * 1ch);
-    max-width: 100%;
-    overflow: hidden;
-    /* The caret. In the second hue, so it reads as the cursor rather than as
-       part of the name. */
-    border-right: 2px solid var(--second);
-    white-space: nowrap;
-    /* steps() so it advances a character at a time instead of sliding. */
-    animation:
-      hero-type 1.5s steps(var(--chars, 18), end) 250ms both,
-      hero-caret 1.05s steps(1, end) 1.75s infinite;
-  }
-}
-
-@keyframes hero-type {
-  from {
-    width: 0;
-  }
-}
-
-@keyframes hero-caret {
-  50% {
-    border-right-color: transparent;
-  }
+/* Visually replaced by the art at every width, but kept for screen readers: both
+   banners are aria-hidden, so this line is the greeting as far as they are
+   concerned. */
+.line.hero {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* A file's title, framed so a document opens with something that reads as a
@@ -588,6 +571,32 @@ body {
   display: none;
 }
 
+/* The phone art. Sized to fill the line: --cols comes from Banner.tsx, and 0.6em
+   is the advance of a monospace cell, so the whole thing scales with the screen
+   instead of being pinned to one font size that is too small on a large phone and
+   too wide on a small one. 0.94 keeps it off the right edge.
+
+   Tight leading here, unlike the wide art: this font draws boxes, and the rules
+   have to meet. */
+@media (max-width: 680px) {
+  .banner-phone .line.art {
+    display: block;
+    color: var(--accent);
+    font-size: calc((100vw - 2 * var(--gutter)) / var(--cols) / 0.6 * 0.94);
+    line-height: 1.02;
+    letter-spacing: 0;
+    white-space: pre;
+    text-shadow: none;
+  }
+}
+
+/* Never both. */
+@media (min-width: 680px) {
+  .banner-phone {
+    display: none;
+  }
+}
+
 
 /* Signals the banner is interactive without a pointer cursor, which would imply
    it is a link. */
@@ -597,7 +606,7 @@ body {
 
 /* 680px is the narrowest viewport where 67 columns still fits at body size. */
 @media (min-width: 680px) {
-  .line.art {
+  .banner-wide .line.art {
     display: block;
     color: var(--accent);
     /* Counterintuitively this wants loose leading, not tight: the strokes sit
@@ -609,15 +618,6 @@ body {
     text-shadow: none;
   }
 
-  /* Visually replaced by the art above, but kept for screen readers. */
-  .line.hero {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
 }
 
 .tone-dim {
@@ -928,11 +928,6 @@ body {
     animation: none;
   }
 
-  /* The greeting arrives whole, with no caret to blink. */
-  .line.hero {
-    animation: none;
-    border-right: 0;
-  }
 
   body {
     text-shadow: none;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
 import { pulseRadius, spotlightRows } from './glitch'
 
 /**
@@ -33,7 +34,7 @@ interface Pointer {
  * and disappear together, and a touch device never sees an affordance it cannot
  * use.
  */
-export function Banner({ rows }: { rows: string[] }) {
+export function Banner({ rows, fits }: { rows: string[]; fits: 'wide' | 'phone' }) {
   const [shown, setShown] = useState(rows)
   const wrapRef = useRef<HTMLDivElement>(null)
   const rowRef = useRef<HTMLDivElement>(null)
@@ -111,7 +112,9 @@ export function Banner({ rows }: { rows: string[] }) {
   return (
     <div
       ref={wrapRef}
-      className="banner"
+      className={`banner banner-${fits}`}
+      // The phone art is sized to fill the width, which needs its column count.
+      style={{ '--cols': rows[0]?.length ?? 0 } as CSSProperties}
       aria-hidden="true"
       onMouseMove={onPointerMove}
       onMouseLeave={onPointerLeave}

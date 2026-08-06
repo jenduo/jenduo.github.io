@@ -16,10 +16,11 @@ export type Line =
   /** See terminal.css: `hero` is display size, `body` and `bullet` are file prose. */
   | { type: 'text'; text: string; tone?: Tone; variant?: 'hero' | 'body' | 'bullet' }
   /**
-   * The ASCII banner. All rows travel as one line so the component that renders
-   * them can animate them as a single unit.
+   * An ASCII banner. All rows travel as one line so the component that renders
+   * them can animate them as a single unit. There are two, a wide one for
+   * desktops and a compact one for phones; terminal.css shows exactly one.
    */
-  | { type: 'banner'; rows: string[] }
+  | { type: 'banner'; rows: string[]; fits: 'wide' | 'phone' }
   /** A file's title, framed and centred, with an optional second line. */
   | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */

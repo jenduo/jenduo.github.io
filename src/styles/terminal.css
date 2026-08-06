@@ -579,14 +579,55 @@ body {
    Tight leading here, unlike the wide art: this font draws boxes, and the rules
    have to meet. */
 @media (max-width: 680px) {
+  /* The size lives on the wrapper so the flowers below inherit the same cell,
+     and stay in step with the art at every screen width. */
+  .banner-phone {
+    position: relative;
+    /* Room for the last row of flowers, which hangs below the art. */
+    margin-bottom: 1.1em;
+    font-size: calc((100vw - 2 * var(--gutter)) / var(--cols) / 0.6 * 0.94);
+  }
+
   .banner-phone .line.art {
     display: block;
     color: var(--accent);
-    font-size: calc((100vw - 2 * var(--gutter)) / var(--cols) / 0.6 * 0.94);
+    font-size: inherit;
     line-height: 1.02;
     letter-spacing: 0;
     white-space: pre;
     text-shadow: none;
+  }
+
+  /* Flowers, growing in the gap the shorter second row leaves. In the second hue
+     so they read as decoration rather than as more of the name, and on the same
+     character grid, since each of these glyphs measures exactly one cell in the
+     monospace stack.
+
+     Two clusters on periods that do not divide into each other, so the opening
+     and closing never line up and the whole thing never looks like a loop. */
+  .banner-phone::after {
+    content: ' ✿  ❀\A❀ ✽  ✿\A ✧  ❀\A   ✿';
+    position: absolute;
+    right: 0.6ch;
+    bottom: -1.05em;
+    color: var(--second);
+    font-size: inherit;
+    line-height: 1.02;
+    white-space: pre;
+    pointer-events: none;
+    animation: bloom 3.7s ease-in-out infinite;
+  }
+}
+
+/* Opening and closing, not blinking: the flowers should feel alive rather than
+   flash. */
+@keyframes bloom {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
@@ -926,6 +967,12 @@ body {
   /* The light stays, it simply stops wandering. */
   body::after {
     animation: none;
+  }
+
+  /* The flowers stay, they simply stop opening. */
+  .banner-phone::after {
+    animation: none;
+    opacity: 0.85;
   }
 
 

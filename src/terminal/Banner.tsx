@@ -114,7 +114,8 @@ export function Banner({ rows, fits }: { rows: string[]; fits: 'wide' | 'phone' 
       ref={wrapRef}
       className={`banner banner-${fits}`}
       // The phone art is sized to fill the width, which needs its column count.
-      style={{ '--cols': rows[0]?.length ?? 0 } as CSSProperties}
+      // The widest row, since a stacked banner's first row is not its longest.
+      style={{ '--cols': Math.max(...rows.map((row) => row.length)) } as CSSProperties}
       aria-hidden="true"
       onMouseMove={onPointerMove}
       onMouseLeave={onPointerLeave}

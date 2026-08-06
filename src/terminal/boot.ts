@@ -21,17 +21,23 @@ const BANNER = [
 ]
 
 /**
- * figlet -f digital "hi it's me, Jen :)", 37 columns.
+ * figlet -f digital, split across two rows: 23 columns instead of 37.
  *
- * A phone cannot hold 67 columns at a readable size, but it can hold 37, so it
- * gets art too rather than a line of large text. This font is boxed, which is
- * what survives being small: the strokes cannot thin out or merge the way the
- * standard font's do.
+ * A phone cannot hold the 67-column banner at a readable size, but it can hold
+ * this. Splitting the greeting rather than shrinking it is what buys the size:
+ * the art is scaled to fill the line, so a narrower block is a bigger one.
+ *
+ * This font is boxed, which is what survives being small. The standard font's
+ * strokes thin out and merge, which is why a phone never got art before.
  */
 const PHONE_BANNER = [
-  '+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+ +-+-+',
-  "|h|i| |i|t|'|s| |m|e|,| |J|e|n| |:|)|",
-  '+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+ +-+-+',
+  '+-+-+ +-+-+-+-+ +-+-+-+',
+  "|h|i| |i|t|'|s| |m|e|,|",
+  '+-+-+ +-+-+-+-+ +-+-+-+',
+  '',
+  '+-+-+-+ +-+-+',
+  '|J|e|n| |:|)|',
+  '+-+-+-+ +-+-+',
 ]
 
 export const BOOT: Line[] = [

@@ -31,6 +31,13 @@ traps that have already cost time once.
   hue across filenames, card metadata, the chips and the accept key was tried and
   reverted at Jen's call: with two colours competing everywhere, neither read as
   meaning anything. Resist the urge to reintroduce it, and check with her first.
+- **Mobile is not a narrow desktop.** The directory bar moves to the bottom of
+  the screen under 680px, in reach of a thumb and beside the prompt, and wraps
+  onto as many rows as it needs. It scrolled sideways once, which hid half the
+  site behind a gesture nobody was told about. The row of example-command chips
+  that used to sit down there is gone: the bar does the same job with real
+  contents. Nothing in the boot text may say "above" or "below", since the bar is
+  at opposite ends on the two layouts.
 - Verify visual changes by measuring in the browser (`agent-browser`), not by
   reasoning about CSS. Several bugs below were found only that way.
 - Use `agent-browser`, never the Claude-for-Chrome tools. They are denied.

@@ -13,8 +13,6 @@ import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
 import { useViewportHeight } from './useViewportHeight'
 
-const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contact']
-
 /** How long a visitor can sit still before the shell offers a suggestion. */
 const IDLE_MS = 1200
 
@@ -28,25 +26,25 @@ export function Terminal() {
   /** Where to put the caret after the next render, set by an edit key. */
   const caretRef = useRef<number | null>(null)
 
-  // Typing dismisses the suggestion, but only until the next directory change:
-  // a new directory has different things worth trying, so it is worth offering
-  // again rather than retiring for the whole visit.
-  const [dismissed, setDismissed] = useState(false)
+  // Suggestions come back whenever the prompt has been sitting empty for a
+  // moment. They used to retire on the first keystroke until the directory
+  // changed, which meant anyone who typed something and thought better of it
+  // never saw one again.
   const [idle, setIdle] = useState(false)
 
   useEffect(() => {
-    setDismissed(false)
     setIdle(false)
+    if (input !== '') return
     const id = setTimeout(() => setIdle(true), IDLE_MS)
     return () => clearTimeout(id)
-  }, [cwd])
+  }, [input, cwd])
 
   const suggestions = useMemo(() => {
     const here = resolve(root, cwd, '.')
     return suggestionsFor(here && here.kind === 'dir' ? here : null, cwd)
   }, [root, cwd])
 
-  const ghost = useGhostTyping(idle && !dismissed && input === '', suggestions)
+  const ghost = useGhostTyping(idle && input === '', suggestions)
 
   const scrollToPrompt = useCallback(() => {
     endRef.current?.scrollIntoView({ block: 'end' })
@@ -82,7 +80,6 @@ export function Terminal() {
   }
 
   function run(command: string) {
-    setDismissed(true)
     submit(command)
     setInput('')
     setHistoryIndex(null)
@@ -150,7 +147,6 @@ export function Terminal() {
     if (event.ctrlKey && !event.metaKey && !event.altKey) {
       if (onControlKey(event)) {
         event.preventDefault()
-        setDismissed(true)
         return
       }
     }
@@ -168,7 +164,6 @@ export function Terminal() {
       const completed = complete(input, root, cwd)
       if (completed !== input) {
         event.preventDefault()
-        setDismissed(true)
         setInput(completed)
       }
 
@@ -177,8 +172,6 @@ export function Terminal() {
       // visitors in the input with no way out.
       return
     }
-
-    setDismissed(true)
 
     if (event.key === 'Enter') {
       run(input)
@@ -285,13 +278,6 @@ export function Terminal() {
           <Scrollbar target={scrollRef} revision={lines.length} />
         </div>
 
-        <div className="chips" aria-label="example commands">
-          {CHIPS.map((chip) => (
-            <button key={chip} type="button" className="chip" onClick={() => run(chip)}>
-              {chip}
-            </button>
-          ))}
-        </div>
       </main>
     </div>
   )

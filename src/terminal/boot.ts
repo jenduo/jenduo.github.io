@@ -27,8 +27,8 @@ export const BOOT: Line[] = [
   text('Jennifer Duong, Melbourne based full-stack engineer', 'bright'),
   text("a lifetime's portfolio, reduced to a shell", 'dim'),
   text(''),
-  // Kept short so it does not wrap at phone width. "above" because the
-  // clickable directory bar sits at the top of the terminal, not in the output.
-  hint("type 'help', or click anything above.", 'dim'),
+  // No "above" or "below": the directory bar is at the top on a desktop and at
+  // the bottom on a phone, so the wording cannot name a direction.
+  hint("type 'help', or click any file or folder.", 'dim'),
   text(''),
 ]

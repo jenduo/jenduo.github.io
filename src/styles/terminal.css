@@ -373,16 +373,26 @@ body {
 /* Wrapping seven entries costs four lines and a tenth of a phone screen, so it
    scrolls sideways instead. The fade is what stops a cut-off entry looking like
    the end of the list. */
+/* On a phone the bar belongs at the bottom, in reach of a thumb and next to the
+   prompt rather than a screen away from it. `order` moves it without moving it in
+   the markup, so it stays the first thing after the title bar for a screen
+   reader and for anyone tabbing through.
+
+   It wraps onto a second row instead of scrolling sideways: a row that scrolls
+   hides half the site behind a gesture nobody is told about. */
 @media (max-width: 680px) {
   .dirbar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    mask-image: linear-gradient(to right, #000 0 calc(100% - 26px), transparent 100%);
+    order: 1;
+    margin: 0 calc(-1 * var(--gutter)) calc(-1 * var(--gutter));
+    padding: 0.5em var(--gutter);
+    border-top: 1px solid var(--chrome-border);
+    border-bottom: 0;
+    row-gap: 0.35em;
   }
 
-  .dirbar::-webkit-scrollbar {
-    display: none;
+  /* Keeps the prompt off the bar above it. */
+  .scrollback {
+    padding-bottom: 0.6em;
   }
 }
 
@@ -767,37 +777,6 @@ body {
   white-space: nowrap;
 }
 
-/* Chips are a phone affordance: typing `cd projects/` on a phone keyboard is a
-   reason to leave. Hidden on pointer-capable widths. */
-.chips {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .chips {
-    display: flex;
-    gap: 8px;
-    padding: 10px 0 6px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .chips::-webkit-scrollbar {
-    display: none;
-  }
-
-  .chip {
-    flex: 0 0 auto;
-    padding: 6px 10px;
-    border: 1px solid var(--fg-dim);
-    border-radius: 999px;
-    background: none;
-    color: var(--fg);
-    font: 13px var(--mono);
-    white-space: nowrap;
-  }
-}
-
 /* Painted behind the content, not over it. Overlaying the text would cap the
    opacity at something imperceptible to avoid hazing what you are reading;
    sitting behind it means the lines can be strong and the text stays crisp. */
@@ -809,8 +788,7 @@ body {
   background: repeating-linear-gradient(to bottom, var(--scanline) 0 1px, transparent 1px 4px);
 }
 
-.scrollback,
-.chips {
+.scrollback {
   position: relative;
   z-index: 1;
 }

@@ -160,9 +160,9 @@ type 'open article' to read the article.
 `
 
 const volunteer = `# University of Melbourne · Student Ambassador
-## Mar 2025 to present
+## Mar 2025 to Dec 2025
 
-Representing the faculty at Open Day and other outreach events: panels, tours and content creation.
+Represented the faculty at Open Day and other outreach events: panels, tours and content creation.
 
 Melbourne Plus: People Leadership · Aug 2025
 `

@@ -1,16 +1,12 @@
-import { intro, portrait } from '../fs/tree'
+import { intro } from '../fs/tree'
 import type { Command } from './types'
 import { error, ok, text } from './types'
 
 export const clear: Command = () => ({ lines: [], clear: true })
 
-/** The photo and intro both live in fs/tree.ts with the rest of the content. */
+/** The intro lives in fs/tree.ts with the rest of the content. */
 export const whoami: Command = () => ({
-  lines: [
-    { type: 'portrait', src: portrait.src, alt: portrait.alt },
-    text(''),
-    ...intro.split('\n').map((line) => text(line)),
-  ],
+  lines: intro.split('\n').map((line) => text(line)),
 })
 
 export const history: Command = (_args, ctx) =>

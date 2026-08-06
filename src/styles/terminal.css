@@ -463,32 +463,6 @@ body {
   word-break: break-word;
 }
 
-/* A photograph, duotoned into the palette so it reads as part of the terminal
-   rather than a snapshot dropped onto it. The accent sits behind a greyscaled
-   image in multiply: dark areas stay dark, light areas take the theme colour,
-   so this follows the `colour` command like everything else. */
-.portrait {
-  width: clamp(108px, 21vw, 156px);
-  /* 2ch matches the indent of the prose it sits above. */
-  margin: 0.45em 0 0.25em 2ch;
-  background: var(--accent);
-  border: 1px solid var(--chrome-border);
-  border-radius: 4px;
-  /* Clips the image to the rounded corners. */
-  overflow: hidden;
-  line-height: 0;
-}
-
-.portrait-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* Pulled down from full brightness so light areas read as tinted rather than
-     as a flat block of pure accent. */
-  filter: grayscale(1) contrast(1.06) brightness(0.9);
-  mix-blend-mode: multiply;
-}
-
 /* The welcome banner exists in two forms and exactly one is ever visible.
    The ASCII art is a fixed 67-column grid. It cannot reflow, only scale, and
    at phone width it scales down to illegible. So narrow screens get the same

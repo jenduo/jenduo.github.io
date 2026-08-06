@@ -1,5 +1,4 @@
 import { Banner } from './Banner'
-import { Portrait } from './Portrait'
 import type { Line as LineData } from '../commands/types'
 import { displayPath } from '../fs/resolve'
 
@@ -25,10 +24,6 @@ export function Line({ line, onRun }: Props) {
 
   if (line.type === 'banner') {
     return <Banner rows={line.rows} />
-  }
-
-  if (line.type === 'portrait') {
-    return <Portrait src={line.src} alt={line.alt} />
   }
 
   if (line.type === 'titlecard') {

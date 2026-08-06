@@ -9,16 +9,16 @@ import type { Dir } from './types'
 // words. `resume.pdf` keeps its extension because the extension is the point.
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Shown by `whoami`. Cropped to Jen alone: the original frame had someone
- *  else's face on a phone screen in it. */
-export const portrait = { src: '/jen.jpg', alt: 'Jennifer Duong' }
-
 /** Printed by `whoami`, so the intro is a command rather than a file. */
-export const intro = `software engineer in Melbourne, currently at InvestorHub.
+export const intro = `Hi!
 
-I work across the marketing suite there: newsflow distribution, a website builder, and webinar tooling wired into shareholder data.
+I'm Jennifer, a full-stack engineer living in Melbourne.
 
-Before that, HPC and applied ML research at the University of Melbourne and CSL. I parallelised machine learning workloads on the Spartan cluster and wrapped researchers' models in APIs so people outside the lab could run them. Two papers came out of it.
+I studied computer science for both my bachelor's and my master's, and came out of it with a soft spot for optimisation and machine learning algorithms. I published my first paper on multi-fidelity optimisation, then decided I would rather build things people use, so industry it was.
+
+I like learning languages, and there is usually a new one on the go.
+
+Away from a keyboard: Pokemon, Formula 1, and the Rubik's cube.
 
 Try:  ls experience     ls publications     cat skills`
 

@@ -20,8 +20,6 @@ export type Line =
    * them can animate them as a single unit.
    */
   | { type: 'banner'; rows: string[] }
-  /** A real photograph, tinted to the palette by terminal.css. */
-  | { type: 'portrait'; src: string; alt: string }
   /** A file's title, framed and centred, with an optional second line. */
   | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */

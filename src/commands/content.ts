@@ -41,8 +41,9 @@ export const cat: Command = (args, ctx) => {
   if (!node) return { lines: missing('cat', target, ctx) }
   if (node.kind === 'dir') return ok(error(`cat: ${target}: Is a directory`))
 
+  const path = normalize(ctx.cwd, target)
   const body = node.lines ?? formatBody(node.body)
-  return { lines: bindHints(body, ctx.root, parentOf(normalize(ctx.cwd, target))) }
+  return { lines: bindHints(body, ctx.root, parentOf(path)), focus: path }
 }
 
 /**

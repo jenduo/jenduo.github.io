@@ -8,6 +8,7 @@ import { DirBar } from './DirBar'
 import { Line } from './Line'
 import { Scrollbar } from './Scrollbar'
 import { TitleBar } from './TitleBar'
+import { useDeepLink } from './useDeepLink'
 import { useGhostTyping } from './useGhostTyping'
 import { useShell } from './useShell'
 import { useViewportHeight } from './useViewportHeight'
@@ -18,7 +19,7 @@ const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contac
 const IDLE_MS = 1200
 
 export function Terminal() {
-  const { cwd, lines, history, submit, clearScreen, abandon, root } = useShell()
+  const { cwd, focus, lines, history, submit, clearScreen, abandon, root } = useShell()
   const [input, setInput] = useState('')
   const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -64,6 +65,10 @@ export function Terminal() {
   // Sizes the shell to the visible area, so an open keyboard shrinks the
   // terminal instead of covering the prompt.
   useViewportHeight(scrollToPrompt)
+
+  // The URL names the file on screen when there is one, and the directory
+  // otherwise, so any view can be sent to someone.
+  useDeepLink(root, focus ?? cwd, submit)
 
   /**
    * Touch devices open a keyboard whenever an input takes focus, so tapping a

@@ -77,6 +77,12 @@ export interface CommandResult {
   lines: Line[]
   /** Set to move the shell to a new directory. */
   cwd?: string
+  /**
+   * The file this output is about, as an absolute path. The URL follows it, so a
+   * visitor can send someone the entry they are looking at rather than the front
+   * door. Any command that does not set it clears it.
+   */
+  focus?: string
   /** Set to wipe the scrollback. */
   clear?: boolean
   /** Set to navigate the browser to a URL. */

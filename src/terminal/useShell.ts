@@ -7,6 +7,8 @@ import { nextLines } from './scrollback'
 
 interface ShellState {
   cwd: string
+  /** The file on screen, if the last command was about one. Drives the URL. */
+  focus?: string
   lines: Line[]
   history: string[]
 }
@@ -30,6 +32,9 @@ export function useShell() {
 
     const next: ShellState = {
       cwd: result.cwd ?? current.cwd,
+      // Deliberately not carried forward: once you run anything else, the URL
+      // goes back to naming where you are standing.
+      focus: result.focus,
       lines: nextLines(current.lines, result, BOOT),
       history: input.trim() ? [...current.history, input] : current.history,
     }

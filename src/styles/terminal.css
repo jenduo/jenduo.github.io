@@ -578,6 +578,21 @@ body {
   width: fit-content;
 }
 
+/* A cell of the art drawn as a flower: the dots on the i's and the dots of the
+   colon. Slightly larger than the cell it replaces, since a flower at exactly one
+   cell reads as a smudge, and centred in place so the row's spacing is untouched:
+   inline-block with a zero width would collapse the column it sits in. */
+.art-bloom {
+  display: inline-block;
+  width: 1ch;
+  color: var(--second);
+  font-size: 1.25em;
+  line-height: 0;
+  text-align: center;
+  vertical-align: baseline;
+  text-shadow: none;
+}
+
 /* A flower growing in the art rather than beside it, larger than a character
    cell so the bed reads as something growing through the letters. Behind the art
    in the stacking order, so a big one passes under a stroke instead of cutting

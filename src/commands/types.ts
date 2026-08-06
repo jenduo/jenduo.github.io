@@ -1,3 +1,4 @@
+import type { Bloom } from '../terminal/bloom'
 import type { Dir } from '../fs/types'
 import type { ThemeName } from './themes'
 
@@ -20,7 +21,14 @@ export type Line =
    * them can animate them as a single unit. There are two, a wide one for
    * desktops and a compact one for phones; terminal.css shows exactly one.
    */
-  | { type: 'banner'; rows: string[]; fits: 'wide' | 'phone'; flowers?: Flower[] }
+  | {
+      type: 'banner'
+      rows: string[]
+      fits: 'wide' | 'phone'
+      flowers?: Flower[]
+      /** Cells of the art that are drawn as flowers. See terminal/bloom.ts. */
+      blooms?: Bloom[]
+    }
   /** A file's title, framed and centred, with an optional second line. */
   | { type: 'titlecard'; title: string; subtitle?: string }
   /** Path names rendered as clickable buttons. */

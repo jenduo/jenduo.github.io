@@ -23,7 +23,9 @@ export function Line({ line, onRun }: Props) {
   }
 
   if (line.type === 'banner') {
-    return <Banner rows={line.rows} fits={line.fits} flowers={line.flowers} />
+    return (
+      <Banner rows={line.rows} fits={line.fits} flowers={line.flowers} blooms={line.blooms} />
+    )
   }
 
   if (line.type === 'titlecard') {

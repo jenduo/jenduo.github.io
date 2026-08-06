@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { Flower } from '../commands/types'
+import type { Bloom } from './bloom'
+import { bloomRow, bloomsIn } from './bloom'
 import { pulseRadius, spotlightRows } from './glitch'
 
 /**
@@ -39,10 +41,12 @@ export function Banner({
   rows,
   fits,
   flowers = [],
+  blooms = [],
 }: {
   rows: string[]
   fits: 'wide' | 'phone'
   flowers?: Flower[]
+  blooms?: Bloom[]
 }) {
   /** The art's width in cells, which is the grid the flowers are placed on. */
   const columns = Math.max(...rows.map((row) => row.length))
@@ -133,7 +137,17 @@ export function Banner({
     >
       {shown.map((row, index) => (
         <div key={index} ref={index === 0 ? rowRef : undefined} className="line art">
-          {row}
+          {/* `shown` rather than `rows`: the scramble has already had its turn, so
+              a cell it changed still blooms instead of the two fighting. */}
+          {bloomRow(row, bloomsIn(blooms, index)).map((segment, at) =>
+            'glyph' in segment ? (
+              <span key={at} className="art-bloom">
+                {segment.glyph}
+              </span>
+            ) : (
+              segment.text
+            ),
+          )}
         </div>
       ))}
 

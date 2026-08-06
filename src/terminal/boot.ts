@@ -1,4 +1,5 @@
 import type { Flower, Line, Tone } from '../commands/types'
+import type { Bloom } from './bloom'
 import { asHint, hero, text } from '../commands/types'
 
 /** Same wording as the file bodies, so it is one pattern everywhere. */
@@ -61,8 +62,23 @@ const WIDE_FLOWERS: Flower[] = [
   { glyph: '✧', col: 55, row: 5.15, size: 1.5 },
 ]
 
+/**
+ * Cells of the art drawn as flowers, so part of the lettering is flowers rather
+ * than flowers being arranged around it.
+ *
+ * All four are already round: the dots on the two i's of "hi it's", and the two
+ * dots of the colon in the smiley. A flower stands in for a dot without the
+ * letter losing its shape, which is not true of the strokes.
+ */
+const WIDE_BLOOMS: Bloom[] = [
+  { row: 1, col: 7, glyph: '✿' },
+  { row: 1, col: 11, glyph: '❀' },
+  { row: 2, col: 63, glyph: '✿' },
+  { row: 4, col: 63, glyph: '❀' },
+]
+
 export const BOOT: Line[] = [
-  { type: 'banner', rows: BANNER, fits: 'wide', flowers: WIDE_FLOWERS },
+  { type: 'banner', rows: BANNER, fits: 'wide', flowers: WIDE_FLOWERS, blooms: WIDE_BLOOMS },
   { type: 'banner', rows: PHONE_BANNER, fits: 'phone' },
   hero("hi it's me, Jen :)"),
   text(''),

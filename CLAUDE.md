@@ -66,21 +66,21 @@ Fill in as you go with her:
       another one. If `volunteer` goes too, drop the directory rather than
       leaving an empty one.
 
-### Open questions for her
+### Settled, and worth not undoing
 
-- `whoami` says "software engineer in Melbourne" while `experience/investorhub`
-  says "Junior Software Engineer". Deliberate for now: the intro is a
-  self-description, the card is a job title. She knows and left it.
-- **`public/resume.pdf` has a References page**, so two referees' emails and a
-  phone number are on the public internet right now. She has not decided whether
-  to swap in a version without it. Raise it, do not act unilaterally.
+- **`public/resume.pdf` is the `\publictrue` build** of
+  `~/Desktop/resume/resume.tex`, which is outside this repo on purpose: the other
+  branch of that switch holds Jen's mobile and three referees' email addresses.
+  Only ever publish the public build, and check any PDF she sends with
+  `pdftotext … | grep` before committing it.
+- **`whoami` has no photograph**, and the line type, component, duotone CSS and
+  the image file are all gone. If a picture ever comes back it is a fresh start,
+  not a revert. The Open Graph capture in `public/og.png` showed that photo and
+  was recaptured; regenerate it whenever the boot screen or intro changes.
 
 ### Offered, not yet delivered
 
-- The InvestorHub logo, to sit beside that heading. Duotone it to match
-  `public/jen.jpg` (see the image pipeline below).
-- More photos. Same pipeline. Flag any third parties or identifying background
-  before wiring one in.
+- The InvestorHub logo, to sit beside that heading.
 
 ### Housekeeping
 
@@ -120,6 +120,13 @@ entry list was once hand-written and silently drifted, hiding `education` and
 
 ## Before you commit
 
-`npx tsc -b && npm test && npm run build`. 152 tests as of the last commit; the
+`npx tsc -b && npm test && npm run build`. 218 tests as of the last commit; the
 count only goes up. Check both 390px and 1280px widths for anything visual, and
 remember mobile has no scroll column by design.
+
+`npm run build` ends with `scripts/prerender.mjs`, which writes the whole content
+tree into `dist/index.html` inside `<noscript>` so crawlers and no-JS visitors get
+something. It reads `fs/tree.ts` through esbuild rather than a copy, and it fails
+loudly if `index.html` already contains a noscript block. If you add a line type
+to the content, teach the prerender about it or it will be silently dropped from
+the crawlable copy.

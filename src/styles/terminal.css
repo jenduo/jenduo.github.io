@@ -97,6 +97,9 @@
 html,
 body,
 #root {
+  /* Nothing here is meant to slide sideways. Without this, a single pixel of
+     overflow anywhere lets the whole page rubber-band on a phone. */
+  overflow-x: hidden;
   /* --app-height tracks the visual viewport (see useViewportHeight); 100dvh is
      the pre-JS fallback. Plain 100% would ignore an open mobile keyboard. */
   height: var(--app-height, 100dvh);
@@ -393,6 +396,23 @@ body {
   /* Keeps the prompt off the bar above it. */
   .scrollback {
     padding-bottom: 0.6em;
+    /* The scrollback scrolls in one axis. overflow-y alone computes overflow-x to
+       auto, which is enough for a stray pixel to give a phone something to drag,
+       and pan-y stops the browser recognising a sideways swipe at all. */
+    overflow-x: hidden;
+    touch-action: pan-y;
+  }
+
+  /* Clickable names hold their spacing with `white-space: pre`, so a long one
+     cannot wrap and would be clipped by the line above. Only on a phone, where
+     the width is scarce: on a desktop the tree's alignment matters more. */
+  .line.entries {
+    flex-wrap: wrap;
+  }
+
+  .entry {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 }
 

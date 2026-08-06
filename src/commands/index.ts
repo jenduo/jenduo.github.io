@@ -3,6 +3,7 @@ import { colour } from './colour'
 import { makeHelp } from './help'
 import { clear, exit, history, rm, sudo, whoami } from './misc'
 import { cd, ls, pwd } from './nav'
+import { grep } from './search'
 import type { CommandResult, CommandSpec, ShellContext } from './types'
 import { error, text } from './types'
 
@@ -12,6 +13,7 @@ export const COMMANDS: CommandSpec[] = [
   { name: 'cd', usage: 'cd [path]', summary: 'change directory', run: cd },
   { name: 'cat', usage: 'cat <file>', summary: 'read a file', run: cat },
   { name: 'tree', usage: 'tree [path]', summary: 'see everything at once', run: tree },
+  { name: 'grep', usage: 'grep <text>', summary: 'search everything', run: grep },
   { name: 'open', usage: 'open <file>', summary: 'open its real link', run: open },
   { name: 'pwd', usage: 'pwd', summary: 'where am I', run: pwd },
   { name: 'whoami', usage: 'whoami', summary: 'the short version of me', run: whoami },

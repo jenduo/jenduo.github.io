@@ -37,5 +37,30 @@ export function useShell() {
     setState(next)
   }, [])
 
-  return { ...state, submit, root }
+  /**
+   * Ctrl+L. Wipes the scrollback without echoing a command, which is what
+   * separates the keystroke from typing `clear`.
+   */
+  const clearScreen = useCallback(() => {
+    const next = { ...stateRef.current, lines: BOOT }
+    stateRef.current = next
+    setState(next)
+  }, [])
+
+  /**
+   * Ctrl+C. Leaves the abandoned line on screen marked `^C` and drops it, so the
+   * transcript shows what was given up on. Nothing runs, and nothing is recorded
+   * in history: a line you cancelled is not a line you ran.
+   */
+  const abandon = useCallback((input: string) => {
+    const current = stateRef.current
+    const next = {
+      ...current,
+      lines: [...current.lines, { type: 'prompt' as const, cwd: current.cwd, input: `${input}^C` }],
+    }
+    stateRef.current = next
+    setState(next)
+  }, [])
+
+  return { ...state, submit, clearScreen, abandon, root }
 }

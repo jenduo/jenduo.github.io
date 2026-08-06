@@ -27,4 +27,4 @@ export const rm: Command = (args) =>
     : ok(error('rm: read-only filesystem'))
 
 export const exit: Command = () =>
-  ok(text("there is no exit. try 'cat contact.txt' instead.", 'dim'))
+  ok(text("there is no exit. try 'ls contact' instead.", 'dim'))

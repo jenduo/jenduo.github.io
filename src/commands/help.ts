@@ -15,8 +15,11 @@ export function makeHelp(commands: () => CommandSpec[]): Command {
         text(''),
         ...visible.map((command) => text(`  ${command.usage.padEnd(width + 3)}${command.summary}`)),
         text(''),
-        // Two short lines rather than one long one, so neither wraps on a phone.
+        // Short lines rather than one long one, so none of them wraps on a phone.
         text('  tab completes · ↑ ↓ walks history', 'dim'),
+        // The two most reached-for. The rest of the readline keys are muscle
+        // memory for anyone who would use them, and listing them all would wrap.
+        text('  ctrl+c cancels · ctrl+l clears', 'dim'),
         text('  or just click any filename', 'dim'),
       ],
     }

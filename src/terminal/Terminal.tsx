@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { displayPath, resolve } from '../fs/resolve'
 import { complete } from './complete'
+import type { Edit } from './editing'
+import { deleteToEnd, deleteToStart, deleteWordBefore } from './editing'
 import { suggestionsFor } from './ghost'
 import { DirBar } from './DirBar'
 import { Line } from './Line'
@@ -16,12 +18,14 @@ const CHIPS = ['whoami', 'ls', 'tree', 'cat skills', 'ls experience', 'ls contac
 const IDLE_MS = 1200
 
 export function Terminal() {
-  const { cwd, lines, history, submit, root } = useShell()
+  const { cwd, lines, history, submit, clearScreen, abandon, root } = useShell()
   const [input, setInput] = useState('')
   const [historyIndex, setHistoryIndex] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const endRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  /** Where to put the caret after the next render, set by an edit key. */
+  const caretRef = useRef<number | null>(null)
 
   // Typing dismisses the suggestion, but only until the next directory change:
   // a new directory has different things worth trying, so it is worth offering
@@ -49,6 +53,14 @@ export function Terminal() {
 
   useEffect(scrollToPrompt, [lines, scrollToPrompt])
 
+  // Restores the caret after an edit key, since a controlled input puts it back
+  // at the end on every change.
+  useEffect(() => {
+    if (caretRef.current === null) return
+    inputRef.current?.setSelectionRange(caretRef.current, caretRef.current)
+    caretRef.current = null
+  }, [input])
+
   // Sizes the shell to the visible area, so an open keyboard shrinks the
   // terminal instead of covering the prompt.
   useViewportHeight(scrollToPrompt)
@@ -72,7 +84,72 @@ export function Terminal() {
     refocusIfPointer()
   }
 
+  /**
+   * Applies an edit and puts the caret where the edit left it. A controlled
+   * input would otherwise drop the caret at the end on every keystroke, which
+   * turns Ctrl+W into something unusable.
+   */
+  function applyEdit(edit: Edit) {
+    setInput(edit.value)
+    caretRef.current = edit.caret
+  }
+
+  /**
+   * The readline keys. Anyone who reaches for Ctrl+W in a terminal does it
+   * without thinking, so the shell answers.
+   *
+   * Only plain Ctrl: Cmd on a Mac still selects all, and Alt combinations are
+   * left to the browser.
+   */
+  function onControlKey(event: React.KeyboardEvent<HTMLInputElement>): boolean {
+    const field = event.currentTarget
+    const caret = field.selectionStart ?? input.length
+
+    switch (event.key.toLowerCase()) {
+      case 'a':
+        field.setSelectionRange(0, 0)
+        return true
+      case 'e':
+        field.setSelectionRange(input.length, input.length)
+        return true
+      case 'u':
+        applyEdit(deleteToStart(input, caret))
+        return true
+      case 'k':
+        applyEdit(deleteToEnd(input, caret))
+        return true
+      case 'w':
+        applyEdit(deleteWordBefore(input, caret))
+        return true
+      case 'l':
+        clearScreen()
+        return true
+      case 'c':
+        // Nothing to cancel on an empty line, so leave copy alone.
+        if (input === '') return false
+        abandon(input)
+        setInput('')
+        setHistoryIndex(null)
+        return true
+      case 'd':
+        // EOF only on an empty line, same as a real shell.
+        if (input !== '') return false
+        run('exit')
+        return true
+      default:
+        return false
+    }
+  }
+
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.ctrlKey && !event.metaKey && !event.altKey) {
+      if (onControlKey(event)) {
+        event.preventDefault()
+        setDismissed(true)
+        return
+      }
+    }
+
     if (event.key === 'Tab') {
       // Accept the idle suggestion. It only ever shows on an empty input, so
       // this cannot shadow completion. Runs the complete command, never the

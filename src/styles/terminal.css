@@ -571,6 +571,34 @@ body {
   display: none;
 }
 
+/* Signals the banner is interactive without a pointer cursor, which would imply
+   it is a link. Relative so the flowers can be placed on its grid. */
+.banner {
+  position: relative;
+  width: fit-content;
+}
+
+/* A flower growing in the art rather than beside it, larger than a character
+   cell so the bed reads as something growing through the letters. Behind the art
+   in the stacking order, so a big one passes under a stroke instead of cutting
+   through it. Positions come from Banner.tsx as percentages of this box. */
+.banner-flower {
+  position: absolute;
+  z-index: -1;
+  color: var(--second);
+  line-height: 1;
+  pointer-events: none;
+  animation: bloom 3.7s ease-in-out infinite;
+}
+
+/* Phones keep the bouquet beside the name: three rows of boxes leave nowhere to
+   grow one into. */
+@media (max-width: 680px) {
+  .banner-flower {
+    display: none;
+  }
+}
+
 /* The phone art. Sized to fill the line: --cols comes from Banner.tsx, and 0.6em
    is the advance of a monospace cell, so the whole thing scales with the screen
    instead of being pinned to one font size that is too small on a large phone and
@@ -636,36 +664,6 @@ body {
   .banner-phone {
     display: none;
   }
-}
-
-/* The same flowers as the phone, in the room beside the wide art. Outside the
-   block rather than in it, since there is space here and nothing has to be
-   threaded between the strokes.
-
-   900px, not 680px: the art is a fixed 67 columns, so the room beside it runs out
-   before the breakpoint does. At 760px the bouquet reached 21px past the edge and
-   gave a desktop a horizontal scrollbar, absolute positioning notwithstanding.
-   Opening and closing here, where a pointer already makes the art move. */
-@media (min-width: 900px) {
-  .banner-wide::after {
-    content: ' ✿  ❀\A❀ ✽  ✿\A ✧  ❀\A   ✿';
-    position: absolute;
-    top: 50%;
-    left: calc(100% + 2ch);
-    color: var(--second);
-    line-height: 1.5;
-    white-space: pre;
-    pointer-events: none;
-    transform: translateY(-50%);
-    animation: bloom 3.7s ease-in-out infinite;
-  }
-}
-
-
-/* Signals the banner is interactive without a pointer cursor, which would imply
-   it is a link. */
-.banner {
-  width: fit-content;
 }
 
 /* 680px is the narrowest viewport where 67 columns still fits at body size. */
@@ -997,7 +995,7 @@ body {
   }
 
   /* The flowers stay, they simply stop opening. */
-  .banner-wide::after {
+  .banner-flower {
     animation: none;
     opacity: 0.85;
   }

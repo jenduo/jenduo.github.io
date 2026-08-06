@@ -16,7 +16,7 @@ I'm Jennifer, a full-stack engineer living in Melbourne.
 
 I studied computer science for both my bachelor's and my master's, and came out of it with a soft spot for optimisation and machine learning algorithms. I published my first paper on multi-fidelity optimisation, then decided I would rather build things people use, so industry it was.
 
-I like learning languages, and there is usually a new one on the go.
+Mostly I just like learning new things: a language, a framework, some corner of infrastructure I have not touched yet. That is the part of this job I like most, and there is always something new to get excited about.
 
 Away from a keyboard: Pokemon, Formula 1, and the Rubik's cube.
 

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Banner } from './Banner'
 import type { Line as LineData } from '../commands/types'
 import { displayPath } from '../fs/resolve'
@@ -37,7 +38,13 @@ export function Line({ line, onRun }: Props) {
 
   if (line.type === 'text') {
     return (
-      <div className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}>
+      <div
+        className={`line tone-${line.tone ?? 'default'}${line.variant ? ` ${line.variant}` : ''}`}
+        // The greeting types itself out on a phone, and the animation has to know
+        // how many characters to travel. Measured here rather than written into
+        // the stylesheet, so rewording the greeting cannot truncate it.
+        style={line.variant === 'hero' ? ({ '--chars': line.text.length } as CSSProperties) : undefined}
+      >
         {line.text || ' '}
       </div>
     )

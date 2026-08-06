@@ -497,12 +497,48 @@ body {
    The ASCII art is a fixed 67-column grid. It cannot reflow, only scale, and
    at phone width it scales down to illegible. So narrow screens get the same
    greeting as scalable display text instead. */
+/* The greeting, at display size. This is what a phone gets in place of the ASCII
+   banner, so on a phone it earns a little more: it types itself out behind a
+   blinking caret, the way the line it replaces would have been typed. Desktop
+   hides it and shows the art instead.
+
+   --chars comes from Line.tsx, which counts the greeting, so the animation
+   travels exactly as far as the words do. */
 .line.hero {
   color: var(--accent);
   font-size: clamp(23px, 6.4vw, 38px);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+@media (max-width: 680px) {
+  .line.hero {
+    display: inline-block;
+    width: calc(var(--chars, 18) * 1ch);
+    max-width: 100%;
+    overflow: hidden;
+    /* The caret. In the second hue, so it reads as the cursor rather than as
+       part of the name. */
+    border-right: 2px solid var(--second);
+    white-space: nowrap;
+    /* steps() so it advances a character at a time instead of sliding. */
+    animation:
+      hero-type 1.5s steps(var(--chars, 18), end) 250ms both,
+      hero-caret 1.05s steps(1, end) 1.75s infinite;
+  }
+}
+
+@keyframes hero-type {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes hero-caret {
+  50% {
+    border-right-color: transparent;
+  }
 }
 
 /* A file's title, framed so a document opens with something that reads as a
@@ -890,6 +926,12 @@ body {
   /* The light stays, it simply stops wandering. */
   body::after {
     animation: none;
+  }
+
+  /* The greeting arrives whole, with no caret to blink. */
+  .line.hero {
+    animation: none;
+    border-right: 0;
   }
 
   body {

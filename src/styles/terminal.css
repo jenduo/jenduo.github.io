@@ -615,7 +615,7 @@ body {
     line-height: 1.02;
     white-space: pre;
     pointer-events: none;
-    animation: bloom 3.7s ease-in-out infinite;
+    opacity: 0.9;
   }
 }
 
@@ -638,6 +638,29 @@ body {
   }
 }
 
+/* The same flowers as the phone, in the room beside the wide art. Outside the
+   block rather than in it, since there is space here and nothing has to be
+   threaded between the strokes.
+
+   900px, not 680px: the art is a fixed 67 columns, so the room beside it runs out
+   before the breakpoint does. At 760px the bouquet reached 21px past the edge and
+   gave a desktop a horizontal scrollbar, absolute positioning notwithstanding.
+   Opening and closing here, where a pointer already makes the art move. */
+@media (min-width: 900px) {
+  .banner-wide::after {
+    content: ' ✿  ❀\A❀ ✽  ✿\A ✧  ❀\A   ✿';
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 2ch);
+    color: var(--second);
+    line-height: 1.5;
+    white-space: pre;
+    pointer-events: none;
+    transform: translateY(-50%);
+    animation: bloom 3.7s ease-in-out infinite;
+  }
+}
+
 
 /* Signals the banner is interactive without a pointer cursor, which would imply
    it is a link. */
@@ -647,6 +670,10 @@ body {
 
 /* 680px is the narrowest viewport where 67 columns still fits at body size. */
 @media (min-width: 680px) {
+  .banner-wide {
+    position: relative;
+  }
+
   .banner-wide .line.art {
     display: block;
     color: var(--accent);
@@ -970,7 +997,7 @@ body {
   }
 
   /* The flowers stay, they simply stop opening. */
-  .banner-phone::after {
+  .banner-wide::after {
     animation: none;
     opacity: 0.85;
   }
